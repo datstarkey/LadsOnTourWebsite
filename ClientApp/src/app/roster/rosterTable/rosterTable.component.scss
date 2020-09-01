@@ -1,0 +1,106 @@
+@import "../../../themes.scss";
+
+:host {
+  width: 100%;
+  height: auto;
+  display: block;
+
+  thead {
+    background-color: var(--card-background-color);
+  }
+
+  td {
+    height: 30px;
+    padding: 0 2rem;
+  }
+
+  table {
+    border-spacing: 0;
+  }
+
+  th {
+    border-top: var(--card-border-width) var(--card-border-style)
+      var(--card-border-color);
+    border-bottom: var(--card-border-width) var(--card-border-style)
+      var(--card-border-color);
+    margin: 0;
+    top: 0;
+    padding: 0 2rem;
+  }
+
+  tr:nth-child(even) {
+    background: #1a1a1ace;
+  }
+
+  tr:nth-child(odd) {
+    background: #020202ce;
+  }
+
+  .healer {
+    color: #5ade6b;
+  }
+
+  .melee {
+    color: #c7be59;
+  }
+
+  .tank {
+    color: #4895de;
+  }
+
+  .ranged {
+    color: #fe8f46;
+  }
+
+  .tbc {
+    color: #000000;
+  }
+
+  .death-knight {
+    color: #c41f3b;
+  }
+
+  .demon-hunter {
+    color: #a330c9;
+  }
+
+  .druid {
+    color: #ff7d0a;
+  }
+
+  .hunter {
+    color: #a9d271;
+  }
+
+  .mage {
+    color: #40c7eb !important;
+  }
+
+  .monk {
+    color: #00ff96;
+  }
+
+  .paladin {
+    color: #f58cba;
+  }
+
+  .priest {
+    color: #ffffff;
+  }
+
+  .rogue {
+    color: #fff569;
+  }
+
+  .warlock {
+    color: #8787ed;
+  }
+
+  .shaman {
+    color: #0070de;
+  }
+
+  .warrior {
+    color: #c79c6e;
+  }
+}

@@ -1,0 +1,131 @@
+<nb-card class="card">
+  <nb-card-header>
+    <h4>User Details</h4>
+  </nb-card-header>
+  <nb-card-body style="height: auto;">
+    <table style="width: 100%;">
+      <tr>
+        <td>
+          Rank:
+        </td>
+        <td>
+          {{ user.rank }}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          Discord:
+        </td>
+        <td>
+          {{ user.discord }}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          Disriminator:
+        </td>
+        <td>
+          {{ user.discordDiscriminator }}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          Main:
+        </td>
+        <td>
+          <span *ngIf="user.main <= 0"> Not Selected</span>
+
+          <span> {{ user.mainName }}</span>
+
+          <button
+            *ngIf="user.main > 0"
+            nbButton
+            status="danger"
+            style="margin-left: 10px;"
+            (click)="clearMain()"
+          >
+            Clear
+          </button>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          In Discord:
+        </td>
+        <td>
+          {{ user.inDiscord }}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          Nickname:
+        </td>
+        <td>
+          <input
+            class="mobile-width"
+            nbInput
+            fullWidth
+            type="text"
+            [(ngModel)]="user.nickname"
+          />
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          Class:
+        </td>
+        <td>
+          <nb-select
+            *ngIf="user.main <= 0"
+            fullWidth
+            placeholder="TBC"
+            [(ngModel)]="user.class"
+          >
+            <nb-option value="TBC">TBC</nb-option>
+            <nb-option *ngFor="let cl of classes" [value]="cl.name">{{
+              cl.name
+            }}</nb-option>
+          </nb-select>
+          <div *ngIf="user.main > 0">{{ user.class }}</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          Role:
+        </td>
+        <td>
+          <nb-select
+            *ngIf="user.main <= 0"
+            fullWidth
+            placeholder="Role"
+            [(ngModel)]="user.role"
+          >
+            <nb-option
+              *ngIf="wowService.filterRoles(user.class).length > 1"
+              value="TBC"
+              >TBC</nb-option
+            >
+            <nb-option
+              *ngFor="let role of wowService.filterRoles(user.class)"
+              [value]="role"
+              >{{ role }}</nb-option
+            >
+          </nb-select>
+
+          <div *ngIf="user.main > 0">{{ user.role }}</div>
+        </td>
+      </tr>
+    </table>
+
+    <button nbButton status="success" (click)="userService.updateUser(user)">
+      Save
+    </button>
+  </nb-card-body>
+</nb-card>

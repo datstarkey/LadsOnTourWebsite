@@ -1,0 +1,98 @@
+<div class="mobile-only">
+  <div class="nav-box">
+    <img src="assets/images/Logo.png" alt="logo" class="logo-nav" />
+
+    <img
+      src="assets/images/Hamburger.svg"
+      class="animate__animated animate__fadeInRight animate__delay-1s"
+      (click)="enableMobileNav()"
+    />
+  </div>
+
+  <div *ngIf="mobileNav" class="full-screen-modal">
+    <div class="mobile-nav-content">
+      <span
+        *ngFor="let p of pages"
+        class="nav-item"
+        [ngClass]="{ selected: page == p }"
+        (click)="navigate(p)"
+      >
+        {{ p }}
+      </span>
+
+      <span
+        *ngIf="!loggedIn && loading"
+        class="nav-item"
+        [nbSpinner]="true"
+        nbSpinnerSize="small"
+        nbSpinnerStatus="primary"
+      >
+        logging-In
+      </span>
+
+      <span
+        *ngIf="loggedIn && !loading"
+        class="nav-item"
+        [ngClass]="{ selected: page == 'user' }"
+        (click)="navigate('user')"
+      >
+        {{ username }}
+      </span>
+
+      <span
+        *ngIf="!loggedIn && !loading"
+        class="nav-item"
+        (click)="loginService.discordLogin()"
+      >
+        LOGIN
+      </span>
+    </div>
+  </div>
+</div>
+
+<div class="desktop-only">
+  <div class="nav-box">
+    <img src="assets/images/Logo.png" alt="logo" class="logo-nav" />
+
+    <div class="nav-items animate__animated animate__fadeInDown">
+      <ng-container>
+        <span
+          *ngFor="let p of pages"
+          class="nav-item"
+          [ngClass]="{ selected: page == p }"
+          (click)="navigate(p)"
+        >
+          {{ p }}
+        </span>
+      </ng-container>
+
+      <span class="nav-item">| </span>
+
+      <span
+        *ngIf="!loggedIn && loading"
+        class="nav-item"
+        [nbSpinner]="true"
+        nbSpinnerSize="small"
+        nbSpinnerStatus="primary"
+        >logging-In</span
+      >
+
+      <span
+        *ngIf="loggedIn && !loading"
+        class="nav-item"
+        [ngClass]="{ selected: page == 'user' }"
+        (click)="navigate('user')"
+      >
+        {{ username }}
+      </span>
+
+      <span
+        *ngIf="!loggedIn && !loading"
+        class="nav-item"
+        (click)="loginService.discordLogin()"
+      >
+        LOGIN
+      </span>
+    </div>
+  </div>
+</div>

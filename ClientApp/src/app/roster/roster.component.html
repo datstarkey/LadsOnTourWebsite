@@ -1,0 +1,62 @@
+<div *ngIf="loading">Loading...</div>
+
+<div *ngIf="!loading" class="total-section">
+  <div class="info-box animate__animated animate__fadeInDown">
+    <app-totals
+      class="info-section"
+      [title]="'TANKS'"
+      [number]="totalTanks"
+      [maxNumber]="2"
+    ></app-totals>
+
+    <app-totals
+      class="info-section"
+      [title]="'HEALERS'"
+      [number]="totalHealers"
+      [maxNumber]="5"
+    ></app-totals>
+    <app-totals
+      class="info-section"
+      [title]="'MELEE'"
+      [number]="totalMelee"
+      [maxNumber]="8"
+    ></app-totals>
+
+    <app-totals
+      class="info-section"
+      [title]="'RANGED'"
+      [number]="totalRanged"
+      [maxNumber]="12"
+    ></app-totals>
+  </div>
+
+  <div class="info-box animate__animated animate__fadeInRight">
+    <app-classes
+      class="info-section"
+      [title]="'Tank'"
+      [data]="tankClasses"
+    ></app-classes>
+
+    <app-classes
+      class="info-section"
+      [title]="'Healer'"
+      [data]="healerClasses"
+    ></app-classes>
+
+    <app-classes
+      class="info-section"
+      [title]="'Melee'"
+      [data]="meleeClasses"
+    ></app-classes>
+
+    <app-classes
+      class="info-section"
+      [title]="'Ranged'"
+      [data]="rangedClasses"
+    ></app-classes>
+  </div>
+
+  <div class="animate__animated animate__fadeInUp">
+    <app-roster-card [users]="users"></app-roster-card>
+  </div>
+</div>

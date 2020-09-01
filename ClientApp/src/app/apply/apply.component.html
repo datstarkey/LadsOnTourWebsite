@@ -1,0 +1,188 @@
+<div class="totalSection">
+  <div *ngIf="!loggedIn" class="spaceArea">
+    <app-login-page></app-login-page>
+  </div>
+
+  <div
+    *ngIf="loggedIn"
+    class="spaceArea center animate__animated animate__fadeInUp"
+  >
+    <nb-card class="card">
+      <nb-card-header>
+        <h4>
+          Application - Status :
+          <span
+            [ngClass]="{
+              'danger-text':
+                app.appStatus == 'Not Sent' || app.appStatus == 'Declined',
+              'success-text':
+                app.appStatus == 'Sent' || app.appStatus == 'Accepted'
+            }"
+            >{{ app.appStatus }}</span
+          >
+        </h4>
+      </nb-card-header>
+      <nb-card-body>
+        <div *ngIf="app.appStatus == 'Sent' || app.appStatus == 'Not Sent'">
+          <table>
+            <tr>
+              <td>
+                Nickname - What you like to be called:
+              </td>
+              <td>
+                <input
+                  nbInput
+                  fullWidth
+                  type="text"
+                  [(ngModel)]="app.nickName"
+                />
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                Class:
+              </td>
+              <td>
+                <nb-select fullWidth placeholder="TBC" [(ngModel)]="app.class">
+                  <nb-option value="TBC">TBC</nb-option>
+                  <nb-option
+                    *ngFor="let cl of wowService.getClasses()"
+                    [value]="cl"
+                    >{{ cl }}</nb-option
+                  >
+                </nb-select>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                Role:
+              </td>
+              <td>
+                <nb-select fullWidth placeholder="Role" [(ngModel)]="app.role">
+                  <nb-option
+                    *ngIf="wowService.filterRoles(app.class).length > 1"
+                    value="TBC"
+                    >TBC</nb-option
+                  >
+                  <nb-option
+                    *ngFor="let role of wowService.filterRoles(app.class)"
+                    [value]="role"
+                    >{{ role }}</nb-option
+                  >
+                </nb-select>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                Armory:
+              </td>
+              <td>
+                <input nbInput fullWidth type="text" [(ngModel)]="app.armory" />
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                Logs:
+              </td>
+              <td>
+                <input
+                  nbInput
+                  fullWidth
+                  type="text"
+                  [(ngModel)]="app.appLogs"
+                />
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                Tell us a bit about yourself and why you choose us: <br />
+                Stuff like what you do for a living and age.
+              </td>
+              <td>
+                <textarea
+                  class="text-area-default"
+                  nbInput
+                  fullWidth
+                  [(ngModel)]="app.about"
+                >
+                </textarea>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                Previous Experience:
+              </td>
+              <td>
+                <textarea
+                  class="text-area-default"
+                  nbInput
+                  fullWidth
+                  [(ngModel)]="app.experience"
+                >
+                </textarea>
+              </td>
+            </tr>
+          </table>
+
+          <div class="space-between">
+            <button
+              class="right"
+              nbButton
+              status="warning"
+              (click)="update()"
+              *ngIf="app.appStatus == 'Not Sent'"
+            >
+              Save as Draft
+            </button>
+            <button
+              *ngIf="app.appStatus == 'Sent'"
+              nbButton
+              status="danger"
+              (click)="withdraw()"
+              style="margin-right: 5px;"
+            >
+              Withdraw App
+            </button>
+
+            <button nbButton status="success" (click)="save()">
+              {{ buttonText }}
+            </button>
+          </div>
+        </div>
+
+        <div *ngIf="app.appStatus == 'Accepted'">
+          <h4>
+            Your application has been accepted, please join the discord (will be
+            sent to you via PM on discord from LadBot)
+          </h4>
+          <h4>
+            After joining the discord please contact an officer ingame to get a
+            guild invite and trial rank
+          </h4>
+        </div>
+
+        <div *ngIf="app.appStatus == 'Declined'">
+          <h4>
+            Unfortunatly your application has been declined on this occassion
+          </h4>
+          <h4>
+            This is usually because our roster is full for a certain role(see
+            roster page for what we aren't full on) or current experience isn't
+            enough for the time being.
+          </h4>
+
+          <h4>
+            If you would like to resubmit an application please contact an
+            officer ingame,
+          </h4>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

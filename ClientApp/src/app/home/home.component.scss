@@ -1,0 +1,56 @@
+@import "../../themes.scss";
+
+.home-section {
+  width: 733px;
+}
+
+.back-logo {
+  position: absolute;
+  top: -50px;
+  left: 5rem;
+  color: transparent;
+  font-size: 243px;
+  line-height: 238px;
+  font-family: "Oswald-Bold";
+  font-weight: bolder;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: var(--color-basic-100);
+  opacity: 0.1;
+  stroke-opacity: 0.1;
+}
+
+.text {
+  font-size: 14px;
+  margin-bottom: 2rem;
+  color: var(--color-basic-100);
+}
+
+.logo {
+  font-family: "Oswald";
+  font-size: 100px;
+  line-height: 120px;
+  color: var(--color-basic-100);
+}
+
+@media screen and (max-width: 1360px) {
+  .home-section {
+    width: 100%;
+  }
+
+  .text {
+    font-size: 12px;
+    margin-bottom: 1rem;
+  }
+
+  .logo {
+    font-size: 40px;
+    line-height: 60px;
+  }
+
+  .back-logo {
+    top: 0px;
+    left: 0;
+    font-size: 173px;
+    line-height: 168px;
+  }
+}

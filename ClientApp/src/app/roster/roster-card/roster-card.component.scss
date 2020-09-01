@@ -1,0 +1,33 @@
+.ml {
+  margin-left: 5px;
+}
+
+.mr {
+  margin-right: 5px;
+}
+
+.mu {
+  margin-top: -3px;
+}
+
+.mb {
+  margin-bottom: 0px;
+}
+
+.filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.table-container {
+  width: 100%;
+}
+
+@media screen and (max-width: 1360px) {
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+}

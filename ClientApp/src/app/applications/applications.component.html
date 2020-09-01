@@ -1,0 +1,150 @@
+<div *ngIf="!loggedIn" class="spaceArea">
+  <app-login-page></app-login-page>
+</div>
+
+<div *ngIf="loggedIn" class="applications">
+  <div class="app-list animate__animated animate__fadeInLeft">
+    <nb-accordion class="card">
+      <nb-accordion-item collapsed="false">
+        <nb-accordion-item-header>
+          Current Applications
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <div *ngFor="let app of applications.current">
+            <button
+              nbButton
+              status="info"
+              class="button"
+              (click)="selectApp(app)"
+            >
+              {{ app.discord }} - {{ app.role }} {{ app.class }}
+            </button>
+          </div>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item>
+        <nb-accordion-item-header>
+          Accepted Applications
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <div *ngFor="let app of applications.accepted">
+            <button
+              nbButton
+              status="success"
+              class="button"
+              (click)="selectApp(app)"
+            >
+              {{ app.discord }} - {{ app.role }} {{ app.class }}
+            </button>
+          </div>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item>
+        <nb-accordion-item-header>
+          Declined Applications
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <div *ngFor="let app of applications.declined">
+            <button
+              nbButton
+              class="button"
+              status="danger"
+              (click)="selectApp(app)"
+            >
+              {{ app.discord }} - {{ app.role }} {{ app.class }}
+            </button>
+          </div>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+    </nb-accordion>
+  </div>
+  <div class="current-app">
+    <nb-card class="card animate__animated animate__fadeInRight" *ngIf="app">
+      <nb-card-header
+        ><h1>{{ app.discord }}</h1>
+      </nb-card-header>
+      <nb-card-body>
+        <table>
+          <tr>
+            <td>Class:</td>
+            <td>
+              {{ app.class }}
+            </td>
+          </tr>
+
+          <tr>
+            <td>Role:</td>
+            <td>
+              {{ app.role }}
+            </td>
+          </tr>
+
+          <tr>
+            <td>Armory:</td>
+            <td>
+              <a *ngIf="app.armory" href="{{ app.armory }}" target="_blank"
+                >Click!</a
+              >
+            </td>
+          </tr>
+
+          <tr>
+            <td>Logs:</td>
+            <td>
+              <a *ngIf="app.appLogs" href="{{ app.appLogs }}" target="_blank"
+                >Click!</a
+              >
+            </td>
+          </tr>
+
+          <tr>
+            <td>About:</td>
+            <td>
+              <p>{{ app.about }}</p>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Experience:</td>
+            <td>
+              <p>{{ app.experience }}</p>
+            </td>
+          </tr>
+        </table>
+
+        <div *ngIf="admin">
+          <button
+            nbButton
+            class="admin-button"
+            status="success"
+            *ngIf="isAppCurrent"
+            (click)="applicationsService.adminUpdateApp(app, 'Accepted')"
+          >
+            Accept
+          </button>
+          <button
+            nbButton
+            class="admin-button"
+            status="danger"
+            *ngIf="isAppCurrent"
+            (click)="applicationsService.adminUpdateApp(app, 'Declined')"
+          >
+            Decline
+          </button>
+
+          <button
+            nbButton
+            class="admin-button"
+            status="warning"
+            *ngIf="!isAppCurrent"
+            (click)="applicationsService.adminUpdateApp(app, 'Sent')"
+          >
+            Reopen
+          </button>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

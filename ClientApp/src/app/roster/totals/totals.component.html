@@ -1,0 +1,21 @@
+<nb-card class="card animate__animated animate__fadeInRight">
+  <nb-card-body>
+    <h6 class="heading text-alternate">{{ title }}</h6>
+    <h4 class="heading">
+      <span
+        [ngClass]="{
+          dangerText: number > maxNumber,
+          successText: number < maxNumber
+        }"
+        >{{ number }}</span
+      >
+      <span>/{{ maxNumber }}</span>
+    </h4>
+    <nb-progress-bar
+      class="progress-bar size-xl-tiny"
+      status="control"
+      size="tiny"
+      value="{{ value }}"
+    ></nb-progress-bar>
+  </nb-card-body>
+</nb-card>

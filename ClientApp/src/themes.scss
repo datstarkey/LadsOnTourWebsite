@@ -1,0 +1,196 @@
+@import "~@nebular/theme/styles/theming";
+@import "~@nebular/theme/styles/themes/default";
+@import "~@nebular/theme/styles/themes/dark";
+
+$nb-enable-css-custom-properties: true;
+
+@font-face {
+  font-family: "Karla";
+  src: url("src/assets/fonts/Karla-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Karla-Bold";
+  src: url("src/assets/fonts/Karla-Bold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Oswald";
+  src: url("src/assets/fonts/Oswald-Medium.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Oswald-Bold";
+  src: url("src/assets/fonts/Oswald-Bold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+$nb-themes: nb-register-theme(
+  (
+    font-family-primary: "Karla",
+    font-family-secondary: "Karla",
+    text-alternate-color: color-basic-500,
+    text-basic-color: color-primary-100,
+    layout-background-color: transparent,
+    border-radius: 0rem,
+    header-shadow: none,
+    header-padding: 0,
+    layout-padding: 0,
+    layout-medium-padding: 0,
+    layout-small-padding: 0,
+    background-basic-color-1: color-basic-700,
+    background-basic-color-2: color-basic-700,
+    background-basic-color-3: color-basic-600,
+    card-background-color: color-basic-1100,
+    card-text-color: text-basic-color,
+    checkbox-success-text-color: card-text-color,
+    accordion-header-text-color: card-text-color,
+    accordion-item-background-color: card-background-color,
+    card-border-color: color-basic-1000,
+    card-divider-color: card-background-color,
+    color-basic-100: #ebf1f6,
+    color-basic-200: #d9e3ed,
+    color-basic-300: #b1bdcb,
+    color-basic-400: #7f8a98,
+    color-basic-500: #424954,
+    color-basic-600: #303848,
+    color-basic-700: #21293c,
+    color-basic-800: #151c30,
+    color-basic-900: #0c1328,
+    color-basic-1000: #2b2b2b,
+    color-basic-1100: #121212,
+    color-primary-100: #ebf1f6,
+    color-primary-200: #d9e3ed,
+    color-primary-300: #b1bdcb,
+    color-primary-400: #7f8a98,
+    color-primary-500: #424954,
+    color-primary-600: #303848,
+    color-primary-700: #21293c,
+    color-primary-800: #151c30,
+    color-primary-900: #0c1328,
+    color-success-100: #dafbd5,
+    color-success-200: #aff7ad,
+    color-success-300: #7fe887,
+    color-success-400: #5bd26f,
+    color-success-500: #2db551,
+    color-success-600: #209b4d,
+    color-success-700: #168248,
+    color-success-800: #0e6840,
+    color-success-900: #08563b,
+    color-info-100: #cafcf9,
+    color-info-200: #96fafa,
+    color-info-300: #60e7f1,
+    color-info-400: #39cbe4,
+    color-info-500: #00a5d3,
+    color-info-600: #0080b5,
+    color-info-700: #006097,
+    color-info-800: #00447a,
+    color-info-900: #003165,
+    color-warning-100: #fcf1cd,
+    color-warning-200: #fae09d,
+    color-warning-300: #f2c76a,
+    color-warning-400: #e6ac44,
+    color-warning-500: #d6860e,
+    color-warning-600: #b86b0a,
+    color-warning-700: #9a5307,
+    color-warning-800: #7c3d04,
+    color-warning-900: #662e02,
+    color-danger-100: #fee8da,
+    color-danger-200: #fecbb6,
+    color-danger-300: #fca792,
+    color-danger-400: #fa8576,
+    color-danger-500: #f74f4a,
+    color-danger-600: #d4363e,
+    color-danger-700: #b12539,
+    color-danger-800: #8f1732,
+    color-danger-900: #760e2e,
+    card-margin-bottom: 0,
+    outline-width: 0,
+  ),
+  default,
+  default
+);
+
+//dark theme
+$nb-themes: nb-register-theme(
+  (
+    font-family-primary: "Karla",
+    font-family-secondary: "Karla",
+    text-alternate-color: color-primary-500,
+    text-basic-color: color-basic-200,
+    border-radius: 0rem,
+    header-shadow: none,
+    header-padding: 0,
+    card-background-color: text-alternate-color,
+    card-text-color: text-basic-color,
+    card-header-text-color: text-basic-color,
+    checkbox-success-text-color: card-text-color,
+    accordion-header-text-color: card-text-color,
+    accordion-item-background-color: card-background-color,
+    color-basic-100: #ebf1f6,
+    color-basic-200: #d9e3ed,
+    color-basic-300: #b1bdcb,
+    color-basic-400: #7f8a98,
+    color-basic-500: #424954,
+    color-basic-600: #303848,
+    color-basic-700: #21293c,
+    color-basic-800: #151c30,
+    color-basic-900: #0c1328,
+    color-basic-1000: #151a30,
+    color-basic-1100: #101426,
+    color-primary-100: #ebf1f6,
+    color-primary-200: #d9e3ed,
+    color-primary-300: #b1bdcb,
+    color-primary-400: #7f8a98,
+    color-primary-500: #424954,
+    color-primary-600: #303848,
+    color-primary-700: #21293c,
+    color-primary-800: #151c30,
+    color-primary-900: #0c1328,
+    color-success-100: #dafbd5,
+    color-success-200: #aff7ad,
+    color-success-300: #7fe887,
+    color-success-400: #5bd26f,
+    color-success-500: #2db551,
+    color-success-600: #209b4d,
+    color-success-700: #168248,
+    color-success-800: #0e6840,
+    color-success-900: #08563b,
+    color-info-100: #cafcf9,
+    color-info-200: #96fafa,
+    color-info-300: #60e7f1,
+    color-info-400: #39cbe4,
+    color-info-500: #00a5d3,
+    color-info-600: #0080b5,
+    color-info-700: #006097,
+    color-info-800: #00447a,
+    color-info-900: #003165,
+    color-warning-100: #fcf1cd,
+    color-warning-200: #fae09d,
+    color-warning-300: #f2c76a,
+    color-warning-400: #e6ac44,
+    color-warning-500: #d6860e,
+    color-warning-600: #b86b0a,
+    color-warning-700: #9a5307,
+    color-warning-800: #7c3d04,
+    color-warning-900: #662e02,
+    color-danger-100: #fee8da,
+    color-danger-200: #fecbb6,
+    color-danger-300: #fca792,
+    color-danger-400: #fa8576,
+    color-danger-500: #f74f4a,
+    color-danger-600: #d4363e,
+    color-danger-700: #b12539,
+    color-danger-800: #8f1732,
+    color-danger-900: #760e2e,
+    card-margin-bottom: 0,
+    outline-width: 0,
+  ),
+  dark,
+  dark
+);

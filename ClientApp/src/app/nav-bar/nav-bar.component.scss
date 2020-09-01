@@ -1,0 +1,63 @@
+.nav-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90vw;
+  margin: 0 5vw;
+}
+
+.logo {
+  color: var(--color-basic-100);
+}
+
+.logo-mobile {
+  color: var(--color-basic-100);
+}
+
+.logo-nav {
+  width: 30px;
+}
+
+.nav-item {
+  white-space: nowrap;
+  padding: 2rem;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: var(--color-basic-300);
+}
+
+.nav-items {
+  display: flex;
+}
+
+.loading {
+  display: inline-block;
+}
+
+.nav-item:hover {
+  color: var(--color-basic-100);
+}
+
+.selected {
+  color: var(--color-basic-100);
+}
+
+.full-screen-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: var(--card-background-color);
+  z-index: 10;
+}
+
+.mobile-nav-content {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}

@@ -1,0 +1,16 @@
+:host {
+  height: 90vh;
+  width: 100%;
+  animation-iteration-count: 3;
+}
+
+.center {
+  height: 100%;
+}
+
+.loading {
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+  -moz-animation-iteration-count: infinite;
+  -o-animation-iteration-count: infinite;
+}

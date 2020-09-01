@@ -1,0 +1,115 @@
+<nb-card class="card">
+  <nb-card-header>
+    <h4>Character Details</h4>
+  </nb-card-header>
+  <nb-card-body style="height: auto;">
+    <div *ngIf="characters.length > 0">
+      If your character doesn't appear please run the Battle.net Sync located to
+      the left side of the page
+
+      <table style="width: 100%;">
+        <tr>
+          <td>
+            Select Character
+          </td>
+          <td>
+            <nb-select
+              fullWidth
+              placeholder="Character"
+              [(ngModel)]="selectedCharater"
+              [selectedChanged]="characterSelected()"
+            >
+              <nb-option
+                *ngFor="let character of characters"
+                [value]="character"
+                >{{ character.name }}</nb-option
+              >
+            </nb-select>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Main:</td>
+          <td>
+            <nb-checkbox
+              status="success"
+              (checkedChange)="toggle($event)"
+              [(ngModel)]="mainChecked"
+            ></nb-checkbox>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Rank:
+          </td>
+          <td>
+            {{ selectedCharater.rank_name }}
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            Level:
+          </td>
+          <td>
+            {{ selectedCharater.level }}
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            Guild:
+          </td>
+          <td>
+            {{ selectedCharater.guild }}
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            Class:
+          </td>
+          <td>
+            {{ selectedCharater._class }}
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            Role:
+          </td>
+          <td>
+            <nb-select
+              fullWidth
+              placeholder="Role"
+              [(ngModel)]="selectedCharater.role"
+            >
+              <nb-option
+                *ngIf="
+                  wowService.filterRoles(selectedCharater._class).length > 1
+                "
+                value="TBC"
+                >TBC</nb-option
+              >
+              <nb-option
+                *ngFor="
+                  let role of wowService.filterRoles(selectedCharater._class)
+                "
+                [value]="role"
+                >{{ role }}</nb-option
+              >
+            </nb-select>
+          </td>
+        </tr>
+      </table>
+      <button nbButton status="success" (click)="updateCharacter()">
+        Save
+      </button>
+    </div>
+
+    <div *ngIf="characters.length == 0">
+      Please sync your characters using the Battle.Net Sync button located to
+      the left under Website options
+    </div>
+  </nb-card-body>
+</nb-card>

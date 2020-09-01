@@ -1,0 +1,36 @@
+<h3 class="mb mobile-only">Players: {{ count }}</h3>
+
+<div class="filters">
+  <h3 class="mb desktop-only">Players: {{ count }}</h3>
+
+  <div>
+    <nb-select
+      placeholder="Role"
+      filled
+      class="mr"
+      [(selected)]="filteredRole"
+      (selectedChange)="filter()"
+    >
+      <nb-option value="Role">Role</nb-option>
+      <nb-option *ngFor="let role of roles" [value]="role">{{
+        role
+      }}</nb-option>
+    </nb-select>
+
+    <nb-select
+      placeholder="Class"
+      filled
+      class="mr"
+      [(selected)]="filteredClass"
+      (selectedChange)="filter()"
+    >
+      <nb-option value="Class">Class</nb-option>
+      <nb-option *ngFor="let class of classes" [value]="class">{{
+        class
+      }}</nb-option>
+    </nb-select>
+    <button nbButton class="mu" status="danger" (click)="reset()">Clear</button>
+  </div>
+</div>
+
+<app-rosterTable [users]="data" class="table-container"></app-rosterTable>

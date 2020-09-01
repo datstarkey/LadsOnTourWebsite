@@ -1,0 +1,64 @@
+tr {
+  height: 30px;
+}
+
+.link-table {
+  tr {
+    height: 40px;
+  }
+
+  margin-bottom: 10px;
+}
+
+.twitch {
+  --button-filled-basic-background-color: #6441a4;
+  --button-filled-basic-border-color: transparent;
+  --button-filled-basic-text-color: white;
+}
+
+.character,
+.bis,
+.todo,
+.column {
+  width: 30%;
+  margin: 0 1%;
+}
+
+.card-text-color {
+  color: var(--card-text-color);
+}
+
+.container {
+  margin-top: 3rem;
+  display: flex;
+  flex-flow: wrap;
+  width: 100%;
+  justify-content: center;
+}
+
+.character,
+.bis {
+  margin-left: 5%;
+}
+
+.mb {
+  margin-bottom: 25px;
+}
+
+.ml {
+  margin-left: 5px;
+}
+
+@media (max-width: 1024px) {
+  .character,
+  .bis,
+  .todo,
+  .column {
+    width: 100%;
+    margin: 0 0 20px 0;
+  }
+
+  .mobile-width {
+    width: 150px;
+  }
+}

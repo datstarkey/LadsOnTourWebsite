@@ -1,0 +1,122 @@
+@import "themes";
+@import "~@nebular/theme/styles/globals";
+@import "responsive";
+@import "../node_modules/animate.css/animate.css";
+
+@include nb-install() {
+  @include nb-theme-global();
+}
+/* You can add global styles to this file, and also import other style files */
+
+:-moz-any(#content, #appcontent) browser {
+  margin-right: -14px !important;
+  overflow-y: scroll;
+  margin-bottom: -14px !important;
+  overflow-x: scroll;
+}
+
+.dangerText,
+.danger-text {
+  color: var(--color-danger-default);
+}
+
+.successText,
+.success-text {
+  color: var(--color-success-default);
+}
+
+.warning-text {
+  color: var(--color-warning-500);
+}
+
+.ngx-charts,
+text {
+  fill: var(--card-text-color);
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+  li {
+    color: var(--card-text-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  a {
+    color: var(--card-text-color);
+  }
+
+  box-shadow: 0 0.3rem 0.5rem 0 var(--card-border-color);
+}
+
+.space-component {
+  flex: 1;
+  width: 100%;
+  min-height: 2rem;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.center {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+}
+
+.center-align {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.center-vertical {
+  display: flex;
+  width: 100%;
+  align-content: center;
+}
+
+.center-horizontal {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.space-between {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.desktop-only,
+.mobile-only {
+  display: block;
+}
+
+@media only screen and (min-width: 1360px) {
+  .mobile-only {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 1360px) {
+  .desktop-only {
+    display: none;
+  }
+}

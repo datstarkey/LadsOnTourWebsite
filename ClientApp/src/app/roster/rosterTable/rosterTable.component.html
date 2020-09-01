@@ -1,0 +1,60 @@
+<table class="table" style="width: 100%">
+  <thead style="height: 30px" class="card">
+    <th
+      style="
+        border-left: var(--card-border-width) var(--card-border-style)
+          var(--card-border-color);
+      "
+    >
+      <h3>Rank</h3>
+    </th>
+    <th>
+      <h3>Name</h3>
+    </th>
+    <th>
+      <h3>Role</h3>
+    </th>
+    <th>
+      <h3>Class</h3>
+    </th>
+    <th
+      class="desktop-only"
+      style="
+        border-right: var(--card-border-width) var(--card-border-style)
+          var(--card-border-color);
+      "
+    >
+      <h3>Armory</h3>
+    </th>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td class="slot">
+        <p style="margin-left: 3px">{{ user.rank }}</p>
+      </td>
+
+      <td class="slot">
+        <div *ngIf="user.nickname">
+          <p>{{ user.nickname }}</p>
+        </div>
+
+        <div *ngIf="!user.nickname">
+          <p>{{ user.discord }}</p>
+        </div>
+      </td>
+
+      <td class="slot">
+        <p style="color:{{ user.roleColor }}">{{ user.role }}</p>
+      </td>
+      <td class="slot">
+        <p style="color:{{ user.classColor }};">{{ user.class }}</p>
+      </td>
+      <td class="slot desktop-only">
+        <a *ngIf="user.armory" href="{{ user.armory }}" target="_blank"
+          ><p>Click!</p></a
+        >
+      </td>
+    </tr>
+  </tbody>
+</table>

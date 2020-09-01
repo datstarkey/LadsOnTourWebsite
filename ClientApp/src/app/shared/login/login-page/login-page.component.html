@@ -1,0 +1,26 @@
+<div *ngIf="loading" class="center">
+  <h1 class="animate__animated animate__heartBeat loading">
+    Logging in
+  </h1>
+</div>
+
+<div *ngIf="!loading">
+  <div>
+    <div class="center">
+      <h1>
+        Please Login to view this page
+      </h1>
+    </div>
+
+    <div class="center">
+      <button
+        nbButton
+        status="success"
+        style="width: 100px; height: 50px;"
+        (click)="login()"
+      >
+        Login
+      </button>
+    </div>
+  </div>
+</div>

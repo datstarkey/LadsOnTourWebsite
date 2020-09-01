@@ -1,0 +1,11 @@
+.text-area-default {
+  width: 600px;
+  height: 150px;
+}
+
+@media screen and (max-width: 1500px) {
+  .text-area-default {
+    width: 220px;
+    height: 150px;
+  }
+}

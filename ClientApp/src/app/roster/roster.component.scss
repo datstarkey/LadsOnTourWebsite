@@ -1,0 +1,23 @@
+.info-section {
+  width: 24%;
+  padding: 0.75rem 0;
+  box-sizing: border-box;
+}
+
+.info-box {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 1360px) {
+  .info-box {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .info-section {
+    width: 100%;
+  }
+}

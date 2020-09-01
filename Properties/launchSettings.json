@@ -1,0 +1,29 @@
+{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:33159",
+      "sslPort": 44350
+    }
+  },
+  "profiles": {
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "LadsOnTour": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "DiscordID": "699630536125186160",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DiscordSecret": "2MBDVC3ydMB1T2ruobjxaZOEtjBYEgIs"
+      },
+      "applicationUrl": "http://localhost:5400"
+    }
+  }
+}
