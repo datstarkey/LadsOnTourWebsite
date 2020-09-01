@@ -1,96 +1,91 @@
-<div class="totalSection">
-  <div *ngIf="loggedIn" class="spaceArea">
-    <div class="container">
-      <div class="column animate__animated animate__fadeInLeft">
-        <nb-card class="mb card">
-          <nb-card-header>
-            <h4>Website Options</h4>
-          </nb-card-header>
-          <nb-card-body>
-            <div class="link-table">
-              <table>
-                <tr>
-                  <td>Battle.Net</td>
-                  <td>
-                    <span
-                      *ngIf="user.battleNetToken != null"
-                      class="success-text"
-                      >Linked</span
-                    >
-                    <span
-                      *ngIf="user.battleNetToken == null"
-                      class="danger-text"
-                      >Not-Linked</span
-                    >
-                  </td>
-                </tr>
+<div *ngIf="loggedIn">
+  <div class="container">
+    <div class="column animate__animated animate__fadeInLeft">
+      <nb-card class="mb card">
+        <nb-card-header>
+          <h4>Website Options</h4>
+        </nb-card-header>
+        <nb-card-body>
+          <div class="link-table">
+            <table>
+              <tr>
+                <td>Battle.Net</td>
+                <td>
+                  <span *ngIf="user.battleNetToken != null" class="success-text"
+                    >Linked</span
+                  >
+                  <span *ngIf="user.battleNetToken == null" class="danger-text"
+                    >Not-Linked</span
+                  >
+                </td>
+              </tr>
 
-                <tr>
-                  <td>Twitch</td>
-                  <td>
-                    <span *ngIf="user.twitchId != null" class="success-text"
-                      >Linked</span
-                    >
-                    <span *ngIf="user.twitchId == null" class="danger-text"
-                      >Not-Linked</span
-                    >
-                  </td>
-                </tr>
-              </table>
-            </div>
+              <tr>
+                <td>Twitch</td>
+                <td>
+                  <span *ngIf="user.twitchId != null" class="success-text"
+                    >Linked</span
+                  >
+                  <span *ngIf="user.twitchId == null" class="danger-text"
+                    >Not-Linked</span
+                  >
+                </td>
+              </tr>
+            </table>
+          </div>
 
-            <button
-              nbButton
-              status="danger"
-              style="margin-right: 5px; margin-bottom: 5px"
-              (click)="loginService.logout()"
-            >
-              Logout
-            </button>
+          <button
+            nbButton
+            status="danger"
+            style="margin-right: 5px; margin-bottom: 5px"
+            (click)="loginService.logout()"
+          >
+            Logout
+          </button>
 
-            <button
-              nbButton
-              status="info"
-              style="margin-right: 5px; margin-bottom: 5px"
-              (click)="wowService.battleNetAuth()"
-            >
-              Battle.Net Sync
-            </button>
+          <button
+            nbButton
+            status="info"
+            style="margin-right: 5px; margin-bottom: 5px"
+            (click)="wowService.battleNetAuth()"
+          >
+            Battle.Net Sync
+          </button>
 
-            <button
-              nbButton
-              class="twitch"
-              style="margin-right: 5px; margin-bottom: 5px"
-              (click)="twitchService.twitchAuth()"
-            >
-              Twitch Sync
-            </button>
-          </nb-card-body>
-        </nb-card>
+          <button
+            nbButton
+            class="twitch"
+            style="margin-right: 5px; margin-bottom: 5px"
+            (click)="twitchService.twitchAuth()"
+          >
+            Twitch Sync
+          </button>
+        </nb-card-body>
+      </nb-card>
 
-        <nb-card class="card">
-          <nb-card-header>
-            <h4>To Do List</h4>
-          </nb-card-header>
-          <nb-card-body>
-            <ul>
-              <li *ngFor="let todo of todoList">
-                {{ todo }}
-              </li>
-            </ul>
-          </nb-card-body>
-        </nb-card>
-      </div>
+      <nb-card class="card">
+        <nb-card-header>
+          <h4>To Do List</h4>
+        </nb-card-header>
+        <nb-card-body>
+          <ul>
+            <li *ngFor="let todo of todoList">
+              {{ todo }}
+            </li>
+          </ul>
+        </nb-card-body>
+      </nb-card>
+    </div>
 
-      <div class="column animate__animated animate__fadeInDown">
-        <app-user [user]="user"></app-user>
-      </div>
+    <div class="column animate__animated animate__fadeInDown">
+      <app-user [user]="user"></app-user>
+    </div>
 
-      <div class="column animate__animated animate__fadeInRight">
-        <app-character [user]="user" [characters]="characters"></app-character>
-      </div>
+    <div class="column animate__animated animate__fadeInRight">
+      <app-character [user]="user" [characters]="characters"></app-character>
+    </div>
 
-      <!--
+    <!--
       <div class="column animate__animated animate__fadeInRight">
         <nb-card class="card">
           <nb-card-header>
@@ -101,7 +96,7 @@
           </nb-card-body>
         </nb-card>
       </div>
-    --></div>
+    -->
   </div>
 
   <div *ngIf="!loggedIn" class="spaceArea">
