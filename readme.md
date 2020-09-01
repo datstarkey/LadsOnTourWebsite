@@ -8,9 +8,13 @@ Frontend done in Angular 9 - Located in the ClientApp Folder
 
 Requires a PostgreSQL Database, Entity Framework migrations included in the solution
 
-Nebular was used for some of the theme
+# Authentication
 
-## Running Local Version
+Users are created based on their discord profile, using Discords OAuth2 authentication will authorize you on the website.
+The battleNet OAuth2 is used to link only your wow characters to your account.
+Twitch OAuth2 is used to verify your twitch stream.
+
+# Running Local Version
 
 Clone this repo
 
