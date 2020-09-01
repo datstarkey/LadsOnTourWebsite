@@ -84,7 +84,7 @@ namespace LadsOnTour
                     pattern: "{controller}/{action=Index}/{id?}");
             });
 
-            if (!env.IsDevelopment())
+            if (env.IsDevelopment())
             {
                 app.UseSpaStaticFiles(new StaticFileOptions
                 {
@@ -95,8 +95,6 @@ namespace LadsOnTour
                             "public,max-age=" + durationInSeconds;
                     }
                 });
-
-                // app.UseSpaStaticFiles();
             }
             app.UseSpa(spa =>
             {
