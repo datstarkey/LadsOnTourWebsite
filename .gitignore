@@ -32,4 +32,5 @@ _ReSharper*/
 packages/
 /appsettings.json
 /ClientApp/node_modules
+/ClientApp/dist
 /.vscode
