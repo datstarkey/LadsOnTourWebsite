@@ -7,7 +7,7 @@
     {
       "root": "src",
       "outDir": "dist",
-      "assets": ["assets", "robots.txt", "site.webmanifest"],
+      "assets": ["assets", "robots.txt", "manifest.json"],
       "index": "index.html",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
