@@ -10,7 +10,7 @@ export class HomeComponent implements OnInit {
   constructor(private router: Router) {}
 
   apply() {
-    this.router.navigate(["apply"]);
+    this.router.navigate(["main", "apply"]);
   }
   ngOnInit() {}
 }

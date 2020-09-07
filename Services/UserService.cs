@@ -142,7 +142,7 @@ namespace LadsOnTour.Services
             User user = context.users.Where(u => u.DiscordID == id).FirstOrDefault();
             if (user != null)
             {
-                DateTime now = DateTime.Now.AddSeconds(double.Parse(token.expires_in));
+                DateTime now = DateTime.Now;
 
                 user.BattleNetToken = token.access_token;
                 user.BattleNetTokenExpiration = now;

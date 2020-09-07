@@ -24,14 +24,19 @@ export class UserService {
     private http: HttpClient,
     private toastrService: NbToastrService
   ) {
-    this.baseUrl = this.baseUrl.replace("4200", "5400");
-
     this.loginService.loggedIn.subscribe((response) => {
       this.loggedIn.next(response);
       if (response == true) {
         this.headers = new HttpHeaders({
           Authorization: `Bearer ${this.loginService.jwtToken}`,
         });
+        this.getUser();
+        this.getCharacters();
+      }
+    });
+
+    this.loginService.battleNetSynced.subscribe((response) => {
+      if (response) {
         this.getUser();
         this.getCharacters();
       }

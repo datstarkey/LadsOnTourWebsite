@@ -35,6 +35,7 @@ const routes: Routes = [
       { path: "roster", loadChildren: "./roster/roster.module#RosterModule" },
     ],
   },
+  { path: "", redirectTo: "/main/home", pathMatch: "full" },
 ];
 
 @NgModule({

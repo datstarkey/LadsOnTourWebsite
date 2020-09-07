@@ -1,5 +1,3 @@
-import { CookieService } from "ngx-cookie-service";
-import { Router, NavigationStart, NavigationEnd } from "@angular/router";
 import { LoginService } from "./services/login/login.service";
 import { ThemeService } from "./services/theme/theme.service";
 import { Component } from "@angular/core";

@@ -12,72 +12,25 @@ import { Injectable } from "@angular/core";
 export class TwitchService {
   baseUrl: string =
     document.getElementsByTagName("base")[0].href.toString() +
-    "user?&twitch=true";
+    "dashboard/user?&twitch=true";
   encodedUrl: string = encodeURIComponent(this.baseUrl);
 
   constructor(
     private http: HttpClient,
     private router: Router,
-    private loginService: LoginService,
-    private userService: UserService
-  ) {
-    this.loginService.loggedIn.subscribe((response) => {
-      if (response == true) {
-        var twitchParam = this.loginService.getParamValueQueryString("twitch");
-        if (twitchParam == "true") {
-          this.twitchAuth();
-        }
-      }
-    });
-  }
+    private loginService: LoginService
+  ) {}
 
   getStreamData(): Observable<IStreams> {
     return this.http.get<IStreams>(`${this.loginService.baseUrl}api/v1/twitch`);
   }
 
   twitchLogin() {
-    var url = `https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=55um43uxqazd1mvt4qnwchsp4lbx4j&redirect_uri=${this.encodedUrl}`;
+    const encodedUrl = encodeURIComponent(
+      window.location.href + "?twitch=true"
+    );
+    var url = `https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=55um43uxqazd1mvt4qnwchsp4lbx4j&redirect_uri=${encodedUrl}`;
     window.location.href = url;
-  }
-
-  twitchAuth() {
-    var code = this.loginService.getParamValueQueryString("code");
-    if (!code) {
-      this.twitchLogin();
-    } else {
-      this.router.navigate(["user"]);
-
-      const headers = new HttpHeaders({
-        Authorization: `Bearer ${this.loginService.jwtToken}`,
-      });
-
-      this.http
-        .post(
-          this.loginService.baseUrl +
-            `api/v1/twitch?code=${code}&url=${this.encodedUrl}`,
-          {},
-          { headers, responseType: "text" }
-        )
-        .subscribe(
-          (data) => {
-            this.loginService.showToast(
-              "Linked to twitch succesfully!",
-              "Success",
-              "info",
-              "bottom-right"
-            );
-            this.userService.getUser();
-          },
-          (error) => {
-            this.loginService.showToast(
-              `${error.error}`,
-              "Error",
-              "danger",
-              "bottom-right"
-            );
-          }
-        );
-    }
   }
 
   getTwitchCode(code) {

@@ -1,3 +1,5 @@
+import { WowService } from "./../wow/wow.service";
+import { UserService } from "./../user/user.service";
 import { IJwtToken } from "./../../interfaces/jwtToken";
 import { Injectable } from "@angular/core";
 import { CookieService } from "ngx-cookie-service";
@@ -5,6 +7,7 @@ import {
   HttpClient,
   HttpParams,
   HttpErrorResponse,
+  HttpHeaders,
 } from "@angular/common/http";
 import { Observable, Subject, BehaviorSubject } from "rxjs";
 import "rxjs/add/operator/catch";
@@ -23,11 +26,18 @@ export class LoginService {
   admin = new BehaviorSubject<boolean>(false);
   raider = new BehaviorSubject<boolean>(false);
   username = new BehaviorSubject<string>("");
+  battleNetSynced = new BehaviorSubject<boolean>(false);
 
   baseUrl: string = document.getElementsByTagName("base")[0].href.toString();
   actualUrl: string = document.getElementsByTagName("base")[0].href.toString();
   encodedUrl: string = encodeURIComponent(this.baseUrl);
   jwtToken: string;
+
+  battleNet: boolean;
+  battleNetCode: string;
+
+  twitch: boolean;
+  twitchCode: string;
 
   private clientID: string = "699630536125186160";
 
@@ -39,7 +49,7 @@ export class LoginService {
     private toastrService: NbToastrService,
     private router: Router
   ) {
-    this.baseUrl = this.baseUrl.replace("4200", "5400");
+    console.log(window.location.href + "?twitch=true");
   }
 
   showToast(response, title, status: NbComponentStatus, position) {
@@ -47,9 +57,7 @@ export class LoginService {
   }
 
   discordLogin() {
-    const state = this.router.url.toString();
     const url = `https://discordapp.com/api/oauth2/authorize?client_id=${this.clientID}&redirect_uri=${this.encodedUrl}&response_type=code&scope=identify%20guilds&prompt=none`;
-    console.log(url);
     window.location.href = url;
   }
 
@@ -84,6 +92,14 @@ export class LoginService {
 
     var username = `${this.User.username}#${this.User.discriminator}`;
     this.username.next(username.toString());
+
+    if (this.battleNet) {
+      this.battleNetAuth();
+    }
+
+    if (this.twitch) {
+      this.twitchAuth();
+    }
   }
 
   decodeToken() {
@@ -102,13 +118,12 @@ export class LoginService {
 
   badLogin(error) {
     console.log(error);
-
+    this.cookieService.deleteAll("refreshToken");
     this.loading.next(false);
     this.loggedIn.next(false);
-    this.cookieService.delete("refreshToken");
 
     this.showToast(
-      "Error Loggin in",
+      "Error Logging in",
       "Please Login through discord",
       "danger",
       "bottom-right"
@@ -120,7 +135,6 @@ export class LoginService {
     this.login(refreshToken, true).subscribe(
       (data) => {
         this.cookieService.set("refreshToken", data.refreshToken);
-        console.log(data);
         this.jwtToken = data.token;
         this.decodeToken();
       },
@@ -128,6 +142,72 @@ export class LoginService {
         this.badLogin(error);
       }
     );
+  }
+
+  battleNetAuth() {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.jwtToken}`,
+    });
+
+    console.log("Battle Net Authing");
+    const encodedUrl = encodeURIComponent(
+      window.location.href + "?battlenet=true"
+    );
+
+    const url =
+      document.getElementsByTagName("base")[0].href.toString() +
+      `api/v1/users/characters?code=${this.battleNetCode}&url=${encodedUrl}`;
+
+    this.http
+      .post(url, {}, { headers, responseType: "text" })
+      .subscribe((data) => {
+        this.battleNetSynced.next(true);
+        this.showToast(
+          "Success",
+          "Linked to battle net succesfully!",
+          "info",
+          "bottom-right"
+        );
+      });
+  }
+
+  battleNetLogin() {
+    const encodedUrl = encodeURIComponent(
+      window.location.href + "?battlenet=true"
+    );
+    var url = `https://eu.battle.net/oauth/authorize?client_id=24cdff236ccf4dfda35223b8643be7ff&scope=openid%20wow.profile&redirect_uri=${encodedUrl}&response_type=code`;
+    window.location.href = url;
+  }
+
+  twitchAuth() {
+    const encodedUrl = encodeURIComponent(
+      window.location.href + "?twitch=true"
+    );
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.jwtToken}`,
+    });
+
+    this.http
+      .post(
+        this.baseUrl +
+          `api/v1/twitch?code=${this.twitchCode}&url=${encodedUrl}`,
+        {},
+        { headers, responseType: "text" }
+      )
+      .subscribe(
+        (data) => {
+          this.battleNetSynced.next(true);
+          this.showToast(
+            "Linked to twitch succesfully!",
+            "Success",
+            "info",
+            "bottom-right"
+          );
+        },
+        (error) => {
+          this.showToast(`${error.error}`, "Error", "danger", "bottom-right");
+        }
+      );
   }
 
   logout() {
@@ -138,8 +218,11 @@ export class LoginService {
   }
 
   autoLogin() {
+    console.log("auto-login");
     this.loading.next(true);
     const accessCode = this.getParamValueQueryString("code");
+    const battleNet = this.getParamValueQueryString("battlenet");
+    const twitch = this.getParamValueQueryString("twitch");
     const lastPageAvaiable = this.cookieService.check("lastPage");
     const refreshAvailable: boolean = this.cookieService.check("refreshToken");
     let page = ["main", "home"];
@@ -147,6 +230,16 @@ export class LoginService {
     if (lastPageAvaiable) {
       page = this.cookieService.get("lastPage").split("/");
       page.shift();
+    }
+
+    if (battleNet) {
+      this.battleNet = true;
+      this.battleNetCode = accessCode;
+    }
+
+    if (twitch) {
+      this.twitch = true;
+      this.twitchCode = accessCode;
     }
 
     this.router.navigate(page);

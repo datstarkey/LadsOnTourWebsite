@@ -1,3 +1,4 @@
+import { CookieService } from "ngx-cookie-service";
 import { UserService } from "./../user/user.service";
 import { Router } from "@angular/router";
 import { LoginService } from "./../login/login.service";
@@ -17,62 +18,13 @@ export class WowService {
 
   constructor(
     private http: HttpClient,
-    private loginService: LoginService,
     private router: Router,
     private userService: UserService,
     private toastrService: NbToastrService
-  ) {
-    this.loginService.loggedIn.subscribe((response) => {
-      if (response == true) {
-        var battleNetRefresh = this.loginService.getParamValueQueryString(
-          "battlenet"
-        );
-
-        if (battleNetRefresh == "true") {
-          this.battleNetAuth();
-        }
-      }
-    });
-  }
+  ) {}
 
   showToast(title, response, status: NbComponentStatus, position) {
     this.toastrService.show(response.toString(), title, { status, position });
-  }
-
-  battleNetAuth() {
-    var code = this.loginService.getParamValueQueryString("code");
-    if (!code) {
-      this.battleNetLogin();
-    } else {
-      this.router.navigate(["user"]);
-
-      const headers = new HttpHeaders({
-        Authorization: `Bearer ${this.loginService.jwtToken}`,
-      });
-
-      this.http
-        .post(
-          this.loginService.baseUrl +
-            `api/v1/users/characters?code=${code}&url=${this.encodedUrl}`,
-          {},
-          { headers, responseType: "text" }
-        )
-        .subscribe((data) => {
-          this.showToast(
-            "Success",
-            "Linked to battle net succesfully!",
-            "info",
-            "bottom-right"
-          );
-          this.userService.getUser();
-          this.userService.getCharacters();
-        });
-    }
-  }
-
-  battleNetLogin() {
-    var url = `https://eu.battle.net/oauth/authorize?client_id=24cdff236ccf4dfda35223b8643be7ff&scope=openid%20wow.profile&redirect_uri=${this.encodedUrl}&response_type=code`;
-    window.location.href = url;
   }
 
   filterRoles(className) {
