@@ -1,0 +1,44 @@
+<div class="stream-content">
+  <div
+    id="twitch-embed"
+    class="twitch-video animate__animated animate__fadeInLeft"
+  ></div>
+  <div class="streams">
+    <nb-card class="animate__animated animate__fadeInRight full-width">
+      <nb-card-header>
+        <h6>Online</h6>
+      </nb-card-header>
+      <nb-card-body>
+        <p
+          class="stream-text"
+          *ngFor="let stream of streamData.live"
+          (click)="setStream(stream)"
+        >
+          {{ stream }}
+        </p>
+
+        <p style="opacity: 0.6" *ngIf="streamData.live.length == 0">
+          Nobody is currently live
+        </p>
+      </nb-card-body>
+    </nb-card>
+
+    <nb-card
+      class="animate__animated animate__fadeInRight full-width"
+      style="margin-top: 20px"
+    >
+      <nb-card-header>
+        <h6>Offline</h6>
+      </nb-card-header>
+      <nb-card-body>
+        <p
+          class="stream-text"
+          *ngFor="let stream of streamData.offline"
+          (click)="setStream(stream)"
+        >
+          {{ stream }}
+        </p>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

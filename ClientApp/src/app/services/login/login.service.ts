@@ -22,7 +22,7 @@ export class LoginService {
   loading = new BehaviorSubject<boolean>(false);
   admin = new BehaviorSubject<boolean>(false);
   raider = new BehaviorSubject<boolean>(false);
-  username = new Subject<string>();
+  username = new BehaviorSubject<string>("");
 
   baseUrl: string = document.getElementsByTagName("base")[0].href.toString();
   actualUrl: string = document.getElementsByTagName("base")[0].href.toString();
@@ -47,7 +47,8 @@ export class LoginService {
   }
 
   discordLogin() {
-    var url = `https://discordapp.com/api/oauth2/authorize?client_id=${this.clientID}&redirect_uri=${this.encodedUrl}&response_type=code&scope=identify%20guilds&prompt=none`;
+    const state = this.router.url.toString();
+    const url = `https://discordapp.com/api/oauth2/authorize?client_id=${this.clientID}&redirect_uri=${this.encodedUrl}&response_type=code&scope=identify%20guilds&prompt=none`;
     console.log(url);
     window.location.href = url;
   }
@@ -72,8 +73,6 @@ export class LoginService {
   }
 
   goodLogin(data) {
-    console.log(data);
-
     this.User = data.user;
     this.cookieService.set("refreshToken", data.refreshToken);
     this.jwtToken = data.token;
@@ -85,8 +84,6 @@ export class LoginService {
 
     var username = `${this.User.username}#${this.User.discriminator}`;
     this.username.next(username.toString());
-
-    const url = this.router.url;
   }
 
   decodeToken() {
@@ -142,11 +139,20 @@ export class LoginService {
 
   autoLogin() {
     this.loading.next(true);
-    var accessCode = this.getParamValueQueryString("code");
-    var refreshAvailable: boolean = this.cookieService.check("refreshToken");
+    const accessCode = this.getParamValueQueryString("code");
+    const lastPageAvaiable = this.cookieService.check("lastPage");
+    const refreshAvailable: boolean = this.cookieService.check("refreshToken");
+    let page = ["main", "home"];
+
+    if (lastPageAvaiable) {
+      page = this.cookieService.get("lastPage").split("/");
+      page.shift();
+    }
+
+    this.router.navigate(page);
 
     if (refreshAvailable) {
-      var refreshToken = this.cookieService.get("refreshToken");
+      const refreshToken = this.cookieService.get("refreshToken");
       this.login(refreshToken, true).subscribe(
         (data) => {
           this.goodLogin(data);

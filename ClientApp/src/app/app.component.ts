@@ -1,3 +1,6 @@
+import { CookieService } from "ngx-cookie-service";
+import { Router, NavigationStart, NavigationEnd } from "@angular/router";
+import { LoginService } from "./services/login/login.service";
 import { ThemeService } from "./services/theme/theme.service";
 import { Component } from "@angular/core";
 
@@ -8,31 +11,12 @@ import { Component } from "@angular/core";
   //changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  header: boolean = true;
-
-  ngOnInit() {}
-
-  playVideo() {
-    let audioPlayer = <HTMLVideoElement>document.getElementById("video");
-    audioPlayer.muted = true;
-    let promise = audioPlayer.play();
-    if (promise !== undefined) {
-      promise
-        .then((_) => {
-          // Autoplay started!
-        })
-        .catch((error) => {
-          // Autoplay was prevented.
-          // Show a "Play" button so that user can start playback.
-        });
-    }
+  ngOnInit() {
+    this.loginService.autoLogin();
   }
 
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this.playVideo();
-    }, 100);
-  }
-
-  constructor(private themeService: ThemeService) {}
+  constructor(
+    private loginService: LoginService,
+    private themeService: ThemeService
+  ) {}
 }

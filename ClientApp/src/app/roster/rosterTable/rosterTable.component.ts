@@ -1,19 +1,22 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Input,
+} from "@angular/core";
 
 @Component({
-  selector: 'app-rosterTable',
-  templateUrl: './rosterTable.component.html',
-  styleUrls: ['./rosterTable.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  selector: "app-rosterTable",
+  templateUrl: "./rosterTable.component.html",
+  styleUrls: ["./rosterTable.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RosterTableComponent implements OnInit {
   @Input() users: any[];
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-    console.log(this.users);
-  }
+  ngOnInit() {}
 }
 
 export class User {

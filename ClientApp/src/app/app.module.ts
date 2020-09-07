@@ -1,3 +1,11 @@
+import { AddonsComponent } from "./shared/addons/addons.component";
+import { StreamsComponent } from "./shared/streams/streams.component";
+import { CharacterComponent } from "./user-details/character/character/character.component";
+import { ApplicationsComponent } from "./shared/applications/applications.component";
+import { ApplyComponent } from "./shared/apply/apply.component";
+import { HomeComponent } from "./main/home/home.component";
+import { UserDetailsComponent } from "./user-details/user-details.component";
+import { UserComponent } from "./user-details/user/user/user.component";
 import { ThemeService } from "./services/theme/theme.service";
 import { CommonModule } from "@angular/common";
 import { HttpClientModule } from "@angular/common/http";
@@ -27,33 +35,29 @@ import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { SharedModule } from "./shared/shared.module";
 import { CookieService } from "ngx-cookie-service";
-import { NavBarComponent } from "./nav-bar/nav-bar.component";
-import { HomeComponent } from "./home/home.component";
-import { UserDetailsComponent } from "./user-details/user-details.component";
-import { ApplyComponent } from "./apply/apply.component";
 import { LoginService } from "./services/login/login.service";
 import { UserService } from "./services/user/user.service";
 import { FormsModule } from "@angular/forms";
-import { StreamsComponent } from "./streams/streams.component";
-import { CalendarComponent } from "./calendar/calendar.component";
-import { AddonsComponent } from "./addons/addons.component";
-import { UserComponent } from "./user-details/user/user/user.component";
-import { CharacterComponent } from "./user-details/character/character/character.component";
-import { ApplicationsComponent } from "./applications/applications.component";
+import { DashboardComponent } from "./dashboard/dashboard.component";
+import { MainComponent } from "./main/main.component";
+import { NavBarComponent } from "./main/nav-bar/nav-bar.component";
+import { DashboardNavComponent } from "./dashboard/dashboard-nav/dashboard-nav.component";
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavBarComponent,
+    DashboardComponent,
+    MainComponent,
     HomeComponent,
-    UserDetailsComponent,
-    ApplyComponent,
-    StreamsComponent,
-    CalendarComponent,
-    AddonsComponent,
+    NavBarComponent,
     UserComponent,
+    UserDetailsComponent,
     CharacterComponent,
+    ApplyComponent,
     ApplicationsComponent,
+    DashboardNavComponent,
+    StreamsComponent,
+    AddonsComponent,
   ],
   imports: [
     FormsModule,

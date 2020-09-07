@@ -1,0 +1,24 @@
+.stream-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.stream-text {
+  text-transform: capitalize;
+  opacity: 0.6;
+
+  &:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+}
+
+.streams {
+  width: 20%;
+}
+
+.twitch-video {
+  width: 75%;
+  background: var(--card-background-color);
+  height: 700px;
+}

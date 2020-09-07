@@ -15,6 +15,10 @@
   overflow-x: scroll;
 }
 
+a {
+  text-decoration: none;
+}
+
 .dangerText,
 .danger-text {
   color: var(--color-danger-default);
@@ -32,6 +36,34 @@
 .ngx-charts,
 text {
   fill: var(--card-text-color);
+}
+
+.display-table {
+  border-spacing: 0;
+
+  > thead {
+    th {
+      box-sizing: border-box;
+      padding: 20px;
+    }
+  }
+
+  > tbody {
+    > tr:nth-child(even) {
+      background: var(--color-basic-1000);
+    }
+
+    > tr:nth-child(odd) {
+      background: var(--color-basic-1100);
+    }
+
+    > tr {
+      > td {
+        box-sizing: border-box;
+        padding: 20px;
+      }
+    }
+  }
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -54,8 +86,6 @@ text {
   a {
     color: var(--card-text-color);
   }
-
-  box-shadow: 0 0.3rem 0.5rem 0 var(--card-border-color);
 }
 
 .space-component {

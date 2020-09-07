@@ -5,7 +5,6 @@ import {
   Injectable,
   ChangeDetectorRef,
 } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
 import { UserService } from "../services/user/user.service";
 
 @Component({

@@ -2,7 +2,7 @@ import { TwitchService } from "./../services/twitch.service";
 import { ICharacter } from "./../interfaces/character";
 import { WowService } from "./../services/wow/wow.service";
 import { ThemeService } from "./../services/theme/theme.service";
-import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { UserService } from "../services/user/user.service";
 import { IUser } from "../interfaces/user";
 import { LoginService } from "../services/login/login.service";
@@ -29,6 +29,21 @@ export class UserDetailsComponent implements OnInit {
     private twitchService: TwitchService
   ) {
     this.classes = wowService.classes;
+
+    loginService.loggedIn.subscribe((response) => {
+      this.loggedIn = response;
+    });
+
+    userService.user.subscribe((response) => {
+      this.roles = ["Tank", "Melee", "Healer", "Ranged"];
+      this.user = response;
+      this.todos();
+    });
+
+    userService.characters.subscribe((response) => {
+      this.characters = response;
+      this.todos();
+    });
   }
 
   submitData() {
@@ -64,7 +79,6 @@ export class UserDetailsComponent implements OnInit {
     todos.push("Get 60");
     todos.push("Set Bis List");
     todos.push("Get Pre Raid Bis");
-    todos.push("Rek bosses");
     this.todoList = todos;
   }
 
@@ -73,21 +87,5 @@ export class UserDetailsComponent implements OnInit {
       this.userService.getCharacters();
       this.userService.getUser();
     }
-
-    this.loginService.loggedIn.subscribe((response) => {
-      this.loggedIn = response;
-    });
-
-    this.userService.user.subscribe((response) => {
-      this.roles = ["Tank", "Melee", "Healer", "Ranged"];
-      this.user = response;
-      console.log(this.user);
-      this.todos();
-    });
-
-    this.userService.characters.subscribe((response) => {
-      this.characters = response;
-      this.todos();
-    });
   }
 }

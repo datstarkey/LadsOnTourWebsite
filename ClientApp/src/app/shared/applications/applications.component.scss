@@ -1,0 +1,60 @@
+.applications {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.admin-button {
+  margin-right: 1rem;
+  width: 115px;
+  height: 41px;
+}
+
+.app-list {
+  width: 30%;
+}
+
+.current-app {
+  width: 60%;
+}
+
+.app-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.app-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: left;
+  align-items: left;
+  width: 100%;
+  > h6 {
+    padding: 0;
+    margin: 0;
+    margin-bottom: 10px;
+  }
+
+  > .info-box {
+    width: 80%;
+    background: var(--color-basic-1000);
+    box-sizing: border-box;
+    padding: 10px;
+    opacity: 0.8;
+    min-height: 40px;
+  }
+}
+
+@media screen and (max-width: 1360px) {
+  .app-list {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+
+  .current-app {
+    width: 100%;
+  }
+}

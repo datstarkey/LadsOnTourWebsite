@@ -4,7 +4,7 @@
 
 <div *ngIf="loggedIn" class="applications">
   <div class="app-list animate__animated animate__fadeInLeft">
-    <nb-accordion class="card">
+    <nb-accordion>
       <nb-accordion-item collapsed="false">
         <nb-accordion-item-header>
           Current Applications
@@ -22,7 +22,9 @@
           </div>
         </nb-accordion-item-body>
       </nb-accordion-item>
+    </nb-accordion>
 
+    <nb-accordion style="margin-top: 20px">
       <nb-accordion-item>
         <nb-accordion-item-header>
           Accepted Applications
@@ -40,7 +42,9 @@
           </div>
         </nb-accordion-item-body>
       </nb-accordion-item>
+    </nb-accordion>
 
+    <nb-accordion style="margin-top: 20px">
       <nb-accordion-item>
         <nb-accordion-item-header>
           Declined Applications
@@ -60,59 +64,64 @@
       </nb-accordion-item>
     </nb-accordion>
   </div>
+
   <div class="current-app">
-    <nb-card class="card animate__animated animate__fadeInRight" *ngIf="app">
+    <nb-card class="animate__animated animate__fadeInRight" *ngIf="app">
       <nb-card-header
         ><h1>{{ app.discord }}</h1>
       </nb-card-header>
       <nb-card-body>
-        <table>
-          <tr>
-            <td>Class:</td>
-            <td>
-              {{ app.class }}
-            </td>
-          </tr>
+        <div class="app-row">
+          <div class="app-column">
+            <h6>Class</h6>
+            <div class="info-box">{{ app.class }}</div>
+          </div>
 
-          <tr>
-            <td>Role:</td>
-            <td>
-              {{ app.role }}
-            </td>
-          </tr>
+          <div class="app-column">
+            <h6>Role</h6>
+            <div class="info-box">{{ app.role }}</div>
+          </div>
+        </div>
 
-          <tr>
-            <td>Armory:</td>
-            <td>
-              <a *ngIf="app.armory" href="{{ app.armory }}" target="_blank"
-                >Click!</a
-              >
-            </td>
-          </tr>
+        <div class="app-row" style="width: 80%">
+          <div class="app-column">
+            <h6>Armory</h6>
+            <a href="{{ app.armory }}" target="_blank">
+              <button nbButton class="admin-button" status="info">View</button>
+            </a>
+          </div>
 
-          <tr>
-            <td>Logs:</td>
-            <td>
-              <a *ngIf="app.appLogs" href="{{ app.appLogs }}" target="_blank"
-                >Click!</a
-              >
-            </td>
-          </tr>
+          <div class="app-column">
+            <h6>Logs</h6>
+            <a href="{{ app.logs }}" target="_blank">
+              <button nbButton class="admin-button" status="info">View</button>
+            </a>
+          </div>
 
-          <tr>
-            <td>About:</td>
-            <td>
-              <p>{{ app.about }}</p>
-            </td>
-          </tr>
+          <div class="app-column">
+            <h6>BattleTag</h6>
+            <div class="info-box">{{ app.role }}</div>
+          </div>
 
-          <tr>
-            <td>Experience:</td>
-            <td>
-              <p>{{ app.experience }}</p>
-            </td>
-          </tr>
-        </table>
+          <div class="app-column">
+            <h6>Discord</h6>
+            <div class="info-box">{{ app.discord }}</div>
+          </div>
+        </div>
+
+        <div class="app-row">
+          <div class="app-column">
+            <h6>About</h6>
+            <div class="info-box" style="width: 100%">{{ app.about }}</div>
+          </div>
+        </div>
+
+        <div class="app-row">
+          <div class="app-column">
+            <h6>Experience</h6>
+            <div class="info-box" style="width: 100%">{{ app.experience }}</div>
+          </div>
+        </div>
 
         <div *ngIf="admin">
           <button

@@ -34,7 +34,7 @@
         *ngIf="loggedIn && !loading"
         class="nav-item"
         [ngClass]="{ selected: page == 'user' }"
-        (click)="navigate('user')"
+        (click)="navigateDashboard()"
       >
         {{ username }}
       </span>
@@ -81,7 +81,7 @@
         *ngIf="loggedIn && !loading"
         class="nav-item"
         [ngClass]="{ selected: page == 'user' }"
-        (click)="navigate('user')"
+        (click)="navigateDashboard()"
       >
         {{ username }}
       </span>

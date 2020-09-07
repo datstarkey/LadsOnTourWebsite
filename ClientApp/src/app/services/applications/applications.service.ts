@@ -76,7 +76,6 @@ export class ApplicationsService {
   getAllApplications() {
     var headers = this.headers;
     var url = `${this.appApiUrl}/all`;
-    console.log(url);
     this.http
       .get<IApplication[]>(url, { headers })
       .subscribe((response) => {

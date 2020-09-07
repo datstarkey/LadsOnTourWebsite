@@ -1,7 +1,7 @@
-import { IApplication } from "./../interfaces/application";
-import { ApplicationsService } from "./../services/applications/applications.service";
-import { WowService } from "./../services/wow/wow.service";
-import { LoginService } from "./../services/login/login.service";
+import { IApplication } from "../../interfaces/application";
+import { ApplicationsService } from "../../services/applications/applications.service";
+import { WowService } from "../../services/wow/wow.service";
+import { LoginService } from "../../services/login/login.service";
 import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import { NbToastrService, NbComponentStatus } from "@nebular/theme";
 

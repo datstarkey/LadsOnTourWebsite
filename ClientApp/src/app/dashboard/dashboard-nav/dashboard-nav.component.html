@@ -1,0 +1,21 @@
+<div class="dash-nav-container">
+  <img
+    src="assets/images/Logo.png"
+    alt="logo"
+    class="logo-nav-dash"
+    (click)="navigateHome()"
+  />
+
+  <div class="dash-nav-items">
+    <span
+      *ngFor="let p of pages"
+      class="nav-item"
+      [ngClass]="{ selected: page == p.title }"
+      (click)="navigate(p.title)"
+    >
+      <nb-icon icon="{{ p.icon }}"></nb-icon>
+      {{ p.title }}
+    </span>
+  </div>
+  <div></div>
+</div>

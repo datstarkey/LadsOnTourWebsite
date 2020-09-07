@@ -16,14 +16,13 @@ tr {
   --button-filled-basic-text-color: white;
 }
 
-.character,
-.bis,
-.todo,
 .column {
   width: 30%;
-  margin: 0 1%;
 }
 
+.todo {
+  min-height: 218px;
+}
 .card-text-color {
   color: var(--card-text-color);
 }
@@ -50,9 +49,6 @@ tr {
 }
 
 @media (max-width: 1024px) {
-  .character,
-  .bis,
-  .todo,
   .column {
     width: 100%;
     margin: 0 0 20px 0;

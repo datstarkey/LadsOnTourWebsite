@@ -1,3 +1,7 @@
+<div *ngIf="!loggedIn" class="spaceArea">
+  <app-login-page></app-login-page>
+</div>
+
 <div *ngIf="loggedIn">
   <div class="container">
     <div class="column animate__animated animate__fadeInLeft">
@@ -63,7 +67,7 @@
         </nb-card-body>
       </nb-card>
 
-      <nb-card class="card">
+      <nb-card class="card todo">
         <nb-card-header>
           <h4>To Do List</h4>
         </nb-card-header>
@@ -97,9 +101,5 @@
         </nb-card>
       </div>
     -->
-  </div>
-
-  <div *ngIf="!loggedIn" class="spaceArea">
-    <app-login-page></app-login-page>
   </div>
 </div>

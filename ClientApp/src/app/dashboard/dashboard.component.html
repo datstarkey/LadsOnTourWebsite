@@ -1,0 +1,21 @@
+<div class="dashboard-background">
+  <nb-layout>
+    <nb-layout-header class="dashboard-header">
+      <h6 *ngIf="username" class="animate__animated animate__fadeInRight">
+        {{ username }}
+      </h6>
+    </nb-layout-header>
+
+    <nb-layout-column>
+      <div class="dashboard-nav">
+        <app-dashboard-nav></app-dashboard-nav>
+      </div>
+      <div class="dashboard-body">
+        <h1 *ngIf="nickname" class="animate__animated animate__fadeInLeft">
+          Welcome Back, {{ nickname }}
+        </h1>
+        <router-outlet></router-outlet>
+      </div>
+    </nb-layout-column>
+  </nb-layout>
+</div>

@@ -88,12 +88,12 @@ namespace LadsOnTour
             {
                 app.UseSpaStaticFiles(new StaticFileOptions
                 {
-                    OnPrepareResponse = ctx =>
-                    {
-                        const int durationInSeconds = 60 * 60 * 24;
-                        ctx.Context.Response.Headers[HeaderNames.CacheControl] =
-                            "public,max-age=" + durationInSeconds;
-                    }
+                    //OnPrepareResponse = ctx =>
+                    //{
+                    //    const int durationInSeconds = 60 * 60 * 24;
+                    //    ctx.Context.Response.Headers[HeaderNames.CacheControl] =
+                    //        "public,max-age=" + durationInSeconds;
+                    //}
                 });
             }
             app.UseSpa(spa =>

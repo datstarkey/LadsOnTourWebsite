@@ -1,7 +1,7 @@
-import { IApplication } from "./../interfaces/application";
-import { LoginService } from "./../services/login/login.service";
-import { ApplicationsService } from "./../services/applications/applications.service";
 import { Component, OnInit } from "@angular/core";
+import { IApplication } from "../../interfaces/application";
+import { LoginService } from "../../services/login/login.service";
+import { ApplicationsService } from "../../services/applications/applications.service";
 
 @Component({
   selector: "app-applications",

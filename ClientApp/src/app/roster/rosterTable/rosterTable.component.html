@@ -1,40 +1,19 @@
-<table class="table" style="width: 100%">
+<table class="table display-table" style="width: 100%">
   <thead style="height: 30px" class="card">
-    <th
-      style="
-        border-left: var(--card-border-width) var(--card-border-style)
-          var(--card-border-color);
-      "
-    >
-      <h3>Rank</h3>
-    </th>
-    <th>
-      <h3>Name</h3>
-    </th>
-    <th>
-      <h3>Role</h3>
-    </th>
-    <th>
-      <h3>Class</h3>
-    </th>
-    <th
-      class="desktop-only"
-      style="
-        border-right: var(--card-border-width) var(--card-border-style)
-          var(--card-border-color);
-      "
-    >
-      <h3>Armory</h3>
-    </th>
+    <th>Rank</th>
+    <th>Name</th>
+    <th>Role</th>
+    <th>Class</th>
+    <th class="desktop-only">Armory</th>
   </thead>
 
   <tbody>
     <tr *ngFor="let user of users">
       <td class="slot">
-        <p style="margin-left: 3px">{{ user.rank }}</p>
+        <p>{{ user.rank }}</p>
       </td>
 
-      <td class="slot">
+      <td>
         <div *ngIf="user.nickname">
           <p>{{ user.nickname }}</p>
         </div>
@@ -44,15 +23,15 @@
         </div>
       </td>
 
-      <td class="slot">
-        <p style="color:{{ user.roleColor }}">{{ user.role }}</p>
+      <td>
+        <p style="color: {{ user.roleColor }}">{{ user.role }}</p>
       </td>
-      <td class="slot">
-        <p style="color:{{ user.classColor }};">{{ user.class }}</p>
+      <td>
+        <p style="color:{{ user.classColor }}">{{ user.class }}</p>
       </td>
-      <td class="slot desktop-only">
-        <a *ngIf="user.armory" href="{{ user.armory }}" target="_blank"
-          ><p>Click!</p></a
+      <td class="desktop-only">
+        <a *ngIf="user.armory" href="{{ user.armory }}" target="_blank">
+          <button nbButton status="danger" style="width: 115px">View</button></a
         >
       </td>
     </tr>

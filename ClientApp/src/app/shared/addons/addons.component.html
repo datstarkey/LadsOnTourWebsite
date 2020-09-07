@@ -1,0 +1,50 @@
+<nb-card class="animate__animated animate__fadeInRight">
+  <nb-card-header>
+    <h4>Mandatory Downloads</h4>
+  </nb-card-header>
+  <nb-card-body>
+    <table style="width: 100%" class="display-table">
+      <thead>
+        <th style="width: 70%">Name</th>
+        <th style="width: 15%">Type</th>
+        <th style="width: 15%">Download</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let addon of mandatory">
+          <td>{{ addon.name }}</td>
+          <td>{{ addon.type }}</td>
+          <td>
+            <button nbButton status="danger">Install</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </nb-card-body>
+</nb-card>
+
+<nb-card
+  class="animate__animated animate__fadeInRight"
+  style="margin-top: 30px"
+>
+  <nb-card-header>
+    <h4>Suggested Downloads</h4>
+  </nb-card-header>
+  <nb-card-body>
+    <table style="width: 100%" class="display-table">
+      <thead>
+        <th style="width: 70%">Name</th>
+        <th style="width: 15%">Type</th>
+        <th style="width: 15%">Download</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let addon of suggested">
+          <td>{{ addon.name }}</td>
+          <td>{{ addon.type }}</td>
+          <td>
+            <button nbButton status="danger">Install</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </nb-card-body>
+</nb-card>
