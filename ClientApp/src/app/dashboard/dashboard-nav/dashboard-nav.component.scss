@@ -3,6 +3,43 @@
   cursor: pointer;
 }
 
+.mobile-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 20px;
+  width: 100vw;
+}
+
+.mobile-nav-content {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}
+
+.cancel-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.dashboard-nav {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 160px;
+  background: var(--background-basic-color-3);
+}
+
 .dash-nav-container {
   height: 100%;
   width: 100%;
@@ -39,4 +76,21 @@
 .selected {
   color: var(--color-basic-100);
   opacity: 1;
+}
+
+.full-screen-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: var(--card-background-color);
+  z-index: 10;
+}
+
+@media screen and (max-width: 1360px) {
+  .logo-nav-dash {
+    height: 39px;
+    width: auto;
+  }
 }

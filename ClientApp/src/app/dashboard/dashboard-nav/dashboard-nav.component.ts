@@ -22,6 +22,8 @@ export class DashboardNavComponent implements OnInit {
   raider: boolean;
   page: string;
 
+  mobileNav: boolean;
+
   userNav: navItem = { title: "user", icon: "person-outline" };
   applyNav: navItem = { title: "apply", icon: "clipboard-outline" };
   rosterNav: navItem = { title: "roster", icon: "people-outline" };
@@ -44,48 +46,20 @@ export class DashboardNavComponent implements OnInit {
     this.streamsNav,
   ];
 
-  subscriptions: Subscription[] = [];
+  subscriptions: Subscription = new Subscription();
 
   constructor(
     private loginService: LoginService,
     private router: Router,
     private cookieService: CookieService
-  ) {
-    loginService.raider.subscribe((value) => {
-      this.raider = value;
+  ) {}
 
-      if (this.raider) {
-        this.pages = [
-          this.userNav,
-          this.downloadsNav,
-          this.applicationsNav,
-          this.logsNav,
-          this.rosterNav,
-          this.streamsNav,
-          this.calendarNav,
-        ];
-      }
-    });
+  enableMobileNav() {
+    this.mobileNav = true;
+  }
 
-    this.subscriptions.push(
-      loginService.loggedIn.subscribe((value) => {
-        this.loggedIn = value;
-      })
-    );
-
-    this.subscriptions.push(
-      loginService.loading.subscribe((value) => {
-        this.loading = value;
-      })
-    );
-
-    this.subscriptions.push(
-      router.events.subscribe((event) => {
-        if (event instanceof NavigationEnd) {
-          this.setPage();
-        }
-      })
-    );
+  disableMobileNav() {
+    this.mobileNav = false;
   }
 
   setPage() {
@@ -97,17 +71,56 @@ export class DashboardNavComponent implements OnInit {
 
   navigate(page) {
     this.router.navigate(["dashboard", page]);
+    this.mobileNav = false;
   }
 
   navigateHome() {
     this.router.navigate(["main", "home"]);
+    this.mobileNav = false;
   }
 
   ngOnInit() {
     this.setPage();
+    this.subscriptions.add(
+      this.loginService.raider.subscribe((value) => {
+        this.raider = value;
+
+        if (this.raider) {
+          this.pages = [
+            this.userNav,
+            this.downloadsNav,
+            this.applicationsNav,
+            this.logsNav,
+            this.rosterNav,
+            this.streamsNav,
+            this.calendarNav,
+          ];
+        }
+      })
+    );
+
+    this.subscriptions.add(
+      this.loginService.loggedIn.subscribe((value) => {
+        this.loggedIn = value;
+      })
+    );
+
+    this.subscriptions.add(
+      this.loginService.loading.subscribe((value) => {
+        this.loading = value;
+      })
+    );
+
+    this.subscriptions.add(
+      this.router.events.subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          this.setPage();
+        }
+      })
+    );
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach((s) => s.unsubscribe());
+    this.subscriptions.unsubscribe();
   }
 }

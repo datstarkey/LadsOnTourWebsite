@@ -3,7 +3,6 @@
 :host {
   width: 100%;
   height: auto;
-  display: block;
 
   .healer {
     color: #5ade6b;
@@ -71,5 +70,28 @@
 
   .warrior {
     color: #c79c6e;
+  }
+
+  .armory-button {
+    width: 115px;
+  }
+}
+
+@media screen and (max-width: 1360px) {
+  :host {
+    .armory-button {
+      width: 80px;
+      font-size: 10px;
+    }
+
+    td,
+    th {
+      padding: 20px 5px;
+    }
+
+    p,
+    th {
+      font-size: 10px;
+    }
   }
 }

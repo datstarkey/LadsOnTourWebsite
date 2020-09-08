@@ -9,4 +9,5 @@ export interface ICharacter {
   level: number;
   rank: number;
   rank_name: string;
+  role: string;
 }

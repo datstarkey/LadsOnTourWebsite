@@ -4,12 +4,12 @@
     <th>Name</th>
     <th>Role</th>
     <th>Class</th>
-    <th class="desktop-only">Armory</th>
+    <th>Armory</th>
   </thead>
 
   <tbody>
     <tr *ngFor="let user of users">
-      <td class="slot">
+      <td>
         <p>{{ user.rank }}</p>
       </td>
 
@@ -29,9 +29,9 @@
       <td>
         <p style="color:{{ user.classColor }}">{{ user.class }}</p>
       </td>
-      <td class="desktop-only">
+      <td>
         <a *ngIf="user.armory" href="{{ user.armory }}" target="_blank">
-          <button nbButton status="danger" style="width: 115px">View</button></a
+          <button nbButton status="info" class="armory-button">View</button></a
         >
       </td>
     </tr>

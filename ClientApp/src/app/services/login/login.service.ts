@@ -1,5 +1,3 @@
-import { WowService } from "./../wow/wow.service";
-import { UserService } from "./../user/user.service";
 import { IJwtToken } from "./../../interfaces/jwtToken";
 import { Injectable } from "@angular/core";
 import { CookieService } from "ngx-cookie-service";
@@ -9,7 +7,7 @@ import {
   HttpErrorResponse,
   HttpHeaders,
 } from "@angular/common/http";
-import { Observable, Subject, BehaviorSubject } from "rxjs";
+import { Observable, BehaviorSubject } from "rxjs";
 import "rxjs/add/operator/catch";
 import "rxjs/add/observable/throw";
 import { DiscordUser } from "../../interfaces/discordUser";
@@ -48,9 +46,7 @@ export class LoginService {
     private http: HttpClient,
     private toastrService: NbToastrService,
     private router: Router
-  ) {
-    console.log(window.location.href + "?twitch=true");
-  }
+  ) {}
 
   showToast(response, title, status: NbComponentStatus, position) {
     this.toastrService.show(response.toString(), title, { status, position });
@@ -82,7 +78,8 @@ export class LoginService {
 
   goodLogin(data) {
     this.User = data.user;
-    this.cookieService.set("refreshToken", data.refreshToken);
+    console.log(data.refreshToken);
+    this.cookieService.set("refreshToken", data.refreshToken, null, "/");
     this.jwtToken = data.token;
     this.decodeToken();
 
@@ -118,7 +115,7 @@ export class LoginService {
 
   badLogin(error) {
     console.log(error);
-    this.cookieService.deleteAll("refreshToken");
+    this.cookieService.delete("refreshToken", "/");
     this.loading.next(false);
     this.loggedIn.next(false);
 
@@ -134,7 +131,7 @@ export class LoginService {
     var refreshToken = this.cookieService.get("refreshToken");
     this.login(refreshToken, true).subscribe(
       (data) => {
-        this.cookieService.set("refreshToken", data.refreshToken);
+        this.cookieService.set("refreshToken", data.refreshToken, null, "/");
         this.jwtToken = data.token;
         this.decodeToken();
       },
@@ -218,7 +215,6 @@ export class LoginService {
   }
 
   autoLogin() {
-    console.log("auto-login");
     this.loading.next(true);
     const accessCode = this.getParamValueQueryString("code");
     const battleNet = this.getParamValueQueryString("battlenet");
@@ -244,9 +240,8 @@ export class LoginService {
 
     this.router.navigate(page);
 
-    if (refreshAvailable) {
-      const refreshToken = this.cookieService.get("refreshToken");
-      this.login(refreshToken, true).subscribe(
+    if (accessCode && !twitch && !battleNet) {
+      this.login(accessCode, false).subscribe(
         (data) => {
           this.goodLogin(data);
         },
@@ -254,8 +249,9 @@ export class LoginService {
           this.badLogin(error);
         }
       );
-    } else if (accessCode) {
-      this.login(accessCode, false).subscribe(
+    } else if (refreshAvailable) {
+      const refreshToken = this.cookieService.get("refreshToken");
+      this.login(refreshToken, true).subscribe(
         (data) => {
           this.goodLogin(data);
         },

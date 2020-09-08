@@ -1,2 +1,12 @@
+.addon-table {
+  width: 100%;
+}
 
-
+@media screen and (max-width: 1360px) {
+  button {
+    font-size: 12px;
+  }
+  td {
+    font-size: 10px;
+  }
+}

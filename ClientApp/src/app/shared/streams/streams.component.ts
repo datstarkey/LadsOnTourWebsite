@@ -1,3 +1,4 @@
+import { HttpHeaders } from "@angular/common/http";
 import { Subscription } from "rxjs";
 import { IStreams } from "../../interfaces/streams";
 import { TwitchService } from "../../services/twitch.service";
@@ -23,9 +24,19 @@ export class StreamsComponent implements OnInit {
   }
 
   setTwitch() {
+    var width = window.innerWidth;
+
+    if (width > 1360) {
+      width *= 0.65;
+    } else {
+      width *= 0.9;
+    }
+
+    var height = width / 1.7;
+
     var options = {
-      height: 700,
-      width: 1300,
+      height: height,
+      width: width,
       channel: this.currentStreamer,
     };
     this.player = new Twitch.Embed("twitch-embed", options);

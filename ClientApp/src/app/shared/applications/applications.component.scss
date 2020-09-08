@@ -22,6 +22,7 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+  flex-wrap: wrap;
   margin-bottom: 30px;
 }
 
@@ -48,7 +49,23 @@
   }
 }
 
+.large-row {
+  width: 80%;
+}
+
+.small-item {
+  width: 25%;
+}
+
+.medium-item {
+  width: 50%;
+}
+
 @media screen and (max-width: 1360px) {
+  .large-row {
+    width: 100%;
+  }
+
   .app-list {
     width: 100%;
     margin-bottom: 2rem;
@@ -56,5 +73,10 @@
 
   .current-app {
     width: 100%;
+  }
+
+  .small-item {
+    width: 50%;
+    margin-bottom: 30px;
   }
 }

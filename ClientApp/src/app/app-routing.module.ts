@@ -1,3 +1,5 @@
+import { LogsComponent } from "./shared/logs/logs.component";
+import { CalendarComponent } from "./shared/calendar/calendar.component";
 import { AddonsComponent } from "./shared/addons/addons.component";
 import { MainComponent } from "./main/main.component";
 import { NgModule } from "@angular/core";
@@ -32,6 +34,8 @@ const routes: Routes = [
       { path: "streams", component: StreamsComponent },
       { path: "apply", component: ApplyComponent },
       { path: "applications", component: ApplicationsComponent },
+      { path: "calendar", component: CalendarComponent },
+      { path: "logs", component: LogsComponent },
       { path: "roster", loadChildren: "./roster/roster.module#RosterModule" },
     ],
   },

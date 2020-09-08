@@ -24,11 +24,26 @@
   overflow-x: auto;
 }
 
-.dashboard-nav {
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100vh;
-  width: 160px;
-  background: var(--background-basic-color-3);
+.welcome-text {
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.class-text {
+  margin: 0;
+  padding: 0;
+  color: grey;
+  text-transform: uppercase;
+}
+
+.username:hover {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1360px) {
+  .dashboard-body {
+    margin-left: 0;
+    padding: 1rem;
+  }
 }

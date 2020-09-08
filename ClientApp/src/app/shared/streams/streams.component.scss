@@ -1,5 +1,6 @@
 .stream-content {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
 }
 
@@ -17,8 +18,9 @@
   width: 20%;
 }
 
-.twitch-video {
-  width: 75%;
-  background: var(--card-background-color);
-  height: 700px;
+@media screen and (max-width: 1360px) {
+  .streams {
+    margin-top: 30px;
+    width: 100%;
+  }
 }

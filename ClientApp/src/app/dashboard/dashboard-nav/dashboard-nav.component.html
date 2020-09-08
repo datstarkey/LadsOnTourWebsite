@@ -1,12 +1,26 @@
-<div class="dash-nav-container">
-  <img
-    src="assets/images/Logo.png"
-    alt="logo"
-    class="logo-nav-dash"
-    (click)="navigateHome()"
-  />
+<div class="mobile-only">
+  <div class="mobile-nav">
+    <img
+      src="assets/images/Logo.png"
+      alt="logo"
+      class="logo-nav-dash animate__animated animate__fadeInLeft"
+      (click)="navigateHome()"
+    />
+    <img
+      src="assets/images/Hamburger.svg"
+      class="animate__animated animate__fadeInRight animate__delay-1s"
+      (click)="enableMobileNav()"
+    />
+  </div>
+</div>
 
-  <div class="dash-nav-items">
+<div *ngIf="mobileNav" class="full-screen-modal">
+  <nb-icon
+    icon="close-circle-outline"
+    class="cancel-button"
+    (click)="disableMobileNav()"
+  ></nb-icon>
+  <div class="mobile-nav-content">
     <span
       *ngFor="let p of pages"
       class="nav-item"
@@ -17,5 +31,30 @@
       {{ p.title }}
     </span>
   </div>
-  <div></div>
+</div>
+
+<div class="desktop-only">
+  <div class="dashboard-nav">
+    <div class="dash-nav-container">
+      <img
+        src="assets/images/Logo.png"
+        alt="logo"
+        class="logo-nav-dash"
+        (click)="navigateHome()"
+      />
+
+      <div class="dash-nav-items">
+        <span
+          *ngFor="let p of pages"
+          class="nav-item"
+          [ngClass]="{ selected: page == p.title }"
+          (click)="navigate(p.title)"
+        >
+          <nb-icon icon="{{ p.icon }}"></nb-icon>
+          {{ p.title }}
+        </span>
+      </div>
+      <div></div>
+    </div>
+  </div>
 </div>

@@ -1,19 +1,40 @@
 <div class="dashboard-background">
   <nb-layout>
     <nb-layout-header class="dashboard-header">
-      <h6 *ngIf="username" class="animate__animated animate__fadeInRight">
-        {{ username }}
-      </h6>
+      <a
+        [routerLink]="['user']"
+        class="animate__animated animate__fadeInRight desktop-only"
+      >
+        <h6 *ngIf="username" class="username">
+          {{ username }}
+        </h6>
+      </a>
     </nb-layout-header>
 
     <nb-layout-column>
-      <div class="dashboard-nav">
+      <div *ngIf="loggedIn">
         <app-dashboard-nav></app-dashboard-nav>
       </div>
-      <div class="dashboard-body">
-        <h1 *ngIf="nickname" class="animate__animated animate__fadeInLeft">
-          Welcome Back, {{ nickname }}
-        </h1>
+
+      <div *ngIf="!loggedIn" class="spaceArea">
+        <app-login-page></app-login-page>
+      </div>
+
+      <div class="dashboard-body" *ngIf="loggedIn">
+        <div style="margin-bottom: 10px">
+          <h3
+            *ngIf="nickname"
+            class="welcome-text animate__animated animate__fadeInLeft"
+          >
+            Welcome Back, {{ nickname }}
+          </h3>
+          <p
+            *ngIf="classText"
+            class="class-text animate__animated animate__fadeInLeft"
+          >
+            {{ classText }}
+          </p>
+        </div>
         <router-outlet></router-outlet>
       </div>
     </nb-layout-column>

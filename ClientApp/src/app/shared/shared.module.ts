@@ -17,9 +17,10 @@ import {
 import { BarChartColoredComponent } from "./components/bar-chart-colored.component";
 import { NgxChartsModule } from "@swimlane/ngx-charts";
 import { LoginPageComponent } from "./login/login-page/login-page.component";
+import { LogsComponent } from './logs/logs.component';
 
 @NgModule({
-  declarations: [BarChartColoredComponent, LoginPageComponent],
+  declarations: [BarChartColoredComponent, LoginPageComponent, LogsComponent],
   imports: [CommonModule, NgxChartsModule, NbButtonModule],
   providers: [CookieService, LoginService, UserService, ThemeService],
   exports: [

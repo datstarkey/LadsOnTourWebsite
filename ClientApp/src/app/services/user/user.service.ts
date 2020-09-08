@@ -73,10 +73,7 @@ export class UserService {
   }
 
   updateCharacter(character: ICharacter, isMain: boolean, showToast = true) {
-    console.log(character);
-    console.log(isMain);
     this.setCharacterData(character, isMain).subscribe((response) => {
-      console.log(response);
       if (response.indexOf("Successfull") > -1) {
         if (showToast) {
           this.showToast(
