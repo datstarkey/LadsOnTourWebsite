@@ -8,6 +8,22 @@
 }
 /* You can add global styles to this file, and also import other style files */
 
+:root {
+  --death-knight: #c41f3b;
+  --demon-hunter: #a330c9;
+  --druid: #ff7d0a;
+  --hunter: #a9d271;
+  --mage: #40c7eb;
+  --monk: #00ff96;
+  --paladin: #f58cba;
+  --priest: #ffffff;
+  --rogue: #fff569;
+  --shaman: #0070de;
+  --warlock: #8787ed;
+  --warrior: #c79c6e;
+  --tbc: #000000;
+}
+
 :-moz-any(#content, #appcontent) browser {
   margin-right: -14px !important;
   overflow-y: scroll;
@@ -137,6 +153,74 @@ text {
 .desktop-only,
 .mobile-only {
   display: block;
+}
+
+.healer {
+  color: #5ade6b;
+}
+
+.melee {
+  color: #c7be59;
+}
+
+.tank {
+  color: #4895de;
+}
+
+.ranged {
+  color: #fe8f46;
+}
+
+.tbc {
+  color: #000000;
+}
+
+.death-knight {
+  color: #c41f3b;
+}
+
+.demon-hunter {
+  color: #a330c9;
+}
+
+.druid {
+  color: #ff7d0a;
+}
+
+.hunter {
+  color: #a9d271;
+}
+
+.mage {
+  color: #40c7eb;
+}
+
+.monk {
+  color: #00ff96;
+}
+
+.paladin {
+  color: #f58cba;
+}
+
+.priest {
+  color: #ffffff;
+}
+
+.rogue {
+  color: #fff569;
+}
+
+.warlock {
+  color: #8787ed;
+}
+
+.shaman {
+  color: #0070de;
+}
+
+.warrior {
+  color: #c79c6e;
 }
 
 @media only screen and (min-width: 1360px) {

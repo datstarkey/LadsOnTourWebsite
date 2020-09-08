@@ -15,6 +15,9 @@
               nbButton
               status="info"
               class="button"
+              style="background-color: var(--{{
+                app.class.toLowerCase().replace(' ', '-')
+              }})"
               (click)="selectApp(app)"
             >
               {{ app.discord }} - {{ app.role }} {{ app.class }}

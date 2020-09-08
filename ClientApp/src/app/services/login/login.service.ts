@@ -146,7 +146,6 @@ export class LoginService {
       Authorization: `Bearer ${this.jwtToken}`,
     });
 
-    console.log("Battle Net Authing");
     const encodedUrl = encodeURIComponent(
       window.location.href + "?battlenet=true"
     );
