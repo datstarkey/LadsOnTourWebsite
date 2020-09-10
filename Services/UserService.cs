@@ -145,13 +145,21 @@ namespace LadsOnTour.Services
 
             foreach (var user in users)
             {
-                var character = context.wow_characters.First(c => c.character_id == user.Main);
-
-                if (character != null && character.guild == "Lads on Tour")
+                try
                 {
-                    user.RankNumber = character.rank;
-                    user.Rank = character.rank_name;
+                    var character = context.wow_characters.First(c => c.character_id == user.Main);
+
+                    if (character != null && character.guild == "Lads on Tour")
+                    {
+                        user.RankNumber = character.rank;
+                        user.Rank = character.rank_name;
+                    }
                 }
+                catch 
+                {
+                    Console.WriteLine($"Main missing ${user.Discord}");
+                }
+          
             }
             context.SaveChanges();
         }

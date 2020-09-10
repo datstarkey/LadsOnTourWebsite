@@ -10,4 +10,6 @@ export interface ICharacter {
   rank: number;
   rank_name: string;
   role: string;
+  averageIlevel: number;
+  equippedIlevel: number;
 }

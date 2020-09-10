@@ -2,7 +2,11 @@ import { ICharacter } from "./../../interfaces/character";
 import { IUser } from "./../../interfaces/user";
 import { Injectable, OnInit } from "@angular/core";
 import { LoginService } from "../login/login.service";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpErrorResponse,
+} from "@angular/common/http";
 import { Observable, BehaviorSubject } from "rxjs";
 import { NbComponentStatus, NbToastrService } from "@nebular/theme";
 
@@ -154,6 +158,34 @@ export class UserService {
       .subscribe((response) => {
         this.user.next(response);
       });
+  }
+
+  adminUpdateAllUsers() {
+    this.showToast("Updating", "Updating all users", "info", "bottom-right");
+    var headers = this.headers;
+    this.http
+      .post(
+        `${this.baseUrl}/updateall`,
+        {},
+        {
+          headers,
+        }
+      )
+      .subscribe(
+        (result) => {},
+        (error) => {
+          if (error.status == 200) {
+            this.showToast(
+              "Saved",
+              "Finished Updating all users",
+              "success",
+              "bottom-right"
+            );
+          } else {
+            this.showToast("Error", `error - `, "danger", "bottom-right");
+          }
+        }
+      );
   }
 
   getRosterData(): Observable<IUser[]> {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using ArgentPonyWarcraftClient;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -22,5 +23,8 @@ namespace LadsOnTour.Models
         public string armory { get; set; }
         public string guild { get; set; }
         public int level { get; set; }
+        public int equippedIlevel { get; set; }
+        public int averageIlevel { get; set; }
+        public string equipment { get; set; }
     }
 }

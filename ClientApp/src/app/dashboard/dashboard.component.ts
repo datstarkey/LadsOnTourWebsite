@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
   username: string;
   nickname: string;
   subscriptions: Subscription = new Subscription();
+  admin: boolean;
   user: IUser;
   characters: ICharacter[];
   main: number;
@@ -39,6 +40,12 @@ export class DashboardComponent implements OnInit {
     this.subscriptions.add(
       this.loginService.loggedIn.subscribe((result) => {
         this.loggedIn = result;
+      })
+    );
+
+    this.subscriptions.add(
+      this.loginService.admin.subscribe((result) => {
+        this.admin = result;
       })
     );
 

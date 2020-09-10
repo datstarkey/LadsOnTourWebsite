@@ -30,6 +30,7 @@ namespace LadsOnTour.Models
         public string TwitchId { get; set; }
         public string TwitchName { get; set; }
 
+        public string BattleNet { get; set; }
         public string BattleNetToken { get; set; }
         public DateTime BattleNetTokenExpiration { get; set; } = DateTime.Now;
 

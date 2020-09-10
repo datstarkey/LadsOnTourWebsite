@@ -1,6 +1,15 @@
 <div class="dashboard-background">
   <nb-layout>
     <nb-layout-header class="dashboard-header">
+      <button
+        nbButton
+        status="info"
+        *ngIf="admin"
+        class="update-all"
+        (click)="userService.adminUpdateAllUsers()"
+      >
+        Update-All
+      </button>
       <a
         [routerLink]="['user']"
         class="animate__animated animate__fadeInRight desktop-only"

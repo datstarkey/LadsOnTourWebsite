@@ -11,6 +11,7 @@ namespace LadsOnTour.Models
         public string DiscordID { get; set; }
         public string Discord { get; set; }
         public string NickName { get; set; }
+        public string BattleNet { get; set; }
 
         public string Role { get; set; }
         public string Class { get; set; }

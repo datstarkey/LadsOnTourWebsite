@@ -7,7 +7,6 @@ using Newtonsoft.Json;
 using RestSharp;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -137,7 +136,6 @@ namespace LadsOnTour.Services
                 {
                     Console.WriteLine(e.Message);
                 }
-              
             }
         }
 
@@ -160,9 +158,22 @@ namespace LadsOnTour.Services
                     dbCharacter.guild = apiCharacter.Value.Guild.Name;
                     dbCharacter.armory = ConvertToArmoryURL(character);
                     dbCharacter.role = WoWUtilities.CheckRole(character.role, character._class);
+                    dbCharacter.averageIlevel = apiCharacter.Value.AverageItemLevel;
+                    dbCharacter.equippedIlevel = apiCharacter.Value.EquippedItemLevel;
+                    dbCharacter = await UpdateEquipment(dbCharacter);
+
                     context.SaveChanges();
                 }
             }
+        }
+
+        private async Task<WoWCharacter> UpdateEquipment(WoWCharacter character)
+        {
+            var equipment = await warcraftClient.GetCharacterEquipmentSummaryAsync(character.realm.ToLower(), character.name.ToLower(), "profile-eu");
+            if (equipment.Success)
+                character.equipment = JsonConvert.SerializeObject(equipment.Value.EquippedItems);
+
+            return character;
         }
 
         /// <summary>
@@ -265,7 +276,6 @@ namespace LadsOnTour.Services
                 {
                     Console.WriteLine(e.Message);
                 }
-
             }
 
             context.SaveChanges();

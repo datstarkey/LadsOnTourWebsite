@@ -78,7 +78,6 @@ export class LoginService {
 
   goodLogin(data) {
     this.User = data.user;
-    console.log(data.refreshToken);
     this.cookieService.set("refreshToken", data.refreshToken, null, "/");
     this.jwtToken = data.token;
     this.decodeToken();
