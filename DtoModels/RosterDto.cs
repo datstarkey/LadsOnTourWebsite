@@ -13,6 +13,7 @@ namespace LadsOnTour.Models
         public string Rank { get; set; }
         public string Armory { get; set; }
         public string Role { get; set; }
+        public int RankNumber { get; set; }
         public string Class { get; set; }
     }
 }

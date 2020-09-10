@@ -199,7 +199,9 @@ export class RosterComponent implements OnInit {
       this.getClasses(this.users);
       this.users = this.users.sort((a, b) => (a.class > b.class ? 1 : -1));
       this.users = this.users.sort((a, b) => (a.role < b.role ? 1 : -1));
-      this.users = this.users.sort((a, b) => (a.rank > b.rank ? 1 : -1));
+      this.users = this.users.sort((a, b) =>
+        a.rankNumber > b.rankNumber ? 1 : -1
+      );
       this.loading = false;
       this.ref.detectChanges();
     });
