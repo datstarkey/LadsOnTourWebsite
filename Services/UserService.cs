@@ -37,21 +37,11 @@ namespace LadsOnTour.Services
             return mapper.Map<ApplicationDto>(user);
         }
 
-        public List<StreamData> GetTwitchIds()
-        {
-            return context.users.Where(u => !String.IsNullOrEmpty(u.TwitchId)).Select(u => new StreamData { id = u.TwitchId, name = u.TwitchName }).ToList();
-        }
+        public List<StreamData> GetTwitchIds() => context.users.Where(u => !String.IsNullOrEmpty(u.TwitchId)).Select(u => new StreamData { id = u.TwitchId, name = u.TwitchName }).ToList();
 
-        public List<RosterDto> GetRoster()
-        {
-            return mapper.Map<List<RosterDto>>(context.users.ToList());
-        }
+        public List<RosterDto> GetRoster() => mapper.Map<List<RosterDto>>(context.users.Where(u => u.InDiscord == "Yes").ToList());
 
-        public List<ApplicationDto> GetApplications()
-        {
-            var apps = mapper.Map<List<ApplicationDto>>(context.users.ToList());
-            return apps;
-        }
+        public List<ApplicationDto> GetApplications() => mapper.Map<List<ApplicationDto>>(context.users.ToList());
 
         public User FindOrAddUser(string id)
         {
