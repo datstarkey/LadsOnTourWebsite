@@ -13,6 +13,7 @@ import {
 })
 export class RosterTableComponent implements OnInit {
   @Input() users: any[];
+  @Input() sortRoster: Function;
 
   constructor() {}
 

@@ -1,10 +1,10 @@
 <table class="table display-table" style="width: 100%">
   <thead style="height: 30px" class="card">
-    <th>Rank</th>
-    <th>Name</th>
-    <th>Role</th>
-    <th>Class</th>
-    <th>Armory</th>
+    <th class="roster-header" (click)="sortRoster('rankNumber')">Rank</th>
+    <th class="roster-header" (click)="sortRoster('nickname')">Name</th>
+    <th class="roster-header" (click)="sortRoster('role')">Role</th>
+    <th class="roster-header" (click)="sortRoster('class')">Class</th>
+    <th class="roster-header" (click)="sortRoster('armory')">Armory</th>
   </thead>
 
   <tbody>

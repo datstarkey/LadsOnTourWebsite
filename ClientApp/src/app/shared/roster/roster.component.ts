@@ -1,3 +1,5 @@
+import { AppComponent } from "./../../app.component";
+import { IRosterUser } from "./../../interfaces/rosterUser";
 import {
   Component,
   OnInit,
@@ -20,6 +22,111 @@ export class RosterComponent implements OnInit {
   totalRanged = 0;
   totalTanks = 0;
   totalHealers = 0;
+
+  constructor(
+    private userService: UserService,
+    private ref: ChangeDetectorRef
+  ) {}
+
+  users: IRosterUser[];
+  loading: boolean;
+
+  fetchData() {
+    this.loading = true;
+    this.userService.getRosterData().subscribe((data) => {
+      this.users = data;
+      this.getClasses(this.users);
+
+      this.loading = false;
+      this.ref.detectChanges();
+    });
+  }
+
+  ngOnInit() {
+    this.fetchData();
+  }
+
+  getClasses(users) {
+    users.map((user) => {
+      if (user.nickname == null) {
+        user.nickname = user.discord;
+      }
+
+      if (user.armory == null) {
+        user.armory = "";
+      }
+
+      if (!user.role) {
+        user.role == "TBC";
+      }
+
+      if (!user.class) {
+        user.class = "TBC";
+      }
+
+      if (user.class == "Demon Hunter") {
+        user.class = "DH";
+      }
+
+      if (user.class == "Death Knight") {
+        user.class = "DK";
+      }
+
+      if (user.role == "Healer") {
+        if (user.class != "TBC") {
+          this.healerClasses.find((u) => u.name == user.class).value++;
+        }
+        this.totalHealers++;
+        user.roleColor = "#00D68F";
+      }
+
+      if (user.role == "Melee") {
+        if (user.class != "TBC") {
+          this.meleeClasses.find((u) => u.name == user.class).value++;
+        }
+        this.totalMelee++;
+        user.roleColor = "#FF3D71";
+      }
+
+      if (user.role == "Ranged") {
+        if (user.class != "TBC") {
+          this.rangedClasses.find((u) => u.name == user.class).value++;
+        }
+        this.totalRanged++;
+        user.roleColor = "#f59898";
+      }
+
+      if (user.role == "Tank") {
+        if (user.class != "TBC") {
+          this.tankClasses.find((u) => u.name == user.class).value++;
+        }
+        this.totalTanks++;
+        user.roleColor = "#0095FF";
+      }
+
+      if (user.class == "DH") {
+        user.class = "Demon Hunter";
+      }
+
+      if (user.class == "DK") {
+        user.class = "Death Knight";
+      }
+
+      if (user.role == "TBC") {
+        user.roleColor = "#644980";
+      }
+
+      if (user.class == "TBC") {
+        user.classColor = "#ff2e2e";
+      }
+
+      if (user.class != "TBC") {
+        user.classColor = this.classColors.find(
+          (c) => c.name == user.class
+        ).value;
+      }
+    });
+  }
 
   meleeClasses = [
     {
@@ -183,107 +290,6 @@ export class RosterComponent implements OnInit {
       value: 0,
     },
   ];
-
-  constructor(
-    private userService: UserService,
-    private ref: ChangeDetectorRef
-  ) {}
-
-  users;
-  loading: boolean;
-
-  fetchData() {
-    this.loading = true;
-    this.userService.getRosterData().subscribe((data) => {
-      this.users = data;
-      this.getClasses(this.users);
-      this.users = this.users.sort((a, b) => (a.class > b.class ? 1 : -1));
-      this.users = this.users.sort((a, b) => (a.role < b.role ? 1 : -1));
-      this.users = this.users.sort((a, b) =>
-        a.rankNumber > b.rankNumber ? 1 : -1
-      );
-      this.loading = false;
-      this.ref.detectChanges();
-    });
-  }
-
-  ngOnInit() {
-    this.fetchData();
-  }
-
-  getClasses(users) {
-    users.forEach((user) => {
-      if (!user.role) {
-        user.role == "TBC";
-      }
-
-      if (!user.class) {
-        user.class = "TBC";
-      }
-
-      if (user.class == "Demon Hunter") {
-        user.class = "DH";
-      }
-
-      if (user.class == "Death Knight") {
-        user.class = "DK";
-      }
-
-      if (user.role == "Healer") {
-        if (user.class != "TBC") {
-          this.healerClasses.find((u) => u.name == user.class).value++;
-        }
-        this.totalHealers++;
-        user.roleColor = "#00D68F";
-      }
-
-      if (user.role == "Melee") {
-        if (user.class != "TBC") {
-          this.meleeClasses.find((u) => u.name == user.class).value++;
-        }
-        this.totalMelee++;
-        user.roleColor = "#FF3D71";
-      }
-
-      if (user.role == "Ranged") {
-        if (user.class != "TBC") {
-          this.rangedClasses.find((u) => u.name == user.class).value++;
-        }
-        this.totalRanged++;
-        user.roleColor = "#f59898";
-      }
-
-      if (user.role == "Tank") {
-        if (user.class != "TBC") {
-          this.tankClasses.find((u) => u.name == user.class).value++;
-        }
-        this.totalTanks++;
-        user.roleColor = "#0095FF";
-      }
-
-      if (user.class == "DH") {
-        user.class = "Demon Hunter";
-      }
-
-      if (user.class == "DK") {
-        user.class = "Death Knight";
-      }
-
-      if (user.role == "TBC") {
-        user.roleColor = "#644980";
-      }
-
-      if (user.class == "TBC") {
-        user.classColor = "#ff2e2e";
-      }
-
-      if (user.class != "TBC") {
-        user.classColor = this.classColors.find(
-          (c) => c.name == user.class
-        ).value;
-      }
-    });
-  }
 
   classColors = [
     {

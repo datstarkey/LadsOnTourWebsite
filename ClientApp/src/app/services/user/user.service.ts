@@ -1,3 +1,4 @@
+import { IRosterUser } from "./../../interfaces/rosterUser";
 import { ICharacter } from "./../../interfaces/character";
 import { IUser } from "./../../interfaces/user";
 import { Injectable, OnInit } from "@angular/core";
@@ -188,8 +189,8 @@ export class UserService {
       );
   }
 
-  getRosterData(): Observable<IUser[]> {
-    return this.http.get<IUser[]>(`${this.baseUrl}/roster`);
+  getRosterData(): Observable<IRosterUser[]> {
+    return this.http.get<IRosterUser[]>(`${this.baseUrl}/roster`);
   }
 
   setUserData(user: IUser): Observable<string> {
