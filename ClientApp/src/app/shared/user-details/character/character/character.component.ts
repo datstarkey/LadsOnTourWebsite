@@ -1,8 +1,8 @@
-import { ICharacter } from "./../../../interfaces/character";
-import { WowService } from "./../../../services/wow/wow.service";
-import { LoginService } from "./../../../services/login/login.service";
-import { UserService } from "./../../../services/user/user.service";
-import { IUser } from "./../../../interfaces/user";
+import { ICharacter } from "../../../../interfaces/character";
+import { WowService } from "../../../../services/wow/wow.service";
+import { LoginService } from "../../../../services/login/login.service";
+import { UserService } from "../../../../services/user/user.service";
+import { IUser } from "../../../../interfaces/user";
 import { Component, OnInit, Input } from "@angular/core";
 import { NbToastrService } from "@nebular/theme";
 

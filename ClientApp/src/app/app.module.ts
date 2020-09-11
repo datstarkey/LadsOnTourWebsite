@@ -1,11 +1,11 @@
 import { AddonsComponent } from "./shared/addons/addons.component";
 import { StreamsComponent } from "./shared/streams/streams.component";
-import { CharacterComponent } from "./user-details/character/character/character.component";
+import { CharacterComponent } from "./shared/user-details/character/character/character.component";
 import { ApplicationsComponent } from "./shared/applications/applications.component";
 import { ApplyComponent } from "./shared/apply/apply.component";
 import { HomeComponent } from "./main/home/home.component";
-import { UserDetailsComponent } from "./user-details/user-details.component";
-import { UserComponent } from "./user-details/user/user/user.component";
+import { UserDetailsComponent } from "./shared/user-details/user-details.component";
+import { UserComponent } from "./shared/user-details/user/user/user.component";
 import { ThemeService } from "./services/theme/theme.service";
 import { CommonModule } from "@angular/common";
 import { HttpClientModule } from "@angular/common/http";

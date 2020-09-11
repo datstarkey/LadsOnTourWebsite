@@ -32,7 +32,7 @@ export class NavBarComponent implements OnInit {
 
   setPage() {
     var navigation = this.router.url.split("/");
-    navigation = navigation[1].split("?");
+    navigation = navigation[2].split("?");
     this.page = navigation[0];
     this.cookieService.set("lastPage", this.router.url, null, "/");
   }
@@ -50,6 +50,9 @@ export class NavBarComponent implements OnInit {
     this.subscriptions.push(
       this.loginService.loggedIn.subscribe((value) => {
         this.loggedIn = value;
+        if (this.loggedIn) {
+          this.pages.push("dashboard");
+        }
       })
     );
 
@@ -63,7 +66,7 @@ export class NavBarComponent implements OnInit {
       this.loginService.raider.subscribe((value) => {
         this.raider = value;
         if (this.raider) {
-          this.pages = ["home", "roster", "streams"];
+          this.pages.splice(1, 1);
         }
       })
     );

@@ -5,7 +5,7 @@ import {
   Injectable,
   ChangeDetectorRef,
 } from "@angular/core";
-import { UserService } from "../services/user/user.service";
+import { UserService } from "../../services/user/user.service";
 
 @Component({
   selector: "app-roster",

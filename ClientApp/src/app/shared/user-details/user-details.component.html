@@ -4,7 +4,7 @@
 
 <div *ngIf="loggedIn">
   <div class="container">
-    <div class="column animate__animated animate__fadeInLeft">
+    <div class="column animate__animated animate__fadeIn">
       <nb-card class="mb card">
         <nb-card-header>
           <h4>Website Options</h4>
@@ -81,11 +81,11 @@
       </nb-card>
     </div>
 
-    <div class="column animate__animated animate__fadeInDown">
+    <div class="column animate__animated animate__fadeIn">
       <app-user [user]="user"></app-user>
     </div>
 
-    <div class="column animate__animated animate__fadeInRight">
+    <div class="column animate__animated animate__fadeIn">
       <app-character [user]="user" [characters]="characters"></app-character>
     </div>
   </div>

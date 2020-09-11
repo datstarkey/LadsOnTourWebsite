@@ -30,6 +30,11 @@
   color: var(--color-basic-100);
 }
 
+.apply-button {
+  width: 150px;
+  border: none;
+}
+
 @media screen and (max-width: 1360px) {
   .home-section {
     width: 100%;

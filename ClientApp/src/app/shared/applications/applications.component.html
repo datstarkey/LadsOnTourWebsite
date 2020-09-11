@@ -3,7 +3,7 @@
 </div>
 
 <div *ngIf="loggedIn" class="applications">
-  <div class="app-list animate__animated animate__fadeInLeft">
+  <div class="app-list animate__animated animate__fadeIn">
     <nb-accordion>
       <nb-accordion-item collapsed="false">
         <nb-accordion-item-header>
@@ -68,97 +68,95 @@
     </nb-accordion>
   </div>
 
-  <nb-card
-    class="animate__animated animate__fadeInRight"
-    *ngIf="app"
-    class="current-app"
-  >
-    <nb-card-header
-      ><h1>{{ app.discord }}</h1>
-    </nb-card-header>
-    <nb-card-body>
-      <div class="app-row">
-        <div class="app-column medium-item">
-          <h6>Class</h6>
-          <div class="info-box">{{ app.class }}</div>
+  <div *ngIf="app" class="current-app animate__animated animate__fadeIn">
+    <nb-card>
+      <nb-card-header
+        ><h1>{{ app.discord }}</h1>
+      </nb-card-header>
+      <nb-card-body>
+        <div class="app-row">
+          <div class="app-column medium-item">
+            <h6>Class</h6>
+            <div class="info-box">{{ app.class }}</div>
+          </div>
+
+          <div class="app-column medium-item">
+            <h6>Role</h6>
+            <div class="info-box">{{ app.role }}</div>
+          </div>
         </div>
 
-        <div class="app-column medium-item">
-          <h6>Role</h6>
-          <div class="info-box">{{ app.role }}</div>
+        <div class="app-row large-row">
+          <div class="app-column small-item">
+            <h6>Armory</h6>
+            <a href="{{ app.armory }}" target="_blank">
+              <button nbButton class="admin-button" status="info">View</button>
+            </a>
+          </div>
+
+          <div class="app-column small-item">
+            <h6>Logs</h6>
+            <a href="{{ app.logs }}" target="_blank">
+              <button nbButton class="admin-button" status="info">View</button>
+            </a>
+          </div>
+
+          <div class="app-column small-item">
+            <h6>BattleTag</h6>
+            <div class="info-box">{{ app.role }}</div>
+          </div>
+
+          <div class="app-column small-item">
+            <h6>Discord</h6>
+            <div class="info-box">{{ app.discord }}</div>
+          </div>
         </div>
-      </div>
 
-      <div class="app-row large-row">
-        <div class="app-column small-item">
-          <h6>Armory</h6>
-          <a href="{{ app.armory }}" target="_blank">
-            <button nbButton class="admin-button" status="info">View</button>
-          </a>
+        <div class="app-row">
+          <div class="app-column">
+            <h6>About</h6>
+            <div class="info-box" style="width: 100%">{{ app.about }}</div>
+          </div>
         </div>
 
-        <div class="app-column small-item">
-          <h6>Logs</h6>
-          <a href="{{ app.logs }}" target="_blank">
-            <button nbButton class="admin-button" status="info">View</button>
-          </a>
+        <div class="app-row">
+          <div class="app-column">
+            <h6>Experience</h6>
+            <div class="info-box" style="width: 100%">{{ app.experience }}</div>
+          </div>
         </div>
 
-        <div class="app-column small-item">
-          <h6>BattleTag</h6>
-          <div class="info-box">{{ app.role }}</div>
+        <div *ngIf="admin">
+          <button
+            nbButton
+            class="admin-button"
+            status="success"
+            *ngIf="isAppCurrent"
+            (click)="applicationsService.adminUpdateApp(app, 'Accepted')"
+          >
+            Accept
+          </button>
+          <button
+            nbButton
+            class="admin-button"
+            status="danger"
+            *ngIf="isAppCurrent"
+            (click)="applicationsService.adminUpdateApp(app, 'Declined')"
+          >
+            Decline
+          </button>
+
+          <button
+            nbButton
+            class="admin-button"
+            status="warning"
+            *ngIf="!isAppCurrent"
+            (click)="applicationsService.adminUpdateApp(app, 'Sent')"
+          >
+            Reopen
+          </button>
         </div>
-
-        <div class="app-column small-item">
-          <h6>Discord</h6>
-          <div class="info-box">{{ app.discord }}</div>
-        </div>
-      </div>
-
-      <div class="app-row">
-        <div class="app-column">
-          <h6>About</h6>
-          <div class="info-box" style="width: 100%">{{ app.about }}</div>
-        </div>
-      </div>
-
-      <div class="app-row">
-        <div class="app-column">
-          <h6>Experience</h6>
-          <div class="info-box" style="width: 100%">{{ app.experience }}</div>
-        </div>
-      </div>
-
-      <div *ngIf="admin">
-        <button
-          nbButton
-          class="admin-button"
-          status="success"
-          *ngIf="isAppCurrent"
-          (click)="applicationsService.adminUpdateApp(app, 'Accepted')"
-        >
-          Accept
-        </button>
-        <button
-          nbButton
-          class="admin-button"
-          status="danger"
-          *ngIf="isAppCurrent"
-          (click)="applicationsService.adminUpdateApp(app, 'Declined')"
-        >
-          Decline
-        </button>
-
-        <button
-          nbButton
-          class="admin-button"
-          status="warning"
-          *ngIf="!isAppCurrent"
-          (click)="applicationsService.adminUpdateApp(app, 'Sent')"
-        >
-          Reopen
-        </button>
-      </div>
-    </nb-card-body>
-  </nb-card>
+      </nb-card-body>
+    </nb-card>
+  </div>
 </div>

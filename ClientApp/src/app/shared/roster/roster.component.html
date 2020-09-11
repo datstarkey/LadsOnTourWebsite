@@ -1,7 +1,7 @@
 <div *ngIf="loading">Loading...</div>
 
 <div *ngIf="!loading" class="total-section">
-  <div class="info-box animate__animated animate__fadeInDown">
+  <div class="info-box animate__animated animate__fadeIn">
     <app-totals
       class="info-section"
       [title]="'TANKS'"
@@ -30,7 +30,7 @@
     ></app-totals>
   </div>
 
-  <div class="info-box animate__animated animate__fadeInRight">
+  <div class="info-box animate__animated animate__fadeIn">
     <app-classes
       class="info-section"
       [title]="'Tank'"
@@ -56,7 +56,7 @@
     ></app-classes>
   </div>
 
-  <div class="animate__animated animate__fadeInUp">
+  <div class="animate__animated animate__fadeIn">
     <app-roster-card [users]="users"></app-roster-card>
   </div>
 </div>

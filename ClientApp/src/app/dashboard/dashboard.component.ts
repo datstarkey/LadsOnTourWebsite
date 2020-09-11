@@ -28,7 +28,11 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   setText() {
-    if (this.main !== null && this.characters.length > 0) {
+    if (
+      this.main !== null &&
+      this.characters != null &&
+      this.characters.length > 0
+    ) {
       const character = this.characters.find(
         (c) => c.character_id == this.main
       );

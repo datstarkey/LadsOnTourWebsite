@@ -1,11 +1,11 @@
-import { TwitchService } from "./../services/twitch.service";
-import { ICharacter } from "./../interfaces/character";
-import { WowService } from "./../services/wow/wow.service";
-import { ThemeService } from "./../services/theme/theme.service";
+import { TwitchService } from "../../services/twitch.service";
+import { ICharacter } from "../../interfaces/character";
+import { WowService } from "../../services/wow/wow.service";
+import { ThemeService } from "../../services/theme/theme.service";
 import { Component, OnInit } from "@angular/core";
-import { UserService } from "../services/user/user.service";
-import { IUser } from "../interfaces/user";
-import { LoginService } from "../services/login/login.service";
+import { UserService } from "../../services/user/user.service";
+import { IUser } from "../../interfaces/user";
+import { LoginService } from "../../services/login/login.service";
 
 @Component({
   selector: "app-user-details",
