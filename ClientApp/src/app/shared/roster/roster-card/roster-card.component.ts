@@ -73,7 +73,6 @@ export class RosterCardComponent implements OnInit {
     if (this.sortableProperties.includes(property)) {
       let sortType = this.IsAscending.find((s) => s.property == property);
 
-      console.log(sortType);
       if (sortType.ascending) {
         this.data = this.data.sort((a, b) =>
           a[property] > b[property] ? 1 : -1
