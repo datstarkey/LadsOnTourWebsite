@@ -103,12 +103,14 @@
 
           <div class="app-column small-item">
             <h6>BattleTag</h6>
-            <div class="info-box">{{ app.role }}</div>
+            <div class="info-box">{{ app.battleNet }}</div>
           </div>
 
           <div class="app-column small-item">
             <h6>Discord</h6>
-            <div class="info-box">{{ app.discord }}</div>
+            <div class="info-box">
+              {{ app.discord }}#{{ app.discordDiscriminator }}
+            </div>
           </div>
         </div>
 

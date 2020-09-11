@@ -1,9 +1,9 @@
+import { Subscription } from "rxjs";
 import { IApplication } from "../../interfaces/application";
 import { ApplicationsService } from "../../services/applications/applications.service";
 import { WowService } from "../../services/wow/wow.service";
 import { LoginService } from "../../services/login/login.service";
 import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
-import { NbToastrService, NbComponentStatus } from "@nebular/theme";
 
 @Component({
   selector: "app-apply",
@@ -14,6 +14,7 @@ export class ApplyComponent implements OnInit {
   app: IApplication = {} as any;
   loggedIn: boolean;
   buttonText: string = "Submit";
+  subscription: Subscription = new Subscription();
 
   constructor(
     private loginService: LoginService,
@@ -31,16 +32,20 @@ export class ApplyComponent implements OnInit {
   }
 
   getApp() {
-    this.applicationsService.application.subscribe((app) => {
-      if (app.appStatus == null || app.appStatus == "") {
-        app.appStatus = "Not Sent";
-      }
-      this.app = app;
-    });
+    this.subscription.add(
+      this.applicationsService.application.subscribe((app) => {
+        if (app.appStatus == null || app.appStatus == "") {
+          app.appStatus = "Not Sent";
+        }
+        console.log(this.app);
+        this.app = app;
+      })
+    );
   }
 
   save() {
     this.app.appStatus = "Sent";
+    console.log(this.app);
     this.applicationsService.submitApp(this.app).subscribe(
       (response) => {
         if (response.indexOf("successfully") > -1) {
@@ -92,12 +97,18 @@ export class ApplyComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loginService.loggedIn.subscribe((response) => {
-      this.loggedIn = response;
-      if (response == true) {
-        this.applicationsService.getApplication();
-        this.getApp();
-      }
-    });
+    this.subscription.add(
+      this.loginService.loggedIn.subscribe((response) => {
+        this.loggedIn = response;
+        if (response == true) {
+          this.applicationsService.getApplication();
+          this.getApp();
+        }
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

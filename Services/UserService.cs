@@ -58,7 +58,7 @@ namespace LadsOnTour.Services
 
         public Task Update(User user)
         {
-            string[] propList = new string[] { "Nickname", "Class", "Role", "About", "Experience", "AppLogs", "Armory" };
+            string[] propList = new string[] { "Nickname", "Class", "Role", "About", "Experience", "AppLogs", "Armory", "BattleNet" };
             var local = FindOrAddUser(user.DiscordID);
 
             user.Role = WoWUtilities.CheckRole(user.Role, user.Class);

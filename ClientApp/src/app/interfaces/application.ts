@@ -1,7 +1,7 @@
 export interface IApplication {
   discord: string;
+  discordDiscriminator: string;
   nickname: string;
-  mainName: string;
   class: string;
   role: string;
   about: string;
@@ -9,4 +9,5 @@ export interface IApplication {
   armory: string;
   appStatus: string;
   appLogs: string;
+  battleNet: string;
 }

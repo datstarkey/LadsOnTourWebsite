@@ -26,9 +26,7 @@
         <div *ngIf="app.appStatus == 'Sent' || app.appStatus == 'Not Sent'">
           <table>
             <tr>
-              <td>
-                Nickname - What you like to be called:
-              </td>
+              <td>Nickname - What you like to be called:</td>
               <td>
                 <input
                   nbInput
@@ -40,9 +38,19 @@
             </tr>
 
             <tr>
+              <td>BattleNet</td>
               <td>
-                Class:
+                <input
+                  nbInput
+                  fullWidth
+                  type="text"
+                  [(ngModel)]="app.battleNet"
+                />
               </td>
+            </tr>
+
+            <tr>
+              <td>Class:</td>
               <td>
                 <nb-select fullWidth placeholder="TBC" [(ngModel)]="app.class">
                   <nb-option value="TBC">TBC</nb-option>
@@ -56,9 +64,7 @@
             </tr>
 
             <tr>
-              <td>
-                Role:
-              </td>
+              <td>Role:</td>
               <td>
                 <nb-select fullWidth placeholder="Role" [(ngModel)]="app.role">
                   <nb-option
@@ -76,18 +82,14 @@
             </tr>
 
             <tr>
-              <td>
-                Armory:
-              </td>
+              <td>Armory:</td>
               <td>
                 <input nbInput fullWidth type="text" [(ngModel)]="app.armory" />
               </td>
             </tr>
 
             <tr>
-              <td>
-                Logs:
-              </td>
+              <td>Logs:</td>
               <td>
                 <input
                   nbInput
@@ -115,9 +117,7 @@
             </tr>
 
             <tr>
-              <td>
-                Previous Experience:
-              </td>
+              <td>Previous Experience:</td>
               <td>
                 <textarea
                   class="text-area-default"
@@ -145,7 +145,7 @@
               nbButton
               status="danger"
               (click)="withdraw()"
-              style="margin-right: 5px;"
+              style="margin-right: 5px"
             >
               Withdraw App
             </button>
