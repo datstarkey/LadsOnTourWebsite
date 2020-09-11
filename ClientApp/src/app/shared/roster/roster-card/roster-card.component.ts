@@ -1,3 +1,4 @@
+import { IRosterUser } from "./../../../interfaces/rosterUser";
 import { Component, OnInit, Input } from "@angular/core";
 
 interface sortType {
@@ -15,14 +16,20 @@ export class RosterCardComponent implements OnInit {
 
   constructor() {}
 
-  count;
-  roles = [];
-  classes = [];
-  data = [];
-  filteredRole = "Role";
-  filteredClass = "Class";
-
-  sortableProperties = ["rankNumber", "nickname", "role", "class", "armory"];
+  count: number;
+  roles: string[] = [];
+  classes: string[] = [];
+  data: IRosterUser[] = [];
+  filteredRole: string = "Role";
+  filteredClass: string = "Class";
+  lastSort: string;
+  sortableProperties: string[] = [
+    "rankNumber",
+    "nickname",
+    "role",
+    "class",
+    "armory",
+  ];
 
   IsAscending: sortType[] = [
     {
@@ -77,6 +84,7 @@ export class RosterCardComponent implements OnInit {
         );
       }
       sortType.ascending = !sortType.ascending;
+      this.lastSort = property;
     }
   }
 
@@ -84,6 +92,8 @@ export class RosterCardComponent implements OnInit {
     this.filteredRole = "Role";
     this.filteredClass = "Class";
     this.filter();
+    this.sortRoster(this.lastSort);
+    this.sortRoster(this.lastSort);
   }
 
   getFilters() {
