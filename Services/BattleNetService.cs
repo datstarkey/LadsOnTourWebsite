@@ -22,6 +22,7 @@ namespace LadsOnTour.Services
         private string accessCode;
         private int kazzakID = 1305;
         private WarcraftClient warcraftClient;
+        public string WarCraftLogsApiKey;
 
         public BattleNetService(DatabaseContext context, IConfiguration config)
 
@@ -29,6 +30,7 @@ namespace LadsOnTour.Services
             this.context = context;
             clientId = config["BattleNet:ClientId"];
             clientSecret = config["BattleNet:ClientSecret"];
+            WarCraftLogsApiKey = config["WarcraftLogs:ApiKey"];
             warcraftClient = new WarcraftClient(clientId, clientSecret, Region.Europe, Locale.en_GB);
         }
 

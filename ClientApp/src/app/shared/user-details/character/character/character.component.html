@@ -13,9 +13,9 @@
           <td>
             <nb-select
               fullWidth
+              (selectedChange)="characterSelected()"
               placeholder="Character"
-              [(ngModel)]="selectedCharater"
-              [selectedChanged]="characterSelected()"
+              [(ngModel)]="selectedCharacter"
             >
               <nb-option
                 *ngFor="let character of characters"
@@ -39,28 +39,28 @@
         <tr>
           <td>Rank:</td>
           <td>
-            {{ selectedCharater.rank_name }}
+            {{ selectedCharacter.rank_name }}
           </td>
         </tr>
 
         <tr>
           <td>Level:</td>
           <td>
-            {{ selectedCharater.level }}
+            {{ selectedCharacter.level }}
           </td>
         </tr>
 
         <tr>
           <td>Guild:</td>
           <td>
-            {{ selectedCharater.guild }}
+            {{ selectedCharacter.guild }}
           </td>
         </tr>
 
         <tr>
           <td>Class:</td>
           <td>
-            {{ selectedCharater._class }}
+            {{ selectedCharacter._class }}
           </td>
         </tr>
 
@@ -70,18 +70,18 @@
             <nb-select
               fullWidth
               placeholder="Role"
-              [(ngModel)]="selectedCharater.role"
+              [(ngModel)]="selectedCharacter.role"
             >
               <nb-option
                 *ngIf="
-                  wowService.filterRoles(selectedCharater._class).length > 1
+                  wowService.filterRoles(selectedCharacter._class).length > 1
                 "
                 value="TBC"
                 >TBC</nb-option
               >
               <nb-option
                 *ngFor="
-                  let role of wowService.filterRoles(selectedCharater._class)
+                  let role of wowService.filterRoles(selectedCharacter._class)
                 "
                 [value]="role"
                 >{{ role }}</nb-option
@@ -93,8 +93,8 @@
         <tr>
           <td>ILevel:</td>
           <td>
-            {{ selectedCharater.equippedIlevel }} /
-            {{ selectedCharater.averageIlevel }}
+            {{ selectedCharacter.equippedIlevel }} /
+            {{ selectedCharacter.averageIlevel }}
           </td>
         </tr>
 

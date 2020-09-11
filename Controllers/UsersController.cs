@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using ArgentPonyWarcraftClient;
 using LadsOnTour.Models;
 using LadsOnTour.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -37,6 +38,16 @@ namespace LadsOnTour.Controllers
         [AllowAnonymous]
         [HttpGet("Roster")]
         public List<RosterDto> GetRoster() => userService.GetRoster();
+
+        /// <summary>
+        /// Returns the warcraft logs api key protected under cors
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("warcraftlogs")]
+        public IActionResult GetWarcraftLogsApiKey() =>Ok(Newtonsoft.Json.JsonConvert.SerializeObject(armory.WarCraftLogsApiKey));
+
+        [HttpGet("allmains")]
+        public List<WoWCharacter> GetAllMains() => userService.GetMains();
 
         /// <summary>
         /// Returns the current user from the JWT supplied

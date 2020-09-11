@@ -1,4 +1,4 @@
-import { TwitchService } from "../../services/twitch.service";
+import { TwitchService } from "../../services/twitch/twitch.service";
 import { ICharacter } from "../../interfaces/character";
 import { WowService } from "../../services/wow/wow.service";
 import { ThemeService } from "../../services/theme/theme.service";
@@ -6,6 +6,7 @@ import { Component, OnInit } from "@angular/core";
 import { UserService } from "../../services/user/user.service";
 import { IUser } from "../../interfaces/user";
 import { LoginService } from "../../services/login/login.service";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-user-details",
@@ -13,6 +14,7 @@ import { LoginService } from "../../services/login/login.service";
   styleUrls: ["./user-details.component.scss"],
 })
 export class UserDetailsComponent implements OnInit {
+  subscription: Subscription = new Subscription();
   loggedIn: boolean;
   user: IUser = {} as any;
   characters: ICharacter[] = {} as any;
@@ -27,24 +29,7 @@ export class UserDetailsComponent implements OnInit {
     private themeService: ThemeService,
     private wowService: WowService,
     private twitchService: TwitchService
-  ) {
-    this.classes = wowService.classes;
-
-    loginService.loggedIn.subscribe((response) => {
-      this.loggedIn = response;
-    });
-
-    userService.user.subscribe((response) => {
-      this.roles = ["Tank", "Melee", "Healer", "Ranged"];
-      this.user = response;
-      this.todos();
-    });
-
-    userService.characters.subscribe((response) => {
-      this.characters = response;
-      this.todos();
-    });
-  }
+  ) {}
 
   submitData() {
     this.userService.updateUser(this.user);
@@ -83,9 +68,35 @@ export class UserDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.loggedIn) {
-      this.userService.getCharacters();
-      this.userService.getUser();
-    }
+    this.classes = this.wowService.classes;
+
+    this.subscription.add(
+      this.loginService.loggedIn.subscribe((response) => {
+        this.loggedIn = response;
+        if (this.loggedIn) {
+          this.userService.getCharacters();
+          this.userService.getUser();
+        }
+      })
+    );
+
+    this.subscription.add(
+      this.userService.user.subscribe((response) => {
+        this.roles = ["Tank", "Melee", "Healer", "Ranged"];
+        this.user = response;
+        this.todos();
+      })
+    );
+
+    this.subscription.add(
+      this.userService.characters.subscribe((response) => {
+        this.characters = response;
+        this.todos();
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

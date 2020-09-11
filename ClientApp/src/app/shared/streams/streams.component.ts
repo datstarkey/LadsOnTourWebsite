@@ -1,7 +1,7 @@
 import { HttpHeaders } from "@angular/common/http";
 import { Subscription } from "rxjs";
 import { IStreams } from "../../interfaces/streams";
-import { TwitchService } from "../../services/twitch.service";
+import { TwitchService } from "../../services/twitch/twitch.service";
 import { Component, OnInit } from "@angular/core";
 
 declare const Twitch: any;

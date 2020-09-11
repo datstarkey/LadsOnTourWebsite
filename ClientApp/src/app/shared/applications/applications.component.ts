@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { IApplication } from "../../interfaces/application";
 import { LoginService } from "../../services/login/login.service";
 import { ApplicationsService } from "../../services/applications/applications.service";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-applications",
@@ -9,6 +10,7 @@ import { ApplicationsService } from "../../services/applications/applications.se
   styleUrls: ["./applications.component.scss"],
 })
 export class ApplicationsComponent implements OnInit {
+  subscription: Subscription = new Subscription();
   loggedIn: boolean;
   buttonText: string = "Submit";
   applications = { current: [], accepted: [], declined: [] };
@@ -23,7 +25,6 @@ export class ApplicationsComponent implements OnInit {
 
   selectApp(app: IApplication) {
     this.app = app;
-    console.log(app.class);
     this.app.appStatus == "Sent"
       ? (this.isAppCurrent = true)
       : (this.isAppCurrent = false);
@@ -36,22 +37,30 @@ export class ApplicationsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loginService.loggedIn.subscribe((response) => {
-      this.loggedIn = response;
-      if (response == true) {
-        this.applicationsService.getAllApplications();
-        this.applicationsService.applications.subscribe((response) => {
-          this.applications = this.applicationsService.sortApplications(
-            response
-          );
-          if (this.applications.current.length > 0) {
-            this.app = this.applications.current[0];
-          }
-        });
-      }
-    });
-    this.loginService.admin.subscribe((response) => {
-      this.admin = response;
-    });
+    this.subscription.add(
+      this.loginService.loggedIn.subscribe((response) => {
+        this.loggedIn = response;
+        if (response == true) {
+          this.applicationsService.getAllApplications();
+          this.applicationsService.applications.subscribe((response) => {
+            this.applications = this.applicationsService.sortApplications(
+              response
+            );
+            if (this.applications.current.length > 0) {
+              this.app = this.applications.current[0];
+            }
+          });
+        }
+      })
+    );
+    this.subscription.add(
+      this.loginService.admin.subscribe((response) => {
+        this.admin = response;
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

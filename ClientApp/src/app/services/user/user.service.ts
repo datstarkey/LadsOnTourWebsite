@@ -142,7 +142,7 @@ export class UserService {
   }
 
   getCharacters() {
-    var headers = this.headers;
+    const headers = this.headers;
     this.http
       .get<ICharacter[]>(`${this.baseUrl}/characters`, {
         headers,
@@ -153,7 +153,7 @@ export class UserService {
   }
 
   getUser() {
-    var headers = this.headers;
+    const headers = this.headers;
     this.http
       .get<IUser>(this.baseUrl, { headers })
       .subscribe((response) => {
@@ -163,7 +163,7 @@ export class UserService {
 
   adminUpdateAllUsers() {
     this.showToast("Updating", "Updating all users", "info", "bottom-right");
-    var headers = this.headers;
+    const headers = this.headers;
     this.http
       .post(
         `${this.baseUrl}/updateall`,
@@ -187,6 +187,16 @@ export class UserService {
           }
         }
       );
+  }
+
+  getWarcraftLogsApiKey(): Observable<any> {
+    const headers = this.headers;
+    return this.http.get<any>(`${this.baseUrl}/warcraftlogs`, { headers });
+  }
+
+  getRosterMains(): Observable<ICharacter[]> {
+    const headers = this.headers;
+    return this.http.get<ICharacter[]>(`${this.baseUrl}/allmains`, { headers });
   }
 
   getRosterData(): Observable<IRosterUser[]> {

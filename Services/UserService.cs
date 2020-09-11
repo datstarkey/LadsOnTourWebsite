@@ -56,6 +56,13 @@ namespace LadsOnTour.Services
             return local;
         }
 
+        public List<WoWCharacter> GetMains()
+        {
+            var raidersWithMains = context.users.Where(u => u.Main != 0 && u.InDiscord == "Yes").Select(u => u.Main).ToList();
+            var wowCharacters = context.wow_characters.Where(c => raidersWithMains.Contains(c.character_id)).ToList();
+            return wowCharacters;
+        }
+
         public Task Update(User user)
         {
             string[] propList = new string[] { "Nickname", "Class", "Role", "About", "Experience", "AppLogs", "Armory", "BattleNet" };
@@ -155,11 +162,10 @@ namespace LadsOnTour.Services
                         user.Rank = character.rank_name;
                     }
                 }
-                catch 
+                catch
                 {
                     Console.WriteLine($"Main missing ${user.Discord}");
                 }
-          
             }
             context.SaveChanges();
         }

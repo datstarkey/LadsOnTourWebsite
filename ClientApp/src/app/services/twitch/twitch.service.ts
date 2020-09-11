@@ -1,8 +1,7 @@
-import { IStreams } from "./../interfaces/streams";
+import { IStreams } from "../../interfaces/streams";
 import { Observable } from "rxjs";
-import { UserService } from "./user/user.service";
 import { Router } from "@angular/router";
-import { LoginService } from "./login/login.service";
+import { LoginService } from "../login/login.service";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
@@ -15,11 +14,7 @@ export class TwitchService {
     "dashboard/user?&twitch=true";
   encodedUrl: string = encodeURIComponent(this.baseUrl);
 
-  constructor(
-    private http: HttpClient,
-    private router: Router,
-    private loginService: LoginService
-  ) {}
+  constructor(private http: HttpClient, private loginService: LoginService) {}
 
   getStreamData(): Observable<IStreams> {
     return this.http.get<IStreams>(`${this.loginService.baseUrl}api/v1/twitch`);

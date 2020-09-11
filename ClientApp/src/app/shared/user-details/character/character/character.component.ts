@@ -14,7 +14,7 @@ import { NbToastrService } from "@nebular/theme";
 export class CharacterComponent implements OnInit {
   @Input() user: IUser;
   @Input() characters: ICharacter[];
-  selectedCharater: ICharacter = {} as any;
+  selectedCharacter: ICharacter = {} as any;
 
   mainChecked: boolean;
   classes = [];
@@ -31,7 +31,10 @@ export class CharacterComponent implements OnInit {
   }
 
   characterSelected() {
-    if (this.selectedCharater.character_id == this.user.main) {
+    if (
+      this.selectedCharacter != null &&
+      this.selectedCharacter.character_id == this.user.main
+    ) {
       this.mainChecked = true;
     } else {
       this.mainChecked = false;
@@ -40,28 +43,28 @@ export class CharacterComponent implements OnInit {
 
   toggle(checked: boolean) {
     if (checked) {
-      this.userService.updateCharacter(this.selectedCharater, true, false);
+      this.userService.updateCharacter(this.selectedCharacter, true, false);
       this.showToast("bottom-right");
     }
   }
 
   updateCharacter() {
-    this.userService.updateCharacter(this.selectedCharater, this.mainChecked);
+    this.userService.updateCharacter(this.selectedCharacter, this.mainChecked);
   }
 
   ngOnInit() {}
 
   ngOnChanges() {
-    if (this.selectedCharater.name == null && this.characters.length > 0) {
+    if (this.selectedCharacter.name == null && this.characters.length > 0) {
       if (this.user.main != 0) {
         var main = this.characters.find(
           (c) => c.character_id == this.user.main
         );
         if (main != null) {
-          this.selectedCharater = main;
+          this.selectedCharacter = main;
         }
       } else {
-        this.selectedCharater = this.characters[0];
+        this.selectedCharacter = this.characters[0];
       }
       this.characterSelected();
     }

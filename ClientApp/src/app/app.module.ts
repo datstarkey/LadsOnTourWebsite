@@ -1,3 +1,5 @@
+import { WarcraftlogsService } from "./services/warcraftlogs/warcraftlogs.service";
+import { TwitchService } from "./services/twitch/twitch.service";
 import { AddonsComponent } from "./shared/addons/addons.component";
 import { StreamsComponent } from "./shared/streams/streams.component";
 import { CharacterComponent } from "./shared/user-details/character/character/character.component";
@@ -84,7 +86,14 @@ import { DashboardNavComponent } from "./dashboard/dashboard-nav/dashboard-nav.c
     NbCheckboxModule,
     NbAccordionModule,
   ],
-  providers: [CookieService, LoginService, UserService, ThemeService],
+  providers: [
+    CookieService,
+    LoginService,
+    UserService,
+    ThemeService,
+    TwitchService,
+    WarcraftlogsService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
