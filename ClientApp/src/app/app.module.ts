@@ -1,3 +1,4 @@
+import { LogsComponent } from "./shared/logs/logs.component";
 import { WarcraftlogsService } from "./services/warcraftlogs/warcraftlogs.service";
 import { TwitchService } from "./services/twitch/twitch.service";
 import { AddonsComponent } from "./shared/addons/addons.component";
@@ -60,6 +61,7 @@ import { DashboardNavComponent } from "./dashboard/dashboard-nav/dashboard-nav.c
     DashboardNavComponent,
     StreamsComponent,
     AddonsComponent,
+    LogsComponent,
   ],
   imports: [
     FormsModule,

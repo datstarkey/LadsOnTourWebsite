@@ -46,6 +46,10 @@ namespace LadsOnTour.Controllers
         [HttpGet("warcraftlogs")]
         public IActionResult GetWarcraftLogsApiKey() =>Ok(Newtonsoft.Json.JsonConvert.SerializeObject(armory.WarCraftLogsApiKey));
 
+        /// <summary>
+        /// returns all wow charcters that are mains
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("allmains")]
         public List<WoWCharacter> GetAllMains() => userService.GetMains();
 

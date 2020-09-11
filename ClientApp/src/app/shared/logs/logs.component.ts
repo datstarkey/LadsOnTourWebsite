@@ -14,10 +14,19 @@ interface IDifficulty {
 interface logData {
   name: string;
   character: ICharacter;
-  logs: ILogRanking;
+  logs: ILogRanking[];
 }
 
-interface logResultsData {}
+interface tableRow {
+  name: string;
+  average: number;
+  percentiles: tableLog[];
+}
+
+interface tableLog {
+  display: string;
+  url: string;
+}
 
 @Component({
   selector: "app-logs",
@@ -34,12 +43,16 @@ export class LogsComponent implements OnInit {
   zone: ILogZone;
   zones: ILogZone[];
 
-  difficulty: IDifficulty;
+  headers: string[];
+  tableData: tableLog[];
+
   difficulties: IDifficulty[] = [
     { name: "Normal", number: 3 },
     { name: "Heroic", number: 4 },
     { name: "Mythic", number: 5 },
   ];
+
+  difficulty: IDifficulty = this.difficulties[1];
 
   metric: string = "dps";
   metrics: string[] = ["dps", "hps", "bossdps"];
@@ -50,6 +63,7 @@ export class LogsComponent implements OnInit {
   ) {}
 
   async getLogs() {
+    console.log("Getting Logs");
     this.logData = [];
     this.rosterMains.forEach((main) => {
       this.getRankingsAsync(main);
@@ -71,20 +85,76 @@ export class LogsComponent implements OnInit {
       });
   }
 
-  ngOnInit() {
+  filterLog() {
+    //Clear table data
+    let tableData = [];
+
+    //for each person we have logs for
+    this.logData.forEach((person) => {
+      //create a new tablerow
+      let row: tableRow = {
+        name: person.name,
+        average: 0,
+        percentiles: [],
+      };
+
+      //Add percentile for each boss
+      this.headers.forEach((boss) => {
+        let log = person.logs.find((log) => {
+          log.encounterName == boss;
+        });
+        let data: tableLog = {
+          display: log.percentile.toString(),
+          url: log.reportID,
+        };
+        row.percentiles.push(data);
+      });
+
+      //Add to table
+      tableData.push(row);
+    });
+  }
+
+  changeZone() {
+    this.headers = this.zone.encounters.map((e) => e.name);
+    this.getLogs();
+  }
+
+  changeMetric(metric) {
+    this.metric = metric;
+    this.getLogs();
+  }
+
+  changeDifficulty(difficulty: IDifficulty) {
+    this.difficulty = difficulty;
+  }
+
+  getCharacters() {
     this.subscription.add(
       this.userService.getRosterMains().subscribe((result) => {
         this.rosterMains = result;
 
         this.subscription.add(
-          this.warcraftLogs.getZones().subscribe((result) => {
-            this.zones = result;
-            this.zone = this.zones.find((z) => z.id == this.defaultZone);
-            this.getLogs();
+          this.warcraftLogs.apiKey.subscribe((result) => {
+            console.log(result);
+            if (result.length > 0) {
+              this.subscription.add(
+                this.warcraftLogs.getZones().subscribe((result) => {
+                  this.zones = result;
+                  this.zone = this.zones.find((z) => z.id == this.defaultZone);
+                  this.headers = this.zone.encounters.map((e) => e.name);
+                  this.getLogs();
+                })
+              );
+            }
           })
         );
       })
     );
+  }
+
+  ngOnInit() {
+    this.getCharacters();
   }
 
   ngOnDestroy() {

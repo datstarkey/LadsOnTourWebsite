@@ -1,1 +1,55 @@
-<p>comming soon tm</p>
+<div class="animate__animated animate__fadeIn">
+  <nb-card>
+    <nb-card-header>
+      <div class="logs-header">
+        <h4>Warcraft Logs</h4>
+
+        <nb-select
+          fullWidth
+          placeholder="Raid"
+          [(ngModel)]="zone"
+          (selectedChange)="changeZone()"
+          style="width: 20%"
+        >
+          <nb-option *ngFor="let z of zones" [value]="z">{{
+            z.name
+          }}</nb-option>
+        </nb-select>
+
+        <div class="metrics">
+          <div
+            class="metric"
+            *ngFor="let m of metrics"
+            [ngClass]="{ selected: m == metric }"
+            (click)="changeMetric(m)"
+          >
+            {{ m }}
+          </div>
+        </div>
+
+        <div class="difficulties">
+          <div
+            class="difficulty"
+            *ngFor="let d of difficulties"
+            [ngClass]="{ selected: d == difficulty }"
+            (click)="changeDifficulty(d)"
+          >
+            {{ d.name }}
+          </div>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <table class="logs-table">
+        <thead>
+          <th>Name</th>
+          <th>Average</th>
+
+          <th *ngFor="let h of headers" style="text-align: center">
+            {{ h }}
+          </th>
+        </thead>
+      </table>
+    </nb-card-body>
+  </nb-card>
+</div>
