@@ -25,6 +25,10 @@ export class WarcraftlogsService {
     });
   }
 
+  openReportNewTab(reportId: string) {
+    return `https://www.warcraftlogs.com/reports/${reportId}`;
+  }
+
   getCharacterRankings(
     character: ICharacter,
     zone: number,
