@@ -214,8 +214,7 @@ export class LogsComponent implements OnInit {
 
         this.subscription.add(
           this.warcraftLogs.apiKey.subscribe((result) => {
-            console.log(result);
-            if (result.length > 0) {
+            if (result != null && result.length > 0) {
               this.subscription.add(
                 this.warcraftLogs.getZones().subscribe((result) => {
                   this.zones = result.filter((zone) =>
