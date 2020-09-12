@@ -12,13 +12,46 @@
   margin: 0 5px;
   cursor: pointer;
   text-transform: uppercase;
+  border-radius: 30px;
+  border: white 1px solid;
+  opacity: 0.6;
 }
 
 .selected {
   background-color: var(--color-info-500);
-  border-radius: 30px;
+  opacity: 1;
+  border: var(--color-info-500) 1px solid;
 }
 
 .logs-table {
   width: 100%;
+  table-layout: fixed;
+}
+
+td,
+th {
+  text-align: center;
+}
+
+.gold {
+  color: #e5cc80;
+}
+
+.pink {
+  color: #e26898;
+}
+
+.orange {
+  color: #d68000;
+}
+
+.purple {
+  color: #8335ee;
+}
+
+.blue {
+  color: #0070ef;
+}
+.green {
+  color: greenyellow;
 }

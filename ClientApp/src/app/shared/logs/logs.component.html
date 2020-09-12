@@ -40,15 +40,39 @@
       </div>
     </nb-card-header>
     <nb-card-body>
-      <table class="logs-table">
+      <ngx-spinner
+        bdColor="rgba(51,51,51,0.4)"
+        size="medium"
+        type="cube-transition"
+      >
+        <h6>Loading : {{ loading.current }}/{{ loading.max }}</h6>
+      </ngx-spinner>
+
+      <table class="display-table logs-table">
         <thead>
           <th>Name</th>
           <th>Average</th>
 
-          <th *ngFor="let h of headers" style="text-align: center">
+          <th *ngFor="let h of headers">
             {{ h }}
           </th>
         </thead>
+        <tbody>
+          <tr *ngFor="let row of tableData">
+            <td>
+              {{ row.name }}
+            </td>
+            <td class="{{ getColor(row.average) }}">
+              {{ row.average }}
+            </td>
+            <td
+              *ngFor="let p of row.percentiles"
+              class="{{ getColor(p.display) }}"
+            >
+              {{ p.display }}
+            </td>
+          </tr>
+        </tbody>
       </table>
     </nb-card-body>
   </nb-card>

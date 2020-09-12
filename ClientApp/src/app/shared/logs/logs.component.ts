@@ -5,6 +5,8 @@ import { UserService } from "./../../services/user/user.service";
 import { WarcraftlogsService } from "./../../services/warcraftlogs/warcraftlogs.service";
 import { Component, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
+import { NgxSpinnerService } from "ngx-spinner";
+import { table } from "console";
 
 interface IDifficulty {
   name: string;
@@ -28,6 +30,12 @@ interface tableLog {
   url: string;
 }
 
+interface loading {
+  current: number;
+  max: number;
+  isLoading: boolean;
+}
+
 @Component({
   selector: "app-logs",
   templateUrl: "./logs.component.html",
@@ -37,6 +45,12 @@ export class LogsComponent implements OnInit {
   subscription: Subscription = new Subscription();
   rosterMains: ICharacter[];
   logData: logData[];
+
+  loading: loading = {
+    current: 0,
+    max: 0,
+    isLoading: false,
+  };
 
   defaultZone: number = 19;
 
@@ -57,14 +71,39 @@ export class LogsComponent implements OnInit {
   metric: string = "dps";
   metrics: string[] = ["dps", "hps", "bossdps"];
 
+  raids: string[] = [
+    "Throne of Thunder",
+    "Siege of Orgrimmar",
+    "Highmaul",
+    "Blackrock Foundry",
+    "Hellfire Citadel",
+    "Emerald Nightmare",
+    "The Nighthold",
+    "Trial of Valor",
+    "Tomb of Sargeras",
+    "Antorus, The Burning Throne",
+    "Uldir",
+    "Battle of Dazar'alor",
+    "Cruicible of Storms",
+    "The Eternal Palace",
+    "Ny'alotha",
+  ];
+
   constructor(
     private warcraftLogs: WarcraftlogsService,
-    private userService: UserService
+    private userService: UserService,
+    private spinner: NgxSpinnerService
   ) {}
 
   async getLogs() {
-    console.log("Getting Logs");
+    this.loading = {
+      current: 0,
+      max: this.rosterMains.length,
+      isLoading: true,
+    };
+    this.spinner.show();
     this.logData = [];
+    this.tableData = [];
     this.rosterMains.forEach((main) => {
       this.getRankingsAsync(main);
     });
@@ -81,11 +120,13 @@ export class LogsComponent implements OnInit {
         };
 
         this.logData.push(data);
-        console.log(this.logData);
+        this.filterLog();
       });
   }
 
   filterLog() {
+    console.log("filtering log");
+    this.tableData = [];
     //Clear table data
     let tableData = [];
 
@@ -98,20 +139,55 @@ export class LogsComponent implements OnInit {
         percentiles: [],
       };
 
+      let total = 0;
       //Add percentile for each boss
       this.headers.forEach((boss) => {
-        let log = person.logs.find((log) => {
-          log.encounterName == boss;
+        //Sort Logs by Boss and difficulty
+        let log: ILogRanking;
+        let logs = person.logs.filter((log) => {
+          return (
+            log.difficulty == this.difficulty.number &&
+            log.encounterName == boss
+          );
         });
-        let data: tableLog = {
-          display: log.percentile.toString(),
-          url: log.reportID,
-        };
+
+        //return highest percentile log
+        if (logs) {
+          logs = logs.sort((a, b) => (a.percentile < b.percentile ? 1 : -1));
+          log = logs[0];
+        }
+
+        console.log(log);
+
+        //enter log data
+        let data: tableLog;
+        if (log) {
+          data = {
+            display: Math.round(log.percentile).toString(),
+            url: log.reportID,
+          };
+          total += log.percentile;
+        } else {
+          data = {
+            display: "N/A",
+            url: null,
+          };
+        }
         row.percentiles.push(data);
       });
 
+      row.average = Math.round(total / this.headers.length);
       //Add to table
       tableData.push(row);
+      this.loading.current++;
+
+      if (this.loading.current >= this.loading.max) {
+        this.loading.isLoading = false;
+        this.spinner.hide();
+      }
+
+      tableData = tableData.sort((a, b) => (a.average < b.average ? 1 : -1));
+      this.tableData = tableData;
     });
   }
 
@@ -127,6 +203,8 @@ export class LogsComponent implements OnInit {
 
   changeDifficulty(difficulty: IDifficulty) {
     this.difficulty = difficulty;
+    console.log(this.difficulty);
+    this.filterLog();
   }
 
   getCharacters() {
@@ -140,7 +218,9 @@ export class LogsComponent implements OnInit {
             if (result.length > 0) {
               this.subscription.add(
                 this.warcraftLogs.getZones().subscribe((result) => {
-                  this.zones = result;
+                  this.zones = result.filter((zone) =>
+                    this.raids.includes(zone.name)
+                  );
                   this.zone = this.zones.find((z) => z.id == this.defaultZone);
                   this.headers = this.zone.encounters.map((e) => e.name);
                   this.getLogs();
@@ -151,6 +231,26 @@ export class LogsComponent implements OnInit {
         );
       })
     );
+  }
+
+  getColor(value: string) {
+    if (value != "N/A") {
+      let number = parseInt(value);
+
+      if (number >= 100) {
+        return "gold";
+      } else if (number == 99) {
+        return "pink";
+      } else if (number < 99 && number >= 90) {
+        return "orange";
+      } else if (number < 90 && number >= 76) {
+        return "purple";
+      } else if (number < 76 && number >= 50) {
+        return "blue";
+      } else {
+        return "green";
+      }
+    }
   }
 
   ngOnInit() {

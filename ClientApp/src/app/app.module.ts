@@ -45,6 +45,7 @@ import { DashboardComponent } from "./dashboard/dashboard.component";
 import { MainComponent } from "./main/main.component";
 import { NavBarComponent } from "./main/nav-bar/nav-bar.component";
 import { DashboardNavComponent } from "./dashboard/dashboard-nav/dashboard-nav.component";
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
   declarations: [
@@ -87,6 +88,7 @@ import { DashboardNavComponent } from "./dashboard/dashboard-nav/dashboard-nav.c
     NbSpinnerModule,
     NbCheckboxModule,
     NbAccordionModule,
+    NgxSpinnerModule,
   ],
   providers: [
     CookieService,
