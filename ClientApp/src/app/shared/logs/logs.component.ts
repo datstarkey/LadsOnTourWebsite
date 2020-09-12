@@ -139,7 +139,6 @@ export class LogsComponent implements OnInit {
   }
 
   filterLog() {
-    console.log("filtering log");
     this.tableData = [];
     //Clear table data
     let tableData = [];
@@ -170,8 +169,6 @@ export class LogsComponent implements OnInit {
           logs = logs.sort((a, b) => (a.percentile < b.percentile ? 1 : -1));
           log = logs[0];
         }
-
-        console.log(log);
 
         //enter log data
         let data: tableLog;
@@ -211,7 +208,6 @@ export class LogsComponent implements OnInit {
 
   changeDifficulty(difficulty: IDifficulty) {
     this.difficulty = difficulty;
-    console.log(this.difficulty);
     this.filterLog();
   }
 
