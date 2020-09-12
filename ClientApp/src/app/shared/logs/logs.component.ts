@@ -132,6 +132,7 @@ export class LogsComponent implements OnInit {
       logs: result,
     };
     this.logData.push(data);
+    this.increaseLoading();
     this.filterLog();
   }
 
