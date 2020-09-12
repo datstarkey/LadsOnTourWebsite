@@ -120,6 +120,12 @@ export class LogsComponent implements OnInit {
         };
 
         this.logData.push(data);
+        this.loading.current++;
+
+        if (this.loading.current >= this.loading.max) {
+          this.loading.isLoading = false;
+          this.spinner.hide();
+        }
         this.filterLog();
       });
   }
@@ -179,12 +185,6 @@ export class LogsComponent implements OnInit {
       row.average = Math.round(total / this.headers.length);
       //Add to table
       tableData.push(row);
-      this.loading.current++;
-
-      if (this.loading.current >= this.loading.max) {
-        this.loading.isLoading = false;
-        this.spinner.hide();
-      }
 
       tableData = tableData.sort((a, b) => (a.average < b.average ? 1 : -1));
       this.tableData = tableData;
