@@ -7,6 +7,7 @@ import { Component, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
 import { NgxSpinnerService } from "ngx-spinner";
 import { table } from "console";
+import { catchError, retry } from "rxjs/operators";
 
 interface IDifficulty {
   name: string;
@@ -112,19 +113,26 @@ export class LogsComponent implements OnInit {
   getRankingsAsync(character: ICharacter) {
     this.warcraftLogs
       .getCharacterRankings(character, this.zone.id, this.metric)
-      .subscribe((result) => {
-        let data: logData = {
-          name: character.name,
-          character: character,
-          logs: result,
-        };
-        this.logData.push(data);
-        this.filterLog(),
-          (error) => {},
-          () => {
-            this.increaseLoading();
-          };
-      });
+
+      .subscribe(
+        (res) => this.createDataLog(res, character),
+        (err) => this.handleError(err)
+      );
+  }
+
+  handleError(error) {
+    console.log("error");
+    this.increaseLoading();
+  }
+
+  createDataLog(result, character) {
+    let data: logData = {
+      name: character.name,
+      character: character,
+      logs: result,
+    };
+    this.logData.push(data);
+    this.filterLog();
   }
 
   increaseLoading() {
