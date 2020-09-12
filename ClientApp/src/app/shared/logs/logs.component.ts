@@ -120,14 +120,22 @@ export class LogsComponent implements OnInit {
         };
 
         this.logData.push(data);
-        this.loading.current++;
-
-        if (this.loading.current >= this.loading.max) {
-          this.loading.isLoading = false;
-          this.spinner.hide();
-        }
-        this.filterLog();
+        this.increaseLoading();
+        this.filterLog(),
+          (error) => {
+            console.log(error);
+            this.increaseLoading();
+          };
       });
+  }
+
+  increaseLoading() {
+    this.loading.current++;
+
+    if (this.loading.current >= this.loading.max) {
+      this.loading.isLoading = false;
+      this.spinner.hide();
+    }
   }
 
   filterLog() {
