@@ -194,9 +194,13 @@ export class LogsComponent implements OnInit {
         row.percentiles.push(data);
       });
 
-      let average = total / bossNumber;
+      if (bossNumber > 0) {
+        let average = total / bossNumber;
+        row.average = Math.round(average * 10) / 10;
+      } else {
+        row.average = 0;
+      }
 
-      row.average = Math.round(average * 10) / 10;
       //Add to table
       tableData.push(row);
 
