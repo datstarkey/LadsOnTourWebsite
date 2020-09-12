@@ -158,6 +158,7 @@ export class LogsComponent implements OnInit {
       };
 
       let total = 0;
+      let bossNumber = 0;
       //Add percentile for each boss
       this.headers.forEach((boss) => {
         //Sort Logs by Boss and difficulty
@@ -179,11 +180,11 @@ export class LogsComponent implements OnInit {
         let data: tableLog;
         if (log) {
           data = {
-            display: Math.floor(log.percentile).toString(),
+            display: Math.round(log.percentile).toString(),
             url: log.reportID,
           };
-
           total += Math.round(log.percentile);
+          bossNumber++;
         } else {
           data = {
             display: "N/A",
@@ -193,7 +194,7 @@ export class LogsComponent implements OnInit {
         row.percentiles.push(data);
       });
 
-      let average = total / this.headers.length;
+      let average = total / bossNumber;
 
       row.average = Math.round(average * 10) / 10;
       //Add to table
