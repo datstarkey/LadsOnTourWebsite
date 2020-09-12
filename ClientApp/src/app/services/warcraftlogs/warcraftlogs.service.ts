@@ -35,7 +35,7 @@ export class WarcraftlogsService {
     metric: string
   ): Observable<ILogRanking[]> {
     return this.http.get<ILogRanking[]>(
-      `${this.baseUrl}rankings/character/${character.name}/kazzak/eu?zone=${zone}&metric=${metric}&api_key=${this.ApiKey}`
+      `${this.baseUrl}rankings/character/${character.name}/kazzak/eu?zone=${zone}&metric=${metric}&api_key=${this.ApiKey}&timeframe=historic`
     );
   }
 

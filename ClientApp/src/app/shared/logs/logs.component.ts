@@ -6,8 +6,6 @@ import { WarcraftlogsService } from "./../../services/warcraftlogs/warcraftlogs.
 import { Component, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
 import { NgxSpinnerService } from "ngx-spinner";
-import { table } from "console";
-import { catchError, retry } from "rxjs/operators";
 
 interface IDifficulty {
   name: string;
@@ -181,10 +179,11 @@ export class LogsComponent implements OnInit {
         let data: tableLog;
         if (log) {
           data = {
-            display: Math.round(log.percentile).toString(),
+            display: Math.floor(log.percentile).toString(),
             url: log.reportID,
           };
-          total += log.percentile;
+
+          total += Math.round(log.percentile);
         } else {
           data = {
             display: "N/A",
@@ -194,13 +193,23 @@ export class LogsComponent implements OnInit {
         row.percentiles.push(data);
       });
 
-      row.average = Math.round(total / this.headers.length);
+      let average = total / this.headers.length;
+
+      row.average = Math.round(average * 10) / 10;
       //Add to table
       tableData.push(row);
 
       tableData = tableData.sort((a, b) => (a.average < b.average ? 1 : -1));
       this.tableData = tableData;
     });
+  }
+
+  roundPercentile(value: string) {
+    if (value != "N/A") {
+      let number = parseInt(value);
+      return Math.round(number);
+    }
+    return value;
   }
 
   changeZone() {
@@ -251,9 +260,9 @@ export class LogsComponent implements OnInit {
         return "gold";
       } else if (number == 99) {
         return "pink";
-      } else if (number < 99 && number >= 90) {
+      } else if (number < 99 && number >= 95) {
         return "orange";
-      } else if (number < 90 && number >= 76) {
+      } else if (number < 95 && number >= 76) {
         return "purple";
       } else if (number < 76 && number >= 50) {
         return "blue";
