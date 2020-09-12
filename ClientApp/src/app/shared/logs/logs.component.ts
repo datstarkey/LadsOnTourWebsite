@@ -113,6 +113,7 @@ export class LogsComponent implements OnInit {
     this.warcraftLogs
       .getCharacterRankings(character, this.zone.id, this.metric)
       .subscribe((result) => {
+        console.log(result);
         let data: logData = {
           name: character.name,
           character: character,
