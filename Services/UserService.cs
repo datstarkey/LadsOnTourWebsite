@@ -68,7 +68,8 @@ namespace LadsOnTour.Services
             string[] propList = new string[] { "Nickname", "Class", "Role", "About", "Experience", "AppLogs", "Armory", "BattleNet" };
             var local = FindOrAddUser(user.DiscordID);
 
-            user.Role = WoWUtilities.CheckRole(user.Role, user.Class);
+            if (user.Class != "TBC")
+                user.Role = WoWUtilities.CheckRole(user.Role, user.Class);
             Utils.CopyProperties(local, user, propList);
             if (user.AppStatus == "Sent" || user.AppStatus == "Not Sent")
                 local.AppStatus = user.AppStatus;

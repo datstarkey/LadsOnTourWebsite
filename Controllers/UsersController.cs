@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using ArgentPonyWarcraftClient;
-using LadsOnTour.Models;
+﻿using LadsOnTour.Models;
 using LadsOnTour.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace LadsOnTour.Controllers
 {
@@ -44,7 +38,7 @@ namespace LadsOnTour.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("warcraftlogs")]
-        public IActionResult GetWarcraftLogsApiKey() =>Ok(Newtonsoft.Json.JsonConvert.SerializeObject(armory.WarCraftLogsApiKey));
+        public IActionResult GetWarcraftLogsApiKey() => Ok(Newtonsoft.Json.JsonConvert.SerializeObject(armory.WarCraftLogsApiKey));
 
         /// <summary>
         /// returns all wow charcters that are mains
