@@ -2,6 +2,7 @@
 @import "~@nebular/theme/styles/globals";
 @import "responsive";
 @import "../node_modules/animate.css/animate.css";
+@import "~angular-calendar/scss/angular-calendar.scss";
 
 @include nb-install() {
   @include nb-theme-global();
@@ -24,6 +25,31 @@
   --tbc: #000000;
 
   background-color: black;
+}
+
+$bg-dark-primary: #1f262d;
+$bg-dark-secondary: #394046;
+$text-color: #d5d6d7;
+$border-color: rgba(0, 0, 0, 0.6);
+
+// Call the calendar mixin with a sass color map of your theme. Every property is optional.
+// For a list of all variables and how they are used,
+// see https://github.com/mattlewis92/angular-calendar/tree/master/projects/angular-calendar/src/variables.scss
+@include cal-theme(
+  (
+    bg-primary: var(--card-background-color),
+    bg-secondary: $bg-dark-secondary,
+    weekend-color: indianred,
+    bg-active: #2c343a,
+    border-color: var(--card-border-color),
+    gray: $bg-dark-secondary,
+    today-bg: $bg-dark-secondary,
+    event-color-primary: $bg-dark-secondary,
+  )
+);
+
+.cal-month-view .cal-day-cell.cal-out-month .cal-day-number {
+  opacity: 0.15;
 }
 
 :-moz-any(#content, #appcontent) browser {

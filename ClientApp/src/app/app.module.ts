@@ -1,3 +1,4 @@
+import { CalendarComponent } from "./shared/calendar/calendar.component";
 import { LogsComponent } from "./shared/logs/logs.component";
 import { WarcraftlogsService } from "./services/warcraftlogs/warcraftlogs.service";
 import { TwitchService } from "./services/twitch/twitch.service";
@@ -46,8 +47,8 @@ import { MainComponent } from "./main/main.component";
 import { NavBarComponent } from "./main/nav-bar/nav-bar.component";
 import { DashboardNavComponent } from "./dashboard/dashboard-nav/dashboard-nav.component";
 import { NgxSpinnerModule } from "ngx-spinner";
-import { CalendarModule, DateAdapter } from 'angular-calendar';
-import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { CalendarModule, DateAdapter } from "angular-calendar";
+import { adapterFactory } from "angular-calendar/date-adapters/date-fns";
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     StreamsComponent,
     AddonsComponent,
     LogsComponent,
+    CalendarComponent,
   ],
   imports: [
     FormsModule,
@@ -91,7 +93,10 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     NbCheckboxModule,
     NbAccordionModule,
     NgxSpinnerModule,
-    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
   ],
   providers: [
     CookieService,
