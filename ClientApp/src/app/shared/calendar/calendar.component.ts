@@ -17,6 +17,7 @@ export class CalendarComponent implements OnInit {
   viewDate = new Date();
   roster: IRosterUser[];
   raidersOnDay: number = 0;
+  locale: string = "en";
 
   excludeDays: number[] = [5, 6];
   weekStartsOn = DAYS_OF_WEEK.WEDNESDAY;
