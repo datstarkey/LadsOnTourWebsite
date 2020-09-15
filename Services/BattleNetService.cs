@@ -12,7 +12,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LadsOnTour.Services
+namespace LadsOnTour.Servicesa
 {
     public class BattleNetService
     {
@@ -258,7 +258,8 @@ namespace LadsOnTour.Services
         /// </summary>
         /// <param name="character"></param>
         /// <returns></returns>
-        private string ConvertToArmoryURL(WoWCharacter character) => $"https://worldofwarcraft.com/en-gb/character/eu/{character.realm}/{character.name}";
+        private string ConvertToArmoryURL(WoWCharacter character)
+            => $"https://worldofwarcraft.com/en-gb/character/eu/{character.realm}/{character.name}";
 
         /// <summary>
         /// Set the ranks for guild members
