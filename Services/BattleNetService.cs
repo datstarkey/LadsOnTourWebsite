@@ -169,6 +169,11 @@ namespace LadsOnTour.Services
             }
         }
 
+        /// <summary>
+        /// Updates equipment for a set character
+        /// </summary>
+        /// <param name="character"></param>
+        /// <returns></returns>
         private async Task<WoWCharacter> UpdateEquipment(WoWCharacter character)
         {
             var equipment = await warcraftClient.GetCharacterEquipmentSummaryAsync(character.realm.ToLower(), character.name.ToLower(), "profile-eu");
@@ -238,10 +243,29 @@ namespace LadsOnTour.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public List<WoWCharacter> GetCharacters(string id) => context.wow_characters.Where(c => c.discord_id == id).ToList();
+        public List<WoWCharacter> GetCharacters(string id)
+            => context.wow_characters.Where(c => c.discord_id == id).ToList();
 
+        /// <summary>
+        /// Returns all characters from the database
+        /// </summary>
+        /// <returns></returns>
+        public List<WoWCharacter> GetAllChacters()
+            => context.wow_characters.ToList();
+
+        /// <summary>
+        /// Generate the Armory url from a character model
+        /// </summary>
+        /// <param name="character"></param>
+        /// <returns></returns>
         private string ConvertToArmoryURL(WoWCharacter character) => $"https://worldofwarcraft.com/en-gb/character/eu/{character.realm}/{character.name}";
 
+        /// <summary>
+        /// Set the ranks for guild members
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="all"></param>
+        /// <returns></returns>
         public async Task<Task> SetGuildRanks(string id, bool all = false)
         {
             await SetToken();

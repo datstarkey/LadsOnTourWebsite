@@ -31,6 +31,9 @@ namespace LadsOnTour.Services
             return mapper.Map<UserDto>(user);
         }
 
+        public List<UserDto> GetAllUsers()
+            => mapper.Map<List<UserDto>>(context.users).ToList();
+
         public ApplicationDto GetApplication(string id)
         {
             var user = context.users.Find(id);
@@ -73,6 +76,18 @@ namespace LadsOnTour.Services
             Utils.CopyProperties(local, user, propList);
             if (user.AppStatus == "Sent" || user.AppStatus == "Not Sent")
                 local.AppStatus = user.AppStatus;
+
+            context.SaveChanges();
+            return Task.CompletedTask;
+        }
+
+        public Task AdminUpdate(User user)
+        {
+            var local = FindOrAddUser(user.DiscordID);
+            if (user.Class != "TBC")
+                user.Role = WoWUtilities.CheckRole(user.Role, user.Class);
+
+            Utils.CopyProperties(local, user);
 
             context.SaveChanges();
             return Task.CompletedTask;

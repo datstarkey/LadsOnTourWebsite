@@ -104,20 +104,6 @@ namespace LadsOnTour.Controllers
         }
 
         /// <summary>
-        /// Updates all characters in database from BattleNet Armory.
-        /// </summary>
-        /// <returns></returns>
-        [Authorize(Roles = "Admin")]
-        [HttpPost("Updateall")]
-        public async Task<IActionResult> UpdateAllRequest()
-        {
-            await armory.UpdateAllCharacters();
-            await armory.SetGuildRanks("", true);
-            userService.UpdateAll();
-            return Ok("Update Finished");
-        }
-
-        /// <summary>
         /// Returns a list of all the current users characters from supplied JWT.
         /// </summary>
         /// <returns></returns>
@@ -143,6 +129,25 @@ namespace LadsOnTour.Controllers
             if (!String.IsNullOrEmpty(battleNetToken.access_token))
                 return Ok("Linked Successfully");
             return BadRequest("Couldn't connect to battle.net");
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("Updateall")]
+        public async Task<IActionResult> GetAllUsers()
+            => Ok(userService.GetAllUsers());
+
+        /// <summary>
+        /// Updates all characters in database from BattleNet Armory.
+        /// </summary>
+        /// <returns></returns>
+        [Authorize(Roles = "Admin")]
+        [HttpPost("Updateall")]
+        public async Task<IActionResult> UpdateAllRequest()
+        {
+            await armory.UpdateAllCharacters();
+            await armory.SetGuildRanks("", true);
+            userService.UpdateAll();
+            return Ok("Update Finished");
         }
     }
 }

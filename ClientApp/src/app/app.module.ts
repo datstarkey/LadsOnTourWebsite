@@ -46,6 +46,8 @@ import { MainComponent } from "./main/main.component";
 import { NavBarComponent } from "./main/nav-bar/nav-bar.component";
 import { DashboardNavComponent } from "./dashboard/dashboard-nav/dashboard-nav.component";
 import { NgxSpinnerModule } from "ngx-spinner";
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 @NgModule({
   declarations: [
@@ -89,6 +91,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
     NbCheckboxModule,
     NbAccordionModule,
     NgxSpinnerModule,
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
   ],
   providers: [
     CookieService,
