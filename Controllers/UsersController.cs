@@ -108,7 +108,8 @@ namespace LadsOnTour.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("characters")]
-        public List<WoWCharacter> GetCharacters() => armory.GetCharacters(User.FindFirst("name").Value);
+        public List<WoWCharacter> GetCharacters()
+            => armory.GetCharacters(User.FindFirst("name").Value);
 
         /// <summary>
         /// Links all characters from the BattleNet API.
@@ -132,8 +133,8 @@ namespace LadsOnTour.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpGet("Updateall")]
-        public async Task<IActionResult> GetAllUsers()
+        [HttpGet("GetAllUsers")]
+        public IActionResult GetAllUsers()
             => Ok(userService.GetAllUsers());
 
         /// <summary>

@@ -12,7 +12,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LadsOnTour.Servicesa
+namespace LadsOnTour.Services
 {
     public class BattleNetService
     {
