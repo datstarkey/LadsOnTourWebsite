@@ -17,6 +17,10 @@
   opacity: 0.6;
 }
 
+.raid-select {
+  width: 20%;
+}
+
 .selected {
   background-color: var(--color-info-500);
   opacity: 1;
@@ -54,4 +58,16 @@ th {
 }
 .green {
   color: greenyellow;
+}
+
+@media screen and (max-width: 1360px) {
+  .metrics,
+  .raid-select {
+    width: 100%;
+  }
+
+  .logs-header {
+    flex-direction: column;
+    height: 250px;
+  }
 }

@@ -57,7 +57,9 @@ export class LogsComponent implements OnInit {
   zones: ILogZone[];
 
   headers: string[];
-  tableData: tableLog[];
+  chosenBoss: number = 0;
+
+  tableData: tableRow[];
 
   difficulties: IDifficulty[] = [
     { name: "Normal", number: 3 },
@@ -180,7 +182,7 @@ export class LogsComponent implements OnInit {
         let data: tableLog;
         if (log) {
           data = {
-            display: Math.round(log.percentile).toString(),
+            display: Math.floor(log.percentile).toString(),
             url: log.reportID,
           };
           total += Math.round(log.percentile);
@@ -219,6 +221,7 @@ export class LogsComponent implements OnInit {
 
   changeZone() {
     this.headers = this.zone.encounters.map((e) => e.name);
+    this.chosenBoss = 0;
     this.getLogs();
   }
 
@@ -247,6 +250,7 @@ export class LogsComponent implements OnInit {
                   );
                   this.zone = this.zones.find((z) => z.id == this.defaultZone);
                   this.headers = this.zone.encounters.map((e) => e.name);
+                  this.chosenBoss = 0;
                   this.getLogs();
                 })
               );

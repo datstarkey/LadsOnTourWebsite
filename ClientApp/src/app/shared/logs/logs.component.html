@@ -5,16 +5,27 @@
         <h4>Warcraft Logs</h4>
 
         <nb-select
-          fullWidth
           placeholder="Raid"
           [(ngModel)]="zone"
           (selectedChange)="changeZone()"
-          style="width: 20%"
+          class="raid-select"
         >
           <nb-option *ngFor="let z of zones" [value]="z">{{
             z.name
           }}</nb-option>
         </nb-select>
+
+        <div class="mobile-only" style="width: 100%">
+          <nb-select
+            placeholder="Boss"
+            [(ngModel)]="chosenBoss"
+            class="raid-select"
+          >
+            <nb-option *ngFor="let h of headers; let i = index" [value]="i">{{
+              h
+            }}</nb-option>
+          </nb-select>
+        </div>
 
         <div class="metrics">
           <div
@@ -48,35 +59,67 @@
         <h6>Loading : {{ loading.current }}/{{ loading.max }}</h6>
       </ngx-spinner>
 
-      <table class="display-table logs-table">
-        <thead>
-          <th>Name</th>
-          <th>Average</th>
+      <div class="desktop-only">
+        <table class="display-table logs-table">
+          <thead>
+            <th>Name</th>
+            <th>Average</th>
 
-          <th *ngFor="let h of headers">
-            {{ h }}
-          </th>
-        </thead>
-        <tbody>
-          <tr *ngFor="let row of tableData">
-            <td>
-              {{ row.name }}
-            </td>
-            <td class="{{ getColor(row.average) }}">
-              {{ row.average }}
-            </td>
-            <td *ngFor="let p of row.percentiles">
-              <a
-                class="{{ getColor(p.display) }}"
-                target="_blank"
-                href="{{ warcraftLogs.openReportNewTab(p.url) }}"
-              >
-                {{ roundPercentile(p.display) }}
-              </a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+            <th *ngFor="let h of headers">
+              {{ h }}
+            </th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of tableData">
+              <td>
+                {{ row.name }}
+              </td>
+              <td class="{{ getColor(row.average) }}">
+                {{ row.average }}
+              </td>
+              <td *ngFor="let p of row.percentiles">
+                <a
+                  class="{{ getColor(p.display) }}"
+                  target="_blank"
+                  href="{{ warcraftLogs.openReportNewTab(p.url) }}"
+                >
+                  {{ roundPercentile(p.display) }}
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mobile-only">
+        <table class="display-table logs-table">
+          <thead>
+            <th style="text-align: left">Name</th>
+            <th style="text-align: right">Percentile</th>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let row of tableData">
+              <td style="text-align: left">
+                {{ row.name }}
+              </td>
+              <td style="text-align: right">
+                <a
+                  class="{{ getColor(row.percentiles[chosenBoss].display) }}"
+                  target="_blank"
+                  href="{{
+                    warcraftLogs.openReportNewTab(
+                      row.percentiles[chosenBoss].url
+                    )
+                  }}"
+                >
+                  {{ row.percentiles[chosenBoss].display }}
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </nb-card-body>
   </nb-card>
 </div>
