@@ -8,6 +8,7 @@ import {
   ChangeDetectorRef,
 } from "@angular/core";
 import { UserService } from "../../services/user/user.service";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-roster",
@@ -17,6 +18,7 @@ import { UserService } from "../../services/user/user.service";
 })
 @Injectable()
 export class RosterComponent implements OnInit {
+  subscription: Subscription = new Subscription();
   totalDps = 0;
   totalMelee = 0;
   totalRanged = 0;
@@ -31,19 +33,20 @@ export class RosterComponent implements OnInit {
   users: IRosterUser[];
   loading: boolean;
 
-  fetchData() {
-    this.loading = true;
-    this.userService.getRosterData().subscribe((data) => {
-      this.users = data;
-      this.getClasses(this.users);
-
-      this.loading = false;
-      this.ref.detectChanges();
-    });
-  }
-
   ngOnInit() {
-    this.fetchData();
+    this.loading = true;
+    this.subscription.add(
+      this.userService.getRosterData().subscribe((data) => {
+        this.users = data;
+        this.getClasses(this.users);
+
+        this.loading = false;
+        this.ref.detectChanges();
+      })
+    );
+  }
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   getClasses(users) {

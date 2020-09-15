@@ -1,5 +1,6 @@
 <div class="row text-center">
   <h3>{{ viewDate | calendarDate: view + "ViewTitle":locale }}</h3>
+  <h6 *ngIf="activeDayIsOpen">Players On selected Day: {{ raidersOnDay }}</h6>
   <div style="margin-bottom: 10px">
     <button
       nbButton
@@ -33,6 +34,7 @@
 </div>
 
 <mwl-calendar-month-view
+  [excludeDays]="excludeDays"
   [viewDate]="viewDate"
   [events]="events"
   [activeDayIsOpen]="activeDayIsOpen"
