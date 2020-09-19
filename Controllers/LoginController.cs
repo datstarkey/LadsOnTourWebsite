@@ -118,7 +118,6 @@ namespace LadsOnTour.Controllers
             var token = new JwtSecurityToken(config["Jwt:Issuer"],
                       config["Jwt:Issuer"],
                       claims,
-                      expires: DateTime.Now.AddDays(1),
                       signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
