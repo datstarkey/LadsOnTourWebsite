@@ -45,9 +45,9 @@ namespace LadsOnTour.Controllers
         /// <returns></returns>
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public IActionResult UpateApp([FromBody] User user)
+        public async Task<IActionResult> UpateApp([FromBody] User user)
         {
-            userService.UpdateApplication(user);
+            await userService.UpdateApplication(user);
             return Ok("App Updated Succesfully");
         }
     }

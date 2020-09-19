@@ -12,6 +12,7 @@ namespace LadsOnTour.Services
     {
         private readonly IMapper mapper;
         private readonly DatabaseContext context;
+        private readonly LadBotService ladBot;
 
         public class StreamData
         {
@@ -23,6 +24,7 @@ namespace LadsOnTour.Services
         {
             this.context = context;
             this.mapper = mapper;
+            ladBot = new LadBotService();
         }
 
         public UserDto GetUser(string id)
@@ -93,10 +95,14 @@ namespace LadsOnTour.Services
             return Task.CompletedTask;
         }
 
-        public void UpdateApplication(User user)
+        public async Task UpdateApplication(User user)
         {
             var local = FindOrAddUser(user.DiscordID);
             local.AppStatus = user.AppStatus;
+
+            if (local.AppStatus == "Accepted")
+                await ladBot.AcceptUser(user);
+
             context.SaveChanges();
         }
 

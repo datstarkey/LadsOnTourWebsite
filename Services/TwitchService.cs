@@ -72,7 +72,6 @@ namespace LadsOnTour.Services
                 return appAccessToken;
 
             var client = new RestClient(tokenRequestUrl);
-            client.Timeout = -1;
             var request = new RestRequest(Method.POST);
             request.AddQueryParameter("client_id", clientId);
             request.AddQueryParameter("client_secret", clientSecret);
