@@ -62,7 +62,6 @@ namespace LadsOnTour.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateUser([FromBody] User user)
         {
-            user.DiscordID = User.FindFirst("name").Value;
             await userService.Update(user);
             return Ok($"Updated user {user.Discord} successfully");
         }
