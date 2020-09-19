@@ -112,8 +112,12 @@ namespace LadsOnTour.Services
         {
             var local = FindOrAddUser(id);
             local.Main = character.character_id;
-            local.Role = character.role;
-            local.Class = character._class;
+
+            if (String.IsNullOrWhiteSpace(character.role))
+                local.Role = character.role;
+
+            if (String.IsNullOrWhiteSpace(character._class))
+                local.Class = character._class;
 
             if (character.guild == "Lads on Tour")
             {
@@ -121,7 +125,9 @@ namespace LadsOnTour.Services
                 local.Rank = character.rank_name;
             }
 
-            local.Armory = character.armory;
+            if (String.IsNullOrWhiteSpace(character.armory))
+                local.Armory = character.armory;
+
             local.MainName = character.name;
             context.SaveChanges();
         }
