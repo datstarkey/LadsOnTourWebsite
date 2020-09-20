@@ -16,7 +16,7 @@ namespace LadsOnTour.Services
             var client = new RestClient($"{url}acceptApplication");
             var request = new RestRequest(Method.POST);
             request.AddJsonBody(user);
-            var response = await client.ExecuteAsync(request);
+            await client.ExecuteAsync(request);
         }
     }
 }
