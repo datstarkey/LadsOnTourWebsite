@@ -1,12 +1,6 @@
-﻿using ArgentPonyWarcraftClient;
-using AutoMapper;
-using LadsOnTour.Models;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -29,12 +23,19 @@ namespace LadsOnTour.Services
 
                 using (var scope = _serviceScopeFactory.CreateScope())
                 {
-                    var armory = scope.ServiceProvider.GetRequiredService<BattleNetService>();
-                    await armory.UpdateAllCharacters();
-                    await armory.SetGuildRanks("", true);
+                    try
+                    {
+                        var armory = scope.ServiceProvider.GetRequiredService<BattleNetService>();
+                        await armory.UpdateAllCharacters();
+                        await armory.SetGuildRanks("", true);
 
-                    var userService = scope.ServiceProvider.GetRequiredService<UserService>();
-                    userService.UpdateAll();
+                        var userService = scope.ServiceProvider.GetRequiredService<UserService>();
+                        userService.UpdateAll();
+                    }
+                    catch (Exception e)
+                    {
+                        throw;
+                    }
                 }
 
                 await Task.Delay(3600000, stoppingToken);
