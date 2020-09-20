@@ -102,6 +102,8 @@ namespace LadsOnTour.Services
 
             if (local.AppStatus == "Accepted")
                 await ladBot.AcceptUser(user);
+            else if (local.AppStatus == "Declined")
+                await ladBot.DeclineUser(user);
 
             context.SaveChanges();
         }
