@@ -62,7 +62,7 @@ namespace LadsOnTour.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateUser([FromBody] User user)
         {
-            await userService.Update(user);
+            await userService.UpdateUser(user);
             return Ok($"Updated user {user.Discord} successfully");
         }
 
@@ -131,6 +131,10 @@ namespace LadsOnTour.Controllers
             return BadRequest("Couldn't connect to battle.net");
         }
 
+        /// <summary>
+        /// Retrieve all users in the discord
+        /// </summary>
+        /// <returns></returns>
         [Authorize(Roles = "Admin")]
         [HttpGet("GetAllUsers")]
         public IActionResult GetAllUsers()

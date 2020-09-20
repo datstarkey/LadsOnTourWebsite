@@ -42,7 +42,7 @@ namespace LadsOnTour.Services
             return mapper.Map<ApplicationDto>(user);
         }
 
-        public List<StreamData> GetTwitchIds() => context.users.Where(u => !String.IsNullOrEmpty(u.TwitchId)).Select(u => new StreamData { id = u.TwitchId, name = u.TwitchName }).ToList();
+        public List<StreamData> GetTwitchIds() => context.users.Where(u => !string.IsNullOrEmpty(u.TwitchId)).Select(u => new StreamData { id = u.TwitchId, name = u.TwitchName }).ToList();
 
         public List<RosterDto> GetRoster() => mapper.Map<List<RosterDto>>(context.users.Where(u => u.InDiscord == "Yes").ToList());
 
@@ -61,6 +61,8 @@ namespace LadsOnTour.Services
             return local;
         }
 
+        public WoWCharacter GetMain(User user) => context.wow_characters.FirstOrDefault(c => c.character_id == user.Main);
+
         public List<WoWCharacter> GetMains()
         {
             var raidersWithMains = context.users.Where(u => u.Main != 0 && u.InDiscord == "Yes").Select(u => u.Main).ToList();
@@ -68,7 +70,7 @@ namespace LadsOnTour.Services
             return wowCharacters;
         }
 
-        public Task Update(User user)
+        public Task UpdateUser(User user)
         {
             string[] propList = new string[] { "Nickname", "Class", "Role", "About", "Experience", "AppLogs", "Armory", "BattleNet" };
             var local = FindOrAddUser(user.DiscordID);
@@ -83,7 +85,7 @@ namespace LadsOnTour.Services
             return Task.CompletedTask;
         }
 
-        public Task AdminUpdate(User user)
+        public Task AdminUpdateUser(User user)
         {
             var local = FindOrAddUser(user.DiscordID);
             if (user.Class != "TBC")
@@ -184,12 +186,12 @@ namespace LadsOnTour.Services
             {
                 try
                 {
-                    var character = context.wow_characters.First(c => c.character_id == user.Main);
+                    var main = GetMain(user);
 
-                    if (character != null && character.guild == "Lads on Tour")
+                    if (main != null && main.guild == "Lads on Tour")
                     {
-                        user.RankNumber = character.rank;
-                        user.Rank = character.rank_name;
+                        user.RankNumber = main.rank;
+                        user.Rank = main.rank_name;
                     }
                 }
                 catch

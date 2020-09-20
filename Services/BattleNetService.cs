@@ -1,6 +1,5 @@
 ﻿using ArgentPonyWarcraftClient;
 using LadsOnTour.Models;
-using LadsOnTour.Models.BattleNet;
 using LadsOnTour.Utilities;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -8,7 +7,6 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,7 +18,14 @@ namespace LadsOnTour.Services
         private string clientId;
         private string clientSecret;
         private string accessCode;
-        private int kazzakID = 1305;
+        private string guildName;
+        private string guildSlug;
+        private string guildFaction;
+        private string realmName;
+        private int realmId;
+        private string region;
+        private string nameSpace;
+
         private WarcraftClient warcraftClient;
         public string WarCraftLogsApiKey;
 
@@ -31,6 +36,14 @@ namespace LadsOnTour.Services
             clientId = config["BattleNet:ClientId"];
             clientSecret = config["BattleNet:ClientSecret"];
             WarCraftLogsApiKey = config["WarcraftLogs:ApiKey"];
+            guildName = config["Wow:GuildName"];
+            guildSlug = guildName.ToLower().Replace(" ", "-");
+            guildFaction = Utils.UppercaseFirst(config["Wow:GuildFaction"].ToLower());
+            realmId = int.Parse(config["Wow:RealmId"]);
+            realmName = config["Wow:RealmName"];
+            region = config["Wow:Region"];
+            nameSpace = $"profile-{region.ToLower()}";
+
             warcraftClient = new WarcraftClient(clientId, clientSecret, Region.Europe, Locale.en_GB);
         }
 
@@ -74,7 +87,7 @@ namespace LadsOnTour.Services
         /// <returns></returns>
         public async Task SetToken()
         {
-            if (String.IsNullOrEmpty(accessCode))
+            if (string.IsNullOrEmpty(accessCode))
             {
                 BattleNetToken token = await GetAccessToken();
                 accessCode = token.access_token;
@@ -152,19 +165,26 @@ namespace LadsOnTour.Services
             var dbCharacter = GetCharacter(character.character_id);
             if (dbCharacter != null)
             {
-                var apiCharacter = await warcraftClient.GetCharacterProfileSummaryAsync(character.realm.ToLower(), character.name.ToLower(), "profile-eu");
-                if (apiCharacter.Success)
+                try
                 {
-                    dbCharacter._class = apiCharacter.Value.CharacterClass.Name;
-                    dbCharacter.level = apiCharacter.Value.Level;
-                    dbCharacter.guild = apiCharacter.Value.Guild.Name;
-                    dbCharacter.armory = ConvertToArmoryURL(character);
-                    dbCharacter.role = WoWUtilities.CheckRole(character.role, character._class);
-                    dbCharacter.averageIlevel = apiCharacter.Value.AverageItemLevel;
-                    dbCharacter.equippedIlevel = apiCharacter.Value.EquippedItemLevel;
-                    dbCharacter = await UpdateEquipment(dbCharacter);
+                    var apiCharacter = await warcraftClient.GetCharacterProfileSummaryAsync(character.realm.ToLower(), character.name.ToLower(), nameSpace);
+                    if (apiCharacter.Success)
+                    {
+                        dbCharacter._class = apiCharacter.Value.CharacterClass.Name;
+                        dbCharacter.level = apiCharacter.Value.Level;
+                        dbCharacter.guild = apiCharacter.Value.Guild.Name;
+                        dbCharacter.armory = ConvertToArmoryURL(character);
+                        dbCharacter.role = WoWUtilities.CheckRole(character.role, character._class);
+                        dbCharacter.averageIlevel = apiCharacter.Value.AverageItemLevel;
+                        dbCharacter.equippedIlevel = apiCharacter.Value.EquippedItemLevel;
+                        dbCharacter = await UpdateEquipment(dbCharacter);
 
-                    context.SaveChanges();
+                        context.SaveChanges();
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
                 }
             }
         }
@@ -176,7 +196,7 @@ namespace LadsOnTour.Services
         /// <returns></returns>
         private async Task<WoWCharacter> UpdateEquipment(WoWCharacter character)
         {
-            var equipment = await warcraftClient.GetCharacterEquipmentSummaryAsync(character.realm.ToLower(), character.name.ToLower(), "profile-eu");
+            var equipment = await warcraftClient.GetCharacterEquipmentSummaryAsync(character.realm.ToLower(), character.name.ToLower(), nameSpace);
             if (equipment.Success)
                 character.equipment = JsonConvert.SerializeObject(equipment.Value.EquippedItems);
 
@@ -199,7 +219,7 @@ namespace LadsOnTour.Services
         public async Task<Task> SetCharactersFromBattleNet(BattleNetToken token, string userId)
         {
             await SetToken();
-            var account = await warcraftClient.GetAccountProfileSummaryAsync(token.access_token, "profile-eu");
+            var account = await warcraftClient.GetAccountProfileSummaryAsync(token.access_token, nameSpace);
 
             if (account.Success && account.Value.WowAccounts != null)
             {
@@ -207,7 +227,7 @@ namespace LadsOnTour.Services
                 {
                     foreach (var character in wowAccount.Characters)
                     {
-                        if (character?.Id != null && character.Realm.Id == kazzakID && character.Faction.Name == "Horde" && character?.Level > 0)
+                        if (character?.Id != null && character.Realm.Id == realmId && character.Faction.Name == guildFaction && character?.Level > 0)
                         {
                             try
                             {
@@ -259,7 +279,7 @@ namespace LadsOnTour.Services
         /// <param name="character"></param>
         /// <returns></returns>
         private string ConvertToArmoryURL(WoWCharacter character)
-            => $"https://worldofwarcraft.com/en-gb/character/eu/{character.realm}/{character.name}";
+            => $"https://worldofwarcraft.com/en-gb/character/{region}/{character.realm}/{character.name}";
 
         /// <summary>
         /// Set the ranks for guild members
@@ -269,29 +289,21 @@ namespace LadsOnTour.Services
         /// <returns></returns>
         public async Task<Task> SetGuildRanks(string id, bool all = false)
         {
-            await SetToken();
-
-            var client = new RestClient($"https://eu.api.blizzard.com/data/wow/guild/kazzak/lads-on-tour/roster?namespace=profile-eu&access_token={accessCode}");
-            client.Timeout = -1;
-            var request = new RestRequest(Method.GET);
-            IRestResponse response = await client.ExecuteAsync(request);
-
-            if (response.StatusCode != HttpStatusCode.OK)
-                return Task.CompletedTask;
-
-            var guildMembers = JsonConvert.DeserializeObject<BattleNetGuildMembers>(response.Content);
-
+            var guildMembers = await warcraftClient.GetGuildRosterAsync(realmName.ToLower(), guildSlug, nameSpace);
             var characters = all ? context.wow_characters.ToList() : GetCharacters(id);
+
+            //exit task if we couldn't pull guild info
+            if (!guildMembers.Success) return Task.CompletedTask;
 
             foreach (var character in characters)
             {
                 try
                 {
                     var dbCharacter = context.wow_characters.Find(character.character_id);
-                    if (character.guild == "Lads on Tour")
+                    if (character.guild == guildName)
                     {
-                        var person = guildMembers.members.Where(m => m.character.name == character.name).FirstOrDefault();
-                        dbCharacter.rank = person != null ? person.rank : 10;
+                        var person = guildMembers.Value.Members.Where(m => m.Character.Name == character.name).FirstOrDefault();
+                        dbCharacter.rank = person != null ? person.Rank : 10;
                     }
                     else
                     {

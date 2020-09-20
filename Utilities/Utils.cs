@@ -7,6 +7,9 @@ namespace LadsOnTour.Utilities
 {
     public static class Utils
     {
+        public static string UppercaseFirst(string s)
+            => string.IsNullOrEmpty(s) ? string.Empty : char.ToUpper(s[0]) + s.Substring(1);
+
         private static void TypeCopy<T>(T target, T source, IEnumerable<PropertyInfo> properties)
         {
             foreach (var prop in properties)
