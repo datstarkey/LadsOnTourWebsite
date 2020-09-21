@@ -1,4 +1,4 @@
-<h3>People who haven't filled in the form</h3>
+<h3>People who haven't filled in the form : {{ notFilledIn.length }}</h3>
 <span *ngFor="let person of notFilledIn; let i = index"
   >{{ person }} <span *ngIf="i + 1 < notFilledIn.length">, </span>
 </span>
