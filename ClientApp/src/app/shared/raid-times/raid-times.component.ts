@@ -41,6 +41,14 @@ export class RaidTimesComponent implements OnInit {
   }
 
   sortUsers() {
+    this.cantArray = [];
+    this.cantSunday = [];
+    this.cantMonday = [];
+    this.cantTuesday = [];
+    this.cantWednesday = [];
+    this.cantThursday = [];
+    this.cantRaidTimes = [];
+
     this.users.forEach((user) => {
       //If they haven't filled in the form.
       if (user.days == null || !isNaN(+user.days)) {
