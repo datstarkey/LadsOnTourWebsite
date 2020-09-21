@@ -96,7 +96,7 @@ namespace LadsOnTour.Controllers
                 if (isMain)
                     userService.SetMain(id, character);
 
-                return Ok("Update Successfull");
+                return Ok("Update Successful");
             }
 
             return BadRequest("Error, cant find character or character does not belong to you, please refresh characters");
