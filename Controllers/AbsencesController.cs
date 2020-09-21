@@ -17,7 +17,7 @@ namespace LadsOnTour.Controllers
     [Route("api/v1/absences")]
     public class AbsencesController : ControllerBase
     {
-        private AbsencesService absencesService;
+        private readonly AbsencesService absencesService;
 
         public AbsencesController(AbsencesService absencesService)
             => this.absencesService = absencesService;

@@ -1,0 +1,35 @@
+<h3>People who haven't filled in the form</h3>
+<span *ngFor="let person of notFilledIn; let i = index"
+  >{{ person }} <span *ngIf="i + 1 < notFilledIn.length">, </span>
+</span>
+
+<nb-accordion
+  class="raid-times-accordion"
+  *ngFor="let day of cantArray; let i = index"
+>
+  <nb-accordion-item collapsed="true">
+    <nb-accordion-item-header>
+      <h6>People who can't raid {{ daysOrder[i] }} : {{ day.length }}</h6>
+    </nb-accordion-item-header>
+    <nb-accordion-item-body>
+      <span *ngFor="let person of day; let i = index"
+        >{{ person }} <span *ngIf="i + 1 < day.length">, </span>
+      </span>
+    </nb-accordion-item-body>
+  </nb-accordion-item>
+</nb-accordion>
+
+<nb-accordion class="raid-times-accordion">
+  <nb-accordion-item collapsed="true">
+    <nb-accordion-item-header
+      ><h6>
+        People who can't raid the designated times : {{ cantRaidTimes.length }}
+      </h6>
+    </nb-accordion-item-header>
+    <nb-accordion-item-body
+      ><span *ngFor="let person of cantRaidTimes; let i = index"
+        >{{ person }} <span *ngIf="i + 1 < cantRaidTimes.length">, </span>
+      </span>
+    </nb-accordion-item-body>
+  </nb-accordion-item>
+</nb-accordion>

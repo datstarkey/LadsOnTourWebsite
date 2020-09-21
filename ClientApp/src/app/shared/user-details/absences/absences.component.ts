@@ -39,7 +39,6 @@ export class AbsencesComponent implements OnInit {
 
   openModal() {
     this.modal = true;
-    console.log(this.modal);
   }
 
   closeModal() {

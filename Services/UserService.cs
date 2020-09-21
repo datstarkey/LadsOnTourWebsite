@@ -53,8 +53,10 @@ namespace LadsOnTour.Services
             User local = context.users.Find(id);
             if (local == null)
             {
-                local = new User();
-                local.DiscordID = id;
+                local = new User
+                {
+                    DiscordID = id
+                };
                 context.Add(local);
                 local = context.users.Find(id);
             }
@@ -77,7 +79,9 @@ namespace LadsOnTour.Services
 
             if (user.Class != "TBC")
                 user.Role = WoWUtilities.CheckRole(user.Role, user.Class);
+
             Utils.CopyProperties(local, user, propList);
+
             if (user.AppStatus == "Sent" || user.AppStatus == "Not Sent")
                 local.AppStatus = user.AppStatus;
 

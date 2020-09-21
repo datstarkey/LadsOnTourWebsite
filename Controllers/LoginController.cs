@@ -22,9 +22,9 @@ namespace LadsOnTour.Controllers
     public class LoginController : ControllerBase
     {
         private readonly DatabaseContext context;
-        private DiscordService discord;
-        private UserService users;
-        private IConfiguration config;
+        private readonly DiscordService discord;
+        private readonly UserService users;
+        private readonly IConfiguration config;
 
         public class LoginResponse
         {
@@ -109,11 +109,12 @@ namespace LadsOnTour.Controllers
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-            var claims = new List<Claim>();
-
-            claims.Add(new Claim("name", id));
-            claims.Add(new Claim("role", "Admin"));
-            claims.Add(new Claim(ClaimTypes.Role, "Admin"));
+            var claims = new List<Claim>
+            {
+                new Claim("name", id),
+                new Claim("role", "Admin"),
+                new Claim(ClaimTypes.Role, "Admin")
+            };
 
             var token = new JwtSecurityToken(config["Jwt:Issuer"],
                       config["Jwt:Issuer"],
@@ -133,10 +134,10 @@ namespace LadsOnTour.Controllers
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-            var claims = new List<Claim>();
-
-            //Add claims
-            claims.Add(new Claim("name", user.Id));
+            var claims = new List<Claim>
+            {
+                new Claim("name", user.Id)
+            };
 
             //Adds if they are in discord as a roll
             if (user.InDiscord)

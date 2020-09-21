@@ -1,3 +1,4 @@
+import { RaidTimesComponent } from "./shared/raid-times/raid-times.component";
 import { LogsComponent } from "./shared/logs/logs.component";
 import { CalendarComponent } from "./shared/calendar/calendar.component";
 import { AddonsComponent } from "./shared/addons/addons.component";
@@ -38,6 +39,7 @@ const routes: Routes = [
       { path: "applications", component: ApplicationsComponent },
       { path: "calendar", component: CalendarComponent },
       { path: "logs", component: LogsComponent },
+      { path: "raid", component: RaidTimesComponent },
       {
         path: "roster",
         loadChildren: "./shared/roster/roster.module#RosterModule",

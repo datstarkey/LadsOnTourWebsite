@@ -15,7 +15,7 @@ namespace LadsOnTour.Controllers
     [Route("api/v1/application")]
     public class ApplicationController : ControllerBase
     {
-        private UserService userService;
+        private readonly UserService userService;
 
         public ApplicationController(UserService userService)
             => this.userService = userService;

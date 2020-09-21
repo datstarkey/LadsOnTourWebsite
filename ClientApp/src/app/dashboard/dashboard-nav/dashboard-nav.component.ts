@@ -7,6 +7,7 @@ import { Subscription } from "rxjs";
 
 interface navItem {
   title: string;
+  url: string;
   icon: string;
 }
 
@@ -24,23 +25,48 @@ export class DashboardNavComponent implements OnInit {
 
   mobileNav: boolean;
 
-  userNav: navItem = { title: "user", icon: "person-outline" };
-  applyNav: navItem = { title: "apply", icon: "clipboard-outline" };
-  rosterNav: navItem = { title: "roster", icon: "people-outline" };
-  streamsNav: navItem = { title: "streams", icon: "video-outline" };
+  userNav: navItem = { title: "User", url: "user", icon: "person-outline" };
+  applyNav: navItem = {
+    title: "Apply",
+    url: "apply",
+    icon: "clipboard-outline",
+  };
+  rosterNav: navItem = {
+    title: "roster",
+    url: "roster",
+    icon: "people-outline",
+  };
+  streamsNav: navItem = {
+    title: "streams",
+    url: "user",
+    icon: "video-outline",
+  };
+  raidNav: navItem = {
+    title: "Raid Times",
+    url: "raid",
+    icon: "clock-outline",
+  };
+
   downloadsNav: navItem = {
     title: "downloads",
+    url: "downloads",
     icon: "cloud-download-outline",
   };
   applicationsNav: navItem = {
     title: "applications",
+    url: "applications",
     icon: "clipboard-outline",
   };
-  calendarNav: navItem = { title: "calendar", icon: "calendar-outline" };
-  logsNav: navItem = { title: "logs", icon: "activity-outline" };
+  calendarNav: navItem = {
+    title: "calendar",
+    url: "calendar",
+    icon: "calendar-outline",
+  };
+  logsNav: navItem = { title: "logs", url: "logs", icon: "activity-outline" };
 
   pages: navItem[] = [
     this.userNav,
+    this.raidNav,
     this.applyNav,
     this.rosterNav,
     this.streamsNav,
@@ -88,6 +114,7 @@ export class DashboardNavComponent implements OnInit {
         if (this.raider) {
           this.pages = [
             this.userNav,
+            this.raidNav,
             this.downloadsNav,
             this.applicationsNav,
             this.logsNav,

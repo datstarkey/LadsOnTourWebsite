@@ -15,8 +15,8 @@ namespace LadsOnTour.Controllers
     [Route("api/v1/[controller]")]
     public class TwitchController : ControllerBase
     {
-        private TwitchService twitch;
-        private UserService users;
+        private readonly TwitchService twitch;
+        private readonly UserService users;
 
         public TwitchController(TwitchService twitch, UserService users)
         {

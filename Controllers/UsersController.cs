@@ -16,8 +16,8 @@ namespace LadsOnTour.Controllers
     [Route("api/v1/[controller]")]
     public class UsersController : ControllerBase
     {
-        private BattleNetService armory;
-        private UserService userService;
+        private readonly BattleNetService armory;
+        private readonly UserService userService;
 
         public UsersController(BattleNetService armory, UserService userService)
         {

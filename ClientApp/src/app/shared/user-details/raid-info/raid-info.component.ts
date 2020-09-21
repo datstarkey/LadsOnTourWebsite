@@ -1,15 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { UserService } from "../../../services/user/user.service";
 import { IUser } from "../../../interfaces/user";
-
-type IRaidInfo = {
-  wednesday: boolean;
-  thursday: boolean;
-  sunday: boolean;
-  monday: boolean;
-  tuesday: boolean;
-  raidTimes: boolean;
-};
+import { IRaidInfo } from "app/interfaces/raidInfo";
 
 @Component({
   selector: "app-raid-info",

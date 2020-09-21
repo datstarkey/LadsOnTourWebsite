@@ -14,19 +14,19 @@ namespace LadsOnTour.Services
 {
     public class BattleNetService
     {
+        private readonly WarcraftClient warcraftClient;
         private readonly DatabaseContext context;
-        private string clientId;
-        private string clientSecret;
-        private string accessCode;
-        private string guildName;
-        private string guildSlug;
-        private string guildFaction;
-        private string realmName;
-        private int realmId;
-        private string region;
-        private string nameSpace;
+        private readonly string clientId;
+        private readonly string clientSecret;
+        private readonly string guildName;
+        private readonly string guildSlug;
+        private readonly string guildFaction;
+        private readonly string realmName;
+        private readonly int realmId;
+        private readonly string region;
+        private readonly string nameSpace;
 
-        private WarcraftClient warcraftClient;
+        private string accessCode;
         public string WarCraftLogsApiKey;
 
         public BattleNetService(DatabaseContext context, IConfiguration config)
@@ -47,7 +47,7 @@ namespace LadsOnTour.Services
             warcraftClient = new WarcraftClient(clientId, clientSecret, Region.Europe, Locale.en_GB);
         }
 
-        private Dictionary<int, string> rank = new Dictionary<int, string>()
+        private readonly Dictionary<int, string> rank = new Dictionary<int, string>()
         {
             {0,"Guild Master"},
             {1,"Officer"},
@@ -70,7 +70,6 @@ namespace LadsOnTour.Services
         {
             var url = "https://eu.battle.net/oauth/token";
             var client = new RestClient(url);
-            client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             string credentials = $"{clientId}:{clientSecret}";
             request.AddHeader("Authorization", $"Basic {Convert.ToBase64String(Encoding.UTF8.GetBytes(credentials))}");
@@ -170,7 +169,7 @@ namespace LadsOnTour.Services
                     var apiCharacter = await warcraftClient.GetCharacterProfileSummaryAsync(character.realm.ToLower(), character.name.ToLower(), nameSpace);
                     if (apiCharacter.Success)
                     {
-                        dbCharacter._class = apiCharacter.Value.CharacterClass.Name;
+                        dbCharacter._class = apiCharacter.Value.CharacterClass?.Name;
                         dbCharacter.level = apiCharacter.Value.Level;
                         dbCharacter.guild = apiCharacter.Value.Guild?.Name;
                         dbCharacter.armory = ConvertToArmoryURL(character);
@@ -235,11 +234,13 @@ namespace LadsOnTour.Services
                                 var wowCharacter = context.wow_characters.Where(c => c.character_id == id).FirstOrDefault();
                                 if (wowCharacter == null)
                                 {
-                                    wowCharacter = new WoWCharacter();
-                                    wowCharacter.name = character.Name;
-                                    wowCharacter.realm = character.Realm.Name;
-                                    wowCharacter.character_id = id;
-                                    wowCharacter.discord_id = userId;
+                                    wowCharacter = new WoWCharacter
+                                    {
+                                        name = character.Name,
+                                        realm = character.Realm.Name,
+                                        character_id = id,
+                                        discord_id = userId
+                                    };
                                     context.Add(wowCharacter);
                                     context.SaveChanges();
                                 }

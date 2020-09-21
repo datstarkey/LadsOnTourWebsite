@@ -9,5 +9,6 @@
         public string Role { get; set; }
         public int RankNumber { get; set; }
         public string Class { get; set; }
+        public string Days { get; set; }
     }
 }

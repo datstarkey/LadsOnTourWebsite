@@ -36,6 +36,8 @@ import { StreamsComponent } from "./streams/streams.component";
 import { CalendarComponent } from "./calendar/calendar.component";
 import { CalendarModule, DateAdapter } from "angular-calendar";
 import { adapterFactory } from "angular-calendar/date-adapters/date-fns";
+import { RaidTimesComponent } from './raid-times/raid-times.component';
+import { RaidComponent } from './raid/raid.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +54,8 @@ import { adapterFactory } from "angular-calendar/date-adapters/date-fns";
     LogsComponent,
     StreamsComponent,
     CalendarComponent,
+    RaidTimesComponent,
+    RaidComponent,
   ],
   imports: [
     FormsModule,

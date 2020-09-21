@@ -1,3 +1,5 @@
+import { IRaidInfo } from "./raidInfo";
+
 export interface IRosterUser {
   discord: string;
   nickname: string;
@@ -6,4 +8,5 @@ export interface IRosterUser {
   role: string;
   rankNumber: number;
   class: string;
+  days: IRaidInfo;
 }
