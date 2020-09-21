@@ -83,14 +83,13 @@ export class RaidTimesComponent implements OnInit {
         if (!user.days.raidTimes) {
           this.cantRaidTimes.push(this.getName(user));
         }
-
-        this.cantArray.push(this.cantSunday);
-        this.cantArray.push(this.cantMonday);
-        this.cantArray.push(this.cantTuesday);
-        this.cantArray.push(this.cantWednesday);
-        this.cantArray.push(this.cantThursday);
       }
     });
+    this.cantArray.push(this.cantSunday);
+    this.cantArray.push(this.cantMonday);
+    this.cantArray.push(this.cantTuesday);
+    this.cantArray.push(this.cantWednesday);
+    this.cantArray.push(this.cantThursday);
   }
 
   getUsers() {
