@@ -20,6 +20,7 @@ import {
   NbInputModule,
   NbToastrModule,
   NbSpinnerModule,
+  NbCardModule,
 } from "@nebular/theme";
 
 import { AppComponent } from "./app.component";
@@ -63,6 +64,7 @@ import { DashboardNavComponent } from "./dashboard/dashboard-nav/dashboard-nav.c
     NbInputModule,
     NbToastrModule.forRoot(),
     NbSpinnerModule,
+    NbCardModule,
   ],
   providers: [
     CookieService,

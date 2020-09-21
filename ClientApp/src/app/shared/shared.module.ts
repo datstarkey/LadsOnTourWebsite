@@ -57,6 +57,7 @@ import { adapterFactory } from "angular-calendar/date-adapters/date-fns";
     FormsModule,
     HttpClientModule,
     CommonModule,
+    NbCardModule,
     NgxChartsModule,
     NbButtonModule,
     NbCheckboxModule,

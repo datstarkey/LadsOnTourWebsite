@@ -55,7 +55,7 @@ export class UserService {
   badToast() {
     this.showToast(
       "Error",
-      "Error unkown reason because I dont want to error log yet",
+      "Error unknown reason because I don't want to error log yet",
       "danger",
       "bottom-right"
     );
@@ -79,6 +79,7 @@ export class UserService {
 
   updateCharacter(character: ICharacter, isMain: boolean, showToast = true) {
     this.setCharacterData(character, isMain).subscribe((response) => {
+      console.log(response);
       if (response.indexOf("Successfull") > -1) {
         if (showToast) {
           this.showToast(
@@ -196,7 +197,7 @@ export class UserService {
 
   getRosterMains(): Observable<ICharacter[]> {
     const headers = this.headers;
-    return this.http.get<ICharacter[]>(`${this.baseUrl}/allmains`, { headers });
+    return this.http.get<ICharacter[]>(`${this.baseUrl}/allMains`, { headers });
   }
 
   getRosterData(): Observable<IRosterUser[]> {

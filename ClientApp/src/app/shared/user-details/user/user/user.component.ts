@@ -18,6 +18,10 @@ export class UserComponent implements OnInit {
     this.classes = wowService.classes;
   }
 
+  updateUser() {
+    this.userService.updateUser(this.user);
+  }
+
   clearMain() {
     this.userService.clearMain().subscribe((response) => {
       if (response.indexOf("Main Cleared") > -1) {
