@@ -39,7 +39,7 @@ namespace LadsOnTour.Controllers
             if (User.IsInRole("Admin") || absence.DiscordID == User.FindFirst("name").Value)
             {
                 absencesService.AddAbsence(absence);
-                return Ok();
+                return Ok("Added Successfully");
             }
             else
             {
@@ -53,7 +53,7 @@ namespace LadsOnTour.Controllers
             if (User.IsInRole("Admin") || absence.DiscordID == User.FindFirst("name").Value)
             {
                 absencesService.RemoveAbsence(absence);
-                return Ok();
+                return Ok("Removed Successfully");
             }
             else
             {

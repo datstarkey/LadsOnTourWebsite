@@ -31,7 +31,7 @@ export class UserService {
   ) {
     this.loginService.loggedIn.subscribe((response) => {
       this.loggedIn.next(response);
-      if (response == true) {
+      if (response) {
         this.headers = new HttpHeaders({
           Authorization: `Bearer ${this.loginService.jwtToken}`,
         });
@@ -204,7 +204,7 @@ export class UserService {
   }
 
   setUserData(user: IUser): Observable<string> {
-    var headers = this.headers;
+    const headers = this.headers;
     return this.http.post(this.baseUrl, user, {
       headers,
       responseType: "text",
@@ -212,7 +212,7 @@ export class UserService {
   }
 
   setCharacterData(character: ICharacter, isMain: Boolean): Observable<string> {
-    var headers = this.headers;
+    const headers = this.headers;
     return this.http.post(
       `${this.baseUrl}/character?main=${isMain}`,
       character,

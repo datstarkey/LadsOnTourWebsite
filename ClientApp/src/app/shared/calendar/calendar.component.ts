@@ -4,6 +4,7 @@ import { IRosterUser } from "./../../interfaces/rosterUser";
 import { UserService } from "./../../services/user/user.service";
 import { isSameDay, isSameMonth } from "date-fns";
 import { Subscription } from "rxjs";
+import { AbsencesService } from "../../services/absences/absences.service";
 
 @Component({
   selector: "app-calendar",
@@ -22,28 +23,11 @@ export class CalendarComponent implements OnInit {
   excludeDays: number[] = [5, 6];
   weekStartsOn = DAYS_OF_WEEK.WEDNESDAY;
 
-  events: CalendarEvent[] = [
-    {
-      title: "Will",
-      start: new Date(2020, 8, 16),
-      end: new Date(2020, 8, 17),
-      color: {
-        primary: "#ad2121",
-        secondary: "#FAE3E3",
-      },
-    },
-
-    {
-      title: "Clemmo",
-      start: new Date(2020, 8, 15),
-      end: new Date(2020, 8, 30),
-      color: {
-        primary: "#ad2121",
-        secondary: "#FAE3E3",
-      },
-    },
-  ];
-  constructor(private userService: UserService) {}
+  events: CalendarEvent[] = [];
+  constructor(
+    private userService: UserService,
+    private absencesService: AbsencesService
+  ) {}
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -60,11 +44,42 @@ export class CalendarComponent implements OnInit {
     this.raidersOnDay = this.roster.length - events.length;
   }
 
+  getAbsences() {
+    this.absencesService.getAllAbsences().subscribe((result) => {
+      console.log(result);
+      if (result) {
+        this.events = [];
+
+        result.forEach((absence) => {
+          let event: CalendarEvent = {
+            title: absence.discord,
+            start: new Date(absence.startTime),
+            end: new Date(absence.endTime),
+            color: {
+              primary: "#ad2121",
+              secondary: "#FAE3E3",
+            },
+          };
+
+          this.events.push(event);
+        });
+      }
+    });
+  }
+
   ngOnInit() {
     this.subscription.add(
       this.userService.getRosterData().subscribe((data) => {
         this.roster = data;
         this.raidersOnDay = this.roster.length;
+      })
+    );
+
+    this.subscription.add(
+      this.absencesService.loggedIn.subscribe((result) => {
+        if (result) {
+          this.getAbsences();
+        }
       })
     );
   }

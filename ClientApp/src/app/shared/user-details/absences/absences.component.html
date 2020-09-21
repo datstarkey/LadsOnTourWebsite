@@ -1,0 +1,110 @@
+<div class="modal animate__animated animate__fadeIn" *ngIf="modal">
+  <nb-card>
+    <nb-card-header>
+      <h4>Add Absence</h4>
+    </nb-card-header>
+    <nb-card-body>
+      <table>
+        <tbody>
+          <tr>
+            <td>Start:</td>
+            <td>
+              <input
+                [nbDatepicker]="datepicker"
+                nbInput
+                fullWidth
+                [(ngModel)]="modalStart"
+              />
+              <nb-datepicker #datepicker [min]="today"></nb-datepicker>
+            </td>
+          </tr>
+
+          <tr>
+            <td>End:</td>
+            <td>
+              <input
+                [nbDatepicker]="datepickerEnd"
+                nbInput
+                fullWidth
+                [(ngModel)]="modalEnd"
+              />
+              <nb-datepicker #datepickerEnd [min]="modalStart"></nb-datepicker>
+            </td>
+          </tr>
+          <tr>
+            <td>Description:</td>
+            <td>
+              <input
+                nbInput
+                fullWidth
+                type="text"
+                [(ngModel)]="modalDescription"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button
+        nbButton
+        status="success"
+        style="margin-top: 10px; margin-right: 10px"
+        (click)="addAbsence()"
+      >
+        Add
+      </button>
+
+      <button
+        nbButton
+        status="danger"
+        style="margin-top: 10px"
+        (click)="closeModal()"
+      >
+        close
+      </button>
+    </nb-card-body>
+  </nb-card>
+</div>
+
+<nb-card>
+  <nb-card-header>
+    <h4>Absences</h4>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="table-container">
+      <table class="display-table">
+        <thead>
+          <th>Start</th>
+          <th>End</th>
+          <th>Description</th>
+          <th>Remove</th>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let a of absenceList">
+            <td>{{ getLocalTime(a.startTime) }}</td>
+            <td>{{ getLocalTime(a.endTime) }}</td>
+            <td class="description">{{ a.description }}</td>
+            <td>
+              <button
+                class="remove-button"
+                nbButton
+                status="danger"
+                (click)="deleteAbsence(a)"
+              >
+                X
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <button
+      nbButton
+      status="success"
+      style="margin-top: 10px"
+      (click)="openModal()"
+    >
+      Add
+    </button>
+  </nb-card-body>
+</nb-card>

@@ -1,4 +1,5 @@
 export interface IUser {
+  discordID: string;
   discord: string;
   nickname: string;
   main: number;
