@@ -39,13 +39,11 @@ export class RaidInfoComponent implements OnInit {
 
   updateUser() {
     this.user.days = JSON.stringify(this.raidInfo);
-    console.log(this.user);
     this.userService.updateUser(this.user);
   }
 
   ngOnChanges() {
-    console.log(this.user.days);
-    if (this.user.days != null && !isNaN(+this.user.days)) {
+    if (this.user.days != null && isNaN(+this.user.days)) {
       this.raidInfo = JSON.parse(this.user.days);
     }
   }
