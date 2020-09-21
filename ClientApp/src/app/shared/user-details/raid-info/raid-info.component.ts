@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { UserService } from "../../../services/user/user.service";
 import { IUser } from "../../../interfaces/user";
-import { IRaidInfo } from "app/interfaces/raidInfo";
+import { IRaidInfo } from "../../../interfaces/raidInfo";
 
 @Component({
   selector: "app-raid-info",
