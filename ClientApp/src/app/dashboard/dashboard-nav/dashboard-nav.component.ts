@@ -38,7 +38,7 @@ export class DashboardNavComponent implements OnInit {
   };
   streamsNav: navItem = {
     title: "streams",
-    url: "user",
+    url: "streams",
     icon: "video-outline",
   };
   raidNav: navItem = {
