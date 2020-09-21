@@ -172,7 +172,7 @@ namespace LadsOnTour.Services
                     {
                         dbCharacter._class = apiCharacter.Value.CharacterClass.Name;
                         dbCharacter.level = apiCharacter.Value.Level;
-                        dbCharacter.guild = apiCharacter.Value.Guild.Name;
+                        dbCharacter.guild = apiCharacter.Value.Guild?.Name;
                         dbCharacter.armory = ConvertToArmoryURL(character);
                         dbCharacter.role = WoWUtilities.CheckRole(character.role, character._class);
                         dbCharacter.averageIlevel = apiCharacter.Value.AverageItemLevel;
