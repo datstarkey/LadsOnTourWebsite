@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using LadsOnTour.Models.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace LadsOnTour.Models
 {
@@ -6,11 +7,10 @@ namespace LadsOnTour.Models
     {
         public DbSet<User> users { get; set; }
         public DbSet<WoWCharacter> wow_characters { get; set; }
-        // public DbSet<Application> applications { get; set; }
+        public DbSet<Absence> Absences { get; set; }
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
-           
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

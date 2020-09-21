@@ -13,6 +13,7 @@
         public string Role { get; set; }
         public string Class { get; set; }
         public int Main { get; set; }
+        public string Days { get; set; }
         public string MainName { get; set; }
         public string BattleNetToken { get; set; }
         public string TwitchId { get; set; }

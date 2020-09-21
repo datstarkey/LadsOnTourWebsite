@@ -1,0 +1,91 @@
+<nb-card>
+  <nb-card-header>
+    <h4>Raid Info</h4>
+  </nb-card-header>
+  <nb-card-body>
+    Please Tick the days you CAN raid.
+    <table>
+      <tbody>
+        <tr>
+          <td>Wednesday</td>
+          <td>
+            <nb-checkbox
+              class="ml"
+              status="success"
+              [(ngModel)]="raidInfo.wednesday"
+            ></nb-checkbox>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Thursday</td>
+          <td>
+            <nb-checkbox
+              class="ml"
+              status="success"
+              [(ngModel)]="raidInfo.thursday"
+            ></nb-checkbox>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Sunday</td>
+          <td>
+            <nb-checkbox
+              class="ml"
+              status="success"
+              [(ngModel)]="raidInfo.sunday"
+            ></nb-checkbox>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Monday</td>
+          <td>
+            <nb-checkbox
+              class="ml"
+              status="success"
+              [(ngModel)]="raidInfo.monday"
+            ></nb-checkbox>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Tuesday</td>
+          <td>
+            <nb-checkbox
+              class="ml"
+              status="success"
+              [(ngModel)]="raidInfo.tuesday"
+            ></nb-checkbox>
+          </td>
+        </tr>
+      </tbody>
+      <br />
+      <br />
+
+      The proposed raid time is 8-11pm Server time.
+      <br />
+      (Thats 7-10pm UK for the brits).
+      <br />
+      please tick below if that works for you?
+      <br />
+      <br />
+
+      <tbody>
+        <tr>
+          <td>Yes those raid times are fine</td>
+          <td>
+            <nb-checkbox
+              class="ml"
+              status="success"
+              [(ngModel)]="raidInfo.raidTimes"
+            ></nb-checkbox>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button nbButton status="success" (click)="updateUser()">Save</button>
+  </nb-card-body>
+</nb-card>

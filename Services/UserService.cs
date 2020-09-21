@@ -34,7 +34,7 @@ namespace LadsOnTour.Services
         }
 
         public List<UserDto> GetAllUsers()
-            => mapper.Map<List<UserDto>>(context.users).ToList();
+            => mapper.Map<List<UserDto>>(context.users.Where(u => u.InDiscord == "Yes").ToList()).ToList();
 
         public ApplicationDto GetApplication(string id)
         {
@@ -72,7 +72,7 @@ namespace LadsOnTour.Services
 
         public Task UpdateUser(User user)
         {
-            string[] propList = new string[] { "Nickname", "Class", "Role", "About", "Experience", "AppLogs", "Armory", "BattleNet" };
+            string[] propList = new string[] { "Nickname", "Class", "Role", "About", "Experience", "AppLogs", "Armory", "BattleNet", "Days" };
             var local = FindOrAddUser(user.DiscordID);
 
             if (user.Class != "TBC")

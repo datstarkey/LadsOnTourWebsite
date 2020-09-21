@@ -17,7 +17,8 @@ namespace LadsOnTour.Controllers
     {
         private UserService userService;
 
-        public ApplicationController(UserService userService) => this.userService = userService;
+        public ApplicationController(UserService userService)
+            => this.userService = userService;
 
         /// <summary>
         /// Gets all applications from all users

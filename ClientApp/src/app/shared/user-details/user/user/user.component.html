@@ -2,39 +2,31 @@
   <nb-card-header>
     <h4>User Details</h4>
   </nb-card-header>
-  <nb-card-body style="height: auto;">
-    <table style="width: 100%;">
+  <nb-card-body style="height: auto">
+    <table style="width: 100%">
       <tr>
-        <td>
-          Rank:
-        </td>
+        <td>Rank:</td>
         <td>
           {{ user.rank }}
         </td>
       </tr>
 
       <tr>
-        <td>
-          Discord:
-        </td>
+        <td>Discord:</td>
         <td>
           {{ user.discord }}
         </td>
       </tr>
 
       <tr>
-        <td>
-          Disriminator:
-        </td>
+        <td>Disriminator:</td>
         <td>
           {{ user.discordDiscriminator }}
         </td>
       </tr>
 
       <tr>
-        <td>
-          Main:
-        </td>
+        <td>Main:</td>
         <td>
           <span *ngIf="user.main <= 0"> Not Selected</span>
 
@@ -44,7 +36,7 @@
             *ngIf="user.main > 0"
             nbButton
             status="danger"
-            style="margin-left: 10px;"
+            style="margin-left: 10px"
             (click)="clearMain()"
           >
             Clear
@@ -53,18 +45,14 @@
       </tr>
 
       <tr>
-        <td>
-          In Discord:
-        </td>
+        <td>In Discord:</td>
         <td>
           {{ user.inDiscord }}
         </td>
       </tr>
 
       <tr>
-        <td>
-          Nickname:
-        </td>
+        <td>Nickname:</td>
         <td>
           <input
             class="mobile-width"
@@ -77,9 +65,7 @@
       </tr>
 
       <tr>
-        <td>
-          Class:
-        </td>
+        <td>Class:</td>
         <td>
           <nb-select
             *ngIf="user.main <= 0"
@@ -97,9 +83,7 @@
       </tr>
 
       <tr>
-        <td>
-          Role:
-        </td>
+        <td>Role:</td>
         <td>
           <nb-select
             *ngIf="user.main <= 0"
@@ -124,8 +108,6 @@
       </tr>
     </table>
 
-    <button nbButton status="success" (click)="userService.updateUser(user)">
-      Save
-    </button>
+    <button nbButton status="success" (click)="updateUser()">Save</button>
   </nb-card-body>
 </nb-card>

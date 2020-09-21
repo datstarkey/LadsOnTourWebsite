@@ -1,3 +1,4 @@
+import { RaidInfoComponent } from "./shared/user-details/raid-info/raid-info.component";
 import { CalendarComponent } from "./shared/calendar/calendar.component";
 import { LogsComponent } from "./shared/logs/logs.component";
 import { WarcraftlogsService } from "./services/warcraftlogs/warcraftlogs.service";
@@ -67,6 +68,7 @@ import { adapterFactory } from "angular-calendar/date-adapters/date-fns";
     AddonsComponent,
     LogsComponent,
     CalendarComponent,
+    RaidInfoComponent,
   ],
   imports: [
     FormsModule,

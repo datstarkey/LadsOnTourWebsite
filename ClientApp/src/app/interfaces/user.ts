@@ -11,4 +11,5 @@ export interface IUser {
   inDiscord: string;
   battleNetToken: string;
   twitchId: string;
+  days: string;
 }

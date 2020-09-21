@@ -30,6 +30,8 @@ namespace LadsOnTour
             services.AddScoped<TwitchService>();
             services.AddScoped<BattleNetService>();
             services.AddScoped<UserService>();
+            services.AddScoped<AbsencesService>();
+
             services.AddHostedService<BackgroundUpdateService>();
 
             services.AddAutoMapper(typeof(UserProfile));
