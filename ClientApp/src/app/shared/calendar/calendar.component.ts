@@ -46,7 +46,6 @@ export class CalendarComponent implements OnInit {
 
   getAbsences() {
     this.absencesService.getAllAbsences().subscribe((result) => {
-      console.log(result);
       if (result) {
         this.events = [];
 

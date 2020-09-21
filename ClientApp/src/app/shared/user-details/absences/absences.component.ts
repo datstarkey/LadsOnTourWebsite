@@ -75,7 +75,6 @@ export class AbsencesComponent implements OnInit {
 
     this.modal = false;
     this.absencesService.addAbsence(absence).subscribe((result) => {
-      console.log(result);
       if (result.includes("Added")) {
         this.toastrService.success("Added Absence Successfully", "Added", {
           position: NbGlobalPhysicalPosition.BOTTOM_RIGHT,
