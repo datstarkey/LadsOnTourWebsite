@@ -31,21 +31,24 @@ namespace LadsOnTour.Controllers
         /// <returns></returns>
         [AllowAnonymous]
         [HttpGet("Roster")]
-        public List<RosterDto> GetRoster() => userService.GetRoster();
+        public List<RosterDto> GetRoster()
+            => userService.GetRoster();
 
         /// <summary>
-        /// Returns the warcraft logs api key protected under cors
+        /// Returns the Warcraft logs api key
         /// </summary>
         /// <returns></returns>
-        [HttpGet("warcraftlogs")]
-        public IActionResult GetWarcraftLogsApiKey() => Ok(Newtonsoft.Json.JsonConvert.SerializeObject(armory.WarCraftLogsApiKey));
+        [HttpGet("warcraftLogs")]
+        public IActionResult GetWarcraftLogsApiKey()
+            => Ok(Newtonsoft.Json.JsonConvert.SerializeObject(armory.WarCraftLogsApiKey));
 
         /// <summary>
-        /// returns all wow charcters that are mains
+        /// returns all wow characters that are mains
         /// </summary>
         /// <returns></returns>
-        [HttpGet("allmains")]
-        public List<WoWCharacter> GetAllMains() => userService.GetMains();
+        [HttpGet("allMains")]
+        public List<WoWCharacter> GetAllMains()
+            => userService.GetMains();
 
         /// <summary>
         /// Returns the current user from the JWT supplied
@@ -70,7 +73,7 @@ namespace LadsOnTour.Controllers
         /// Clears a users main character from the JWT supplied.
         /// </summary>
         /// <returns></returns>
-        [HttpPost("clearmain")]
+        [HttpPost("clearMain")]
         public async Task<IActionResult> ClearMain()
         {
             await userService.ClearMain(User.FindFirst("name").Value);
@@ -79,7 +82,7 @@ namespace LadsOnTour.Controllers
 
         /// <summary>
         /// Updates a users character from the character supplied.
-        /// If querystring main is supplied then will label that character as users main.
+        /// If query string main is supplied then will label that character as users main.
         /// </summary>
         /// <returns></returns>
         [HttpPost("character")]
@@ -145,7 +148,7 @@ namespace LadsOnTour.Controllers
         /// </summary>
         /// <returns></returns>
         [Authorize(Roles = "Admin")]
-        [HttpPost("Updateall")]
+        [HttpPost("UpdateAll")]
         public async Task<IActionResult> UpdateAllRequest()
         {
             await armory.UpdateAllCharacters();

@@ -80,7 +80,7 @@ export class UserService {
   updateCharacter(character: ICharacter, isMain: boolean, showToast = true) {
     this.setCharacterData(character, isMain).subscribe((response) => {
       console.log(response);
-      if (response.indexOf("Successfull") > -1) {
+      if (response.indexOf("Successful") > -1) {
         if (showToast) {
           this.showToast(
             "Updated",
@@ -100,7 +100,7 @@ export class UserService {
 
   submitData(user: IUser, type) {
     this.setUserData(user).subscribe((response) => {
-      if (response.indexOf("successfully") > -1) {
+      if (response.indexOf("Successful") > -1) {
         switch (type) {
           case "withdraw":
             this.showToast(

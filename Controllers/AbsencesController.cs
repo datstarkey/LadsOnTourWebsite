@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using LadsOnTour.Models;
 using LadsOnTour.Models.Database;
 using LadsOnTour.Services;
 using Microsoft.AspNetCore.Authorization;
