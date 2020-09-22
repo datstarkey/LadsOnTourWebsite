@@ -9,4 +9,6 @@ export interface IRosterUser {
   rankNumber: number;
   class: string;
   days: IRaidInfo;
+  roleColor: string;
+  classColor: string;
 }

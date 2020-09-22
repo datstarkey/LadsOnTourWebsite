@@ -1,4 +1,4 @@
-import { AppComponent } from "./../../app.component";
+import { WowService } from "./../../services/wow/wow.service";
 import { IRosterUser } from "./../../interfaces/rosterUser";
 import {
   Component,
@@ -9,6 +9,16 @@ import {
 } from "@angular/core";
 import { UserService } from "../../services/user/user.service";
 import { Subscription } from "rxjs";
+
+interface graphExtra {
+  people: string[];
+}
+
+interface graphData {
+  name: string;
+  value: number;
+  extra: graphExtra;
+}
 
 @Component({
   selector: "app-roster",
@@ -27,14 +37,21 @@ export class RosterComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    private wowService: WowService,
     private ref: ChangeDetectorRef
   ) {}
 
   users: IRosterUser[];
   loading: boolean;
 
+  healerClasses: graphData[];
+  rangedClasses: graphData[];
+  tankClasses: graphData[];
+  meleeClasses: graphData[];
+
   ngOnInit() {
     this.loading = true;
+    this.generateArrays();
     this.subscription.add(
       this.userService.getRosterData().subscribe((data) => {
         this.users = data;
@@ -49,7 +66,40 @@ export class RosterComponent implements OnInit {
     this.subscription.unsubscribe();
   }
 
-  getClasses(users) {
+  convertClassName(name: string): string {
+    if (name == "Demon Hunter") {
+      return "DH";
+    } else if (name == "Death Knight") {
+      return "DK";
+    }
+    return name;
+  }
+
+  generateArray(role: string): graphData[] {
+    return this.wowService.getClassesWithRole(role).map((wowClass) => {
+      let data: graphData = {
+        name: this.convertClassName(wowClass),
+        value: 0,
+        extra: { people: [] },
+      };
+      return data;
+    });
+  }
+
+  generateArrays() {
+    this.meleeClasses = this.generateArray("Melee");
+    this.rangedClasses = this.generateArray("Ranged");
+    this.tankClasses = this.generateArray("Tank");
+    this.healerClasses = this.generateArray("Healer");
+  }
+
+  getName(user: IRosterUser): string {
+    return user.nickname != null && user.nickname != ""
+      ? user.nickname
+      : user.discord;
+  }
+
+  getClasses(users: IRosterUser[]) {
     users.map((user) => {
       if (user.nickname == null) {
         user.nickname = user.discord;
@@ -77,7 +127,9 @@ export class RosterComponent implements OnInit {
 
       if (user.role == "Healer") {
         if (user.class != "TBC") {
-          this.healerClasses.find((u) => u.name == user.class).value++;
+          let slot = this.healerClasses.find((u) => u.name == user.class);
+          slot.value++;
+          slot.extra.people.push(this.getName(user));
         }
         this.totalHealers++;
         user.roleColor = "#00D68F";
@@ -85,7 +137,9 @@ export class RosterComponent implements OnInit {
 
       if (user.role == "Melee") {
         if (user.class != "TBC") {
-          this.meleeClasses.find((u) => u.name == user.class).value++;
+          let slot = this.meleeClasses.find((u) => u.name == user.class);
+          slot.value++;
+          slot.extra.people.push(this.getName(user));
         }
         this.totalMelee++;
         user.roleColor = "#FF3D71";
@@ -93,7 +147,9 @@ export class RosterComponent implements OnInit {
 
       if (user.role == "Ranged") {
         if (user.class != "TBC") {
-          this.rangedClasses.find((u) => u.name == user.class).value++;
+          let slot = this.rangedClasses.find((u) => u.name == user.class);
+          slot.value++;
+          slot.extra.people.push(this.getName(user));
         }
         this.totalRanged++;
         user.roleColor = "#f59898";
@@ -101,7 +157,9 @@ export class RosterComponent implements OnInit {
 
       if (user.role == "Tank") {
         if (user.class != "TBC") {
-          this.tankClasses.find((u) => u.name == user.class).value++;
+          let slot = this.tankClasses.find((u) => u.name == user.class);
+          slot.value++;
+          slot.extra.people.push(this.getName(user));
         }
         this.totalTanks++;
         user.roleColor = "#0095FF";
@@ -130,169 +188,6 @@ export class RosterComponent implements OnInit {
       }
     });
   }
-
-  meleeClasses = [
-    {
-      name: "DK",
-      value: 0,
-    },
-    {
-      name: "DH",
-      value: 0,
-    },
-    {
-      name: "Druid",
-      value: 0,
-    },
-    {
-      name: "Hunter",
-      value: 0,
-    },
-    {
-      name: "Monk",
-      value: 0,
-    },
-    {
-      name: "Paladin",
-      value: 0,
-    },
-    {
-      name: "Rogue",
-      value: 0,
-    },
-    {
-      name: "Shaman",
-      value: 0,
-    },
-    {
-      name: "Warrior",
-      value: 0,
-    },
-  ];
-  rangedClasses = [
-    {
-      name: "Druid",
-      value: 0,
-    },
-    {
-      name: "Hunter",
-      value: 0,
-    },
-    {
-      name: "Mage",
-      value: 0,
-    },
-    {
-      name: "Priest",
-      value: 0,
-    },
-    {
-      name: "Shaman",
-      value: 0,
-    },
-    {
-      name: "Warlock",
-      value: 0,
-    },
-  ];
-  dpsClasses = [
-    {
-      name: "DK",
-      value: 0,
-    },
-    {
-      name: "DH",
-      value: 0,
-    },
-    {
-      name: "Druid",
-      value: 0,
-    },
-    {
-      name: "Hunter",
-      value: 0,
-    },
-    {
-      name: "Mage",
-      value: 0,
-    },
-    {
-      name: "Monk",
-      value: 0,
-    },
-    {
-      name: "Paladin",
-      value: 0,
-    },
-    {
-      name: "Priest",
-      value: 0,
-    },
-    {
-      name: "Rogue",
-      value: 0,
-    },
-    {
-      name: "Shaman",
-      value: 0,
-    },
-    {
-      name: "Warlock",
-      value: 0,
-    },
-    {
-      name: "Warrior",
-      value: 0,
-    },
-  ];
-  tankClasses = [
-    {
-      name: "DK",
-      value: 0,
-    },
-    {
-      name: "DH",
-      value: 0,
-    },
-    {
-      name: "Druid",
-      value: 0,
-    },
-    {
-      name: "Monk",
-      value: 0,
-    },
-    {
-      name: "Paladin",
-      value: 0,
-    },
-    {
-      name: "Warrior",
-      value: 0,
-    },
-  ];
-  healerClasses = [
-    {
-      name: "Priest",
-      value: 0,
-    },
-    {
-      name: "Shaman",
-      value: 0,
-    },
-    {
-      name: "Druid",
-      value: 0,
-    },
-    {
-      name: "Monk",
-      value: 0,
-    },
-    {
-      name: "Paladin",
-      value: 0,
-    },
-  ];
 
   classColors = [
     {

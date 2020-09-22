@@ -1,15 +1,21 @@
 <ngx-charts-bar-vertical
-                         [results]="graphData"
-                         [customColors] ="customColors"
-                         [gradient]="gradient"
-                         [xAxis]="showXAxis"
-                         [yAxis]="showYAxis"
-                         [legend]="showLegend"
-                         [showXAxisLabel]="showXAxisLabel"
-                         [showYAxisLabel]="showYAxisLabel"
-                         [showGridLines] ="showGridLines"
-                         [showDataLabel] ="showDataLabel"
-                         [noBarWhenZero] ="noBarWhenZero"
-                         [yAxisTickFormatting] ="axisFormat"
-                         (select)="onSelect($event)">
+  [results]="graphData"
+  [customColors]="customColors"
+  [gradient]="gradient"
+  [xAxis]="showXAxis"
+  [yAxis]="showYAxis"
+  [legend]="showLegend"
+  [showXAxisLabel]="showXAxisLabel"
+  [showYAxisLabel]="showYAxisLabel"
+  [showGridLines]="showGridLines"
+  [showDataLabel]="showDataLabel"
+  [noBarWhenZero]="noBarWhenZero"
+  [yAxisTickFormatting]="axisFormat"
+  [tooltipTemplate]="tooltipTemplate"
+  (select)="onSelect($event)"
+>
+  <ng-template #tooltipTemplate let-model="model">
+    <p>{{ model.name }} : {{ model.value }}</p>
+    <p *ngFor="let person of model.extra.people">{{ person }}</p>
+  </ng-template>
 </ngx-charts-bar-vertical>
