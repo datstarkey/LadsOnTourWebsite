@@ -161,26 +161,31 @@ export class LogsComponent implements OnInit {
 
       let total = 0;
       let bossNumber = 0;
+
       //Add percentile for each boss
       this.headers.forEach((boss) => {
         //Sort Logs by Boss and difficulty
         let log: ILogRanking;
-        let logs = person.logs.filter((log) => {
-          return (
-            log.difficulty == this.difficulty.number &&
-            log.encounterName == boss
-          );
-        });
+        let logs: ILogRanking[] = [];
+        let data: tableLog;
+
+        if (person.logs.length > 0) {
+          logs = person.logs.filter((log) => {
+            return (
+              log.difficulty == this.difficulty.number &&
+              log.encounterName == boss
+            );
+          });
+        }
 
         //return highest percentile log
-        if (logs) {
+        if (logs.length > 0) {
           logs = logs.sort((a, b) => (a.percentile < b.percentile ? 1 : -1));
           log = logs[0];
         }
 
         //enter log data
-        let data: tableLog;
-        if (log) {
+        if (log != null) {
           data = {
             display: Math.floor(log.percentile).toString(),
             url: log.reportID,
