@@ -91,7 +91,7 @@ namespace LadsOnTour.Controllers
             var id = User.FindFirst("name").Value;
 
             if (character.character_id <= 0)
-                return BadRequest("No Character_id given");
+                return BadRequest("No Character Id given");
 
             if (armory.ValidCharacter(character, id))
             {

@@ -50,7 +50,7 @@ namespace LadsOnTour.Controllers
         {
             var apiKey = Request.Headers["Authorization"];
 
-            //Not a create way to do this, need to log at using mutliple authentication with the Authorize attribute
+            //Not a create way to do this, need to log at using multiple authentication with the Authorize attribute
             if (apiKey.Any())
             {
                 var authKey = config["APIKeys:Keys"];
@@ -65,7 +65,7 @@ namespace LadsOnTour.Controllers
 
         /// <summary>
         /// Login for user, needs the query parameters from the Discord Oauth2 portal.
-        /// If Refresh is supplied will refresht he JWT.
+        /// If Refresh is supplied will refresh he JWT.
         /// </summary>
         /// <param name="accessCode">Discord Access Code</param>
         /// <param name="redirectUrl">Url redirected to</param>
@@ -77,14 +77,14 @@ namespace LadsOnTour.Controllers
             DiscordService.OAuthResponse response = await discord.GetToken(accessCode, redirectUrl, refresh);
 
             //An error with discord login - need to log more effectively
-            if (String.IsNullOrEmpty(response.access_token))
+            if (string.IsNullOrEmpty(response.access_token))
                 return BadRequest("Error with discord login");
 
             //Get the User from discord
             DiscordUser user = await discord.GetUser(response.access_token);
 
             //Error with the discord Oauth - need to log more effectively
-            if (String.IsNullOrEmpty(user.Username))
+            if (string.IsNullOrEmpty(user.Username))
                 return BadRequest("Error with discord authentication");
 
             users.SetDiscordDetails(user);

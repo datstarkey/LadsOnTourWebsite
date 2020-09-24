@@ -70,7 +70,7 @@ export class WowService {
   }
 
   filterRoles(className): string[] {
-    if (className == "TBC") {
+    if (className == "TBC" || className == null) {
       return this.roles;
     }
 

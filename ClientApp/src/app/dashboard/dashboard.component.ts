@@ -36,7 +36,9 @@ export class DashboardComponent implements OnInit {
       const character = this.characters.find(
         (c) => c.character_id == this.main
       );
-      this.classText = `${character.level} ${character._class} - ${character.guild}`;
+      if (character != null) {
+        this.classText = `${character.level} ${character._class} - ${character.guild}`;
+      }
     }
   }
 
