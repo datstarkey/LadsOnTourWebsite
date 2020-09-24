@@ -119,7 +119,7 @@ namespace LadsOnTour.Controllers
             var token = new JwtSecurityToken(config["Jwt:Issuer"],
                       config["Jwt:Issuer"],
                       claims,
-                      expires: DateTime.Now.AddDays(1),
+                      expires: DateTime.Now.AddDays(7),
                       signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
@@ -166,7 +166,7 @@ namespace LadsOnTour.Controllers
             var token = new JwtSecurityToken(config["Jwt:Issuer"],
                       config["Jwt:Issuer"],
                       claims,
-                      expires: DateTime.Now.AddDays(1),
+                      expires: DateTime.Now.AddMonths(1),
                       signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
