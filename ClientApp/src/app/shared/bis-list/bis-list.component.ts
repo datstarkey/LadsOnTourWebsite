@@ -1,6 +1,6 @@
+import { IUser } from "app/interfaces/user";
 import { UserService } from "./../../services/user/user.service";
 import { Component, OnInit } from "@angular/core";
-import { IUser } from "app/interfaces/user";
 import { Subscription } from "rxjs";
 
 @Component({
