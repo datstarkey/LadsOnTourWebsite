@@ -13,4 +13,5 @@ export interface IUser {
   battleNetToken: string;
   twitchId: string;
   days: string;
+  bisList: BisList;
 }

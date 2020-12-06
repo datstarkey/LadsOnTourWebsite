@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using LadsOnTour.Models;
 using LadsOnTour.Utilities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,7 @@ namespace LadsOnTour.Services
 
         public UserDto GetUser(string id)
         {
-            var user = context.users.Find(id);
+            var user = context.users.Include(u => u.BisList).First(u => u.DiscordID == id);
             return mapper.Map<UserDto>(user);
         }
 
@@ -44,13 +45,13 @@ namespace LadsOnTour.Services
 
         public List<StreamData> GetTwitchIds() => context.users.Where(u => !string.IsNullOrEmpty(u.TwitchId)).Select(u => new StreamData { id = u.TwitchId, name = u.TwitchName }).ToList();
 
-        public List<RosterDto> GetRoster() => mapper.Map<List<RosterDto>>(context.users.Where(u => u.InDiscord == "Yes").ToList());
+        public List<RosterDto> GetRoster() => mapper.Map<List<RosterDto>>(context.users.Where(u => u.InDiscord == "Yes" && u.RankNumber <= 5).ToList());
 
         public List<ApplicationDto> GetApplications() => mapper.Map<List<ApplicationDto>>(context.users.ToList());
 
         public User FindOrAddUser(string id)
         {
-            User local = context.users.Find(id);
+            User local = context.users.Include(u => u.BisList).First(u => u.DiscordID == id);
             if (local == null)
             {
                 local = new User
@@ -58,7 +59,7 @@ namespace LadsOnTour.Services
                     DiscordID = id
                 };
                 context.Add(local);
-                local = context.users.Find(id);
+                local = context.users.Include(u => u.BisList).First(u => u.DiscordID == id);
             }
             return local;
         }
@@ -74,7 +75,7 @@ namespace LadsOnTour.Services
 
         public Task UpdateUser(User user)
         {
-            string[] propList = new string[] { "Nickname", "Class", "Role", "About", "Experience", "AppLogs", "Armory", "BattleNet", "Days" };
+            string[] propList = new string[] { "Nickname", "BisList", "Class", "Role", "About", "Experience", "AppLogs", "Armory", "BattleNet", "Days" };
             var local = FindOrAddUser(user.DiscordID);
 
             if (user.Class != "TBC")

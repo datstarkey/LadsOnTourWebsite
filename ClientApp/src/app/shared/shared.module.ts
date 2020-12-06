@@ -38,6 +38,7 @@ import { CalendarModule, DateAdapter } from "angular-calendar";
 import { adapterFactory } from "angular-calendar/date-adapters/date-fns";
 import { RaidTimesComponent } from './raid-times/raid-times.component';
 import { RaidComponent } from './raid/raid.component';
+import { BisListComponent } from './bis-list/bis-list.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { RaidComponent } from './raid/raid.component';
     CalendarComponent,
     RaidTimesComponent,
     RaidComponent,
+    BisListComponent,
   ],
   imports: [
     FormsModule,

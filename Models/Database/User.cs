@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LadsOnTour.Models.Database;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace LadsOnTour.Models
@@ -34,5 +35,7 @@ namespace LadsOnTour.Models
         public string Experience { get; set; }
         public string AppStatus { get; set; }
         public string AppLogs { get; set; }
+
+        public BisList BisList { get; set; } = new BisList();
     }
 }

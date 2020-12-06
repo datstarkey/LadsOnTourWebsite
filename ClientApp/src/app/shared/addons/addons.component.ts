@@ -43,7 +43,7 @@ export class AddonsComponent implements OnInit {
     {
       name: "Castle Of Natharia WeakAuras",
       type: "WeakAura",
-      link: "",
+      link: "https://wago.io/slraid1",
     },
   ];
 

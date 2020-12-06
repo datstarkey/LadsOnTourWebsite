@@ -1,0 +1,187 @@
+<nb-card>
+  <nb-card-header>
+    <h4>Bis List</h4>
+  </nb-card-header>
+
+  <nb-card-body>
+    <table
+      *ngIf="items && items.length > 0"
+      class="display-table addon-table"
+      style="width: 100%"
+    >
+      <thead>
+        <tr>
+          <th>Slot</th>
+          <th>Item</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Helm</td>
+          <td>
+            <nb-select fullWidth [(ngModel)]="user.bisList.helmId">
+              <nb-option *ngFor="let item of heads" [value]="item.id">{{
+                item.name
+              }}</nb-option>
+            </nb-select>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Neck</td>
+          <td>
+            <nb-select fullWidth [(ngModel)]="user.bisList.neckId">
+              <nb-option *ngFor="let item of necks" [value]="item.id">{{
+                item.name
+              }}</nb-option>
+            </nb-select>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Shoulder</td>
+          <td>
+            <nb-select fullWidth [(ngModel)]="user.bisList.shoulderId">
+              <nb-option *ngFor="let item of shoulders" [value]="item.id">{{
+                item.name
+              }}</nb-option>
+            </nb-select>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Back</td>
+          <td>
+            <nb-select fullWidth [(ngModel)]="user.bisList.cloakId">
+              <nb-option *ngFor="let item of cloaks" [value]="item.id">{{
+                item.name
+              }}</nb-option>
+            </nb-select>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Chest</td>
+          <td>
+            <nb-select fullWidth [(ngModel)]="user.bisList.chestId">
+              <nb-option *ngFor="let item of chests" [value]="item.id">{{
+                item.name
+              }}</nb-option>
+            </nb-select>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Wrist</td>
+          <td>
+            <nb-select fullWidth [(ngModel)]="user.bisList.wristId">
+              <nb-option *ngFor="let item of wrists" [value]="item.id">{{
+                item.name
+              }}</nb-option>
+            </nb-select>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Glove</td>
+          <td>
+            <nb-select fullWidth [(ngModel)]="user.bisList.gloveId">
+              <nb-option *ngFor="let item of gloves" [value]="item.id">{{
+                item.name
+              }}</nb-option>
+            </nb-select>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Waist</td>
+          <td>
+            <nb-select fullWidth [(ngModel)]="user.bisList.waistId">
+              <nb-option *ngFor="let item of waists" [value]="item.id">{{
+                item.name
+              }}</nb-option>
+            </nb-select>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Leg</td>
+          <td>
+            <nb-select fullWidth [(ngModel)]="user.bisList.legId">
+              <nb-option *ngFor="let item of legs" [value]="item.id">{{
+                item.name
+              }}</nb-option>
+            </nb-select>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Ring 1</td>
+          <td>
+            <nb-select fullWidth [(ngModel)]="user.bisList.ring1Id">
+              <nb-option *ngFor="let item of rings" [value]="item.id">{{
+                item.name
+              }}</nb-option>
+            </nb-select>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Ring 2</td>
+          <td>
+            <nb-select fullWidth [(ngModel)]="user.bisList.ring2Id">
+              <nb-option *ngFor="let item of rings" [value]="item.id">{{
+                item.name
+              }}</nb-option>
+            </nb-select>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Trinket 1</td>
+          <td>
+            <nb-select fullWidth [(ngModel)]="user.bisList.trinket1Id">
+              <nb-option *ngFor="let item of trinkets" [value]="item.id">{{
+                item.name
+              }}</nb-option>
+            </nb-select>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Trinket 2</td>
+          <td>
+            <nb-select fullWidth [(ngModel)]="user.bisList.trinket2Id">
+              <nb-option *ngFor="let item of trinkets" [value]="item.id">{{
+                item.name
+              }}</nb-option>
+            </nb-select>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Main Hand</td>
+          <td>
+            <nb-select fullWidth [(ngModel)]="user.bisList.mainHandId">
+              <nb-option *ngFor="let item of mainHands" [value]="item.id">{{
+                item.name
+              }}</nb-option>
+            </nb-select>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Off Hand</td>
+          <td>
+            <nb-select fullWidth [(ngModel)]="user.bisList.offHandId">
+              <nb-option *ngFor="let item of offHands" [value]="item.id">{{
+                item.name
+              }}</nb-option>
+            </nb-select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button nbButton status="success" (click)="updateCharacter()">Save</button>
+  </nb-card-body>
+</nb-card>

@@ -142,6 +142,7 @@ export class UserService {
     });
   }
 
+
   getCharacters() {
     const headers = this.headers;
     this.http
@@ -189,6 +190,12 @@ export class UserService {
         }
       );
   }
+
+  getRaidItems(className:string) {
+    const headers = this.headers;
+        return this.http.get<WoWItem[]>(`${this.baseUrl}/raidItems?className=${className}`, { headers });
+  }
+
 
   getWarcraftLogsApiKey(): Observable<any> {
     const headers = this.headers;

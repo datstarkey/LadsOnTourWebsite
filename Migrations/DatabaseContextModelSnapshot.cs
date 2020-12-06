@@ -46,6 +46,87 @@ namespace LadsOnTour.Migrations
                     b.ToTable("Absences");
                 });
 
+            modelBuilder.Entity("LadsOnTour.Models.Database.BisList", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("ChestId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("CloakId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("GloveId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("HelmId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("LegId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("MainHandId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("NeckId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("OffHandId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Ring1Id")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Ring2Id")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ShoulderId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Trinket1Id")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Trinket2Id")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("WaistId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("WristId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BisList");
+                });
+
+            modelBuilder.Entity("LadsOnTour.Models.Database.WoWItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("InventoryType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ItemClass")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ItemSubClass")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("NathariaItems");
+                });
+
             modelBuilder.Entity("LadsOnTour.Models.User", b =>
                 {
                     b.Property<string>("DiscordID")
@@ -71,6 +152,9 @@ namespace LadsOnTour.Migrations
 
                     b.Property<DateTime>("BattleNetTokenExpiration")
                         .HasColumnType("timestamp without time zone");
+
+                    b.Property<int?>("BisListId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Class")
                         .HasColumnType("text");
@@ -115,6 +199,8 @@ namespace LadsOnTour.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("DiscordID");
+
+                    b.HasIndex("BisListId");
 
                     b.ToTable("users");
                 });
@@ -168,6 +254,13 @@ namespace LadsOnTour.Migrations
                     b.HasKey("character_id");
 
                     b.ToTable("wow_characters");
+                });
+
+            modelBuilder.Entity("LadsOnTour.Models.User", b =>
+                {
+                    b.HasOne("LadsOnTour.Models.Database.BisList", "BisList")
+                        .WithMany()
+                        .HasForeignKey("BisListId");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using LadsOnTour.RaidItems;
+using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Threading;
@@ -9,6 +11,7 @@ namespace LadsOnTour.Services
     public class BackgroundUpdateService : BackgroundService
     {
         public IServiceScopeFactory _serviceScopeFactory;
+        private bool runOnce = true;
 
         public BackgroundUpdateService(IServiceScopeFactory serviceScopeFactory)
         {
@@ -26,6 +29,14 @@ namespace LadsOnTour.Services
                     try
                     {
                         var armory = scope.ServiceProvider.GetRequiredService<BattleNetService>();
+                        var context = scope.ServiceProvider.GetRequiredService<LadsOnTour.Models.DatabaseContext>();
+
+                        if (runOnce)
+                        {
+                            await armory.AddRaidItemsToDb(CastleNatharia.AllItems);
+                            runOnce = false;
+                        }
+
                         await armory.UpdateAllCharacters();
                         await armory.SetGuildRanks("", true);
 
@@ -38,6 +49,7 @@ namespace LadsOnTour.Services
                     }
                 }
 
+                Console.WriteLine($"Finished Updating All Characters");
                 await Task.Delay(3600000, stoppingToken);
             }
         }

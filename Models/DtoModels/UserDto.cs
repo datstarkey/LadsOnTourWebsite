@@ -1,4 +1,6 @@
-﻿namespace LadsOnTour.Models
+﻿using LadsOnTour.Models.Database;
+
+namespace LadsOnTour.Models
 {
     public class UserDto
     {
@@ -17,5 +19,6 @@
         public string MainName { get; set; }
         public string BattleNetToken { get; set; }
         public string TwitchId { get; set; }
+        public BisList BisList { get; set; }
     }
 }

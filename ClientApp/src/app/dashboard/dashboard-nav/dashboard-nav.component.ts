@@ -26,6 +26,11 @@ export class DashboardNavComponent implements OnInit {
   mobileNav: boolean;
 
   userNav: navItem = { title: "User", url: "user", icon: "person-outline" };
+  bisListNav: navItem = {
+    title: "Bis List",
+    url: "bis-list",
+    icon: "list-outline",
+  };
   applyNav: navItem = {
     title: "Apply",
     url: "apply",
@@ -114,7 +119,8 @@ export class DashboardNavComponent implements OnInit {
         if (this.raider) {
           this.pages = [
             this.userNav,
-            this.raidNav,
+            //    this.raidNav,
+            this.bisListNav,
             this.downloadsNav,
             this.applicationsNav,
             this.logsNav,

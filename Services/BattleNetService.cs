@@ -1,5 +1,8 @@
 ﻿using ArgentPonyWarcraftClient;
+using LadsOnTour.Extensions;
 using LadsOnTour.Models;
+using LadsOnTour.Models.Database;
+using LadsOnTour.RaidItems;
 using LadsOnTour.Utilities;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -25,6 +28,7 @@ namespace LadsOnTour.Services
         private readonly int realmId;
         private readonly string region;
         private readonly string nameSpace;
+        private readonly string nameSpaceStatic;
 
         private string accessCode;
         public string WarCraftLogsApiKey;
@@ -43,6 +47,7 @@ namespace LadsOnTour.Services
             realmName = config["Wow:RealmName"];
             region = config["Wow:Region"];
             nameSpace = $"profile-{region.ToLower()}";
+            nameSpaceStatic = $"static-{region.ToLower()}";
 
             warcraftClient = new WarcraftClient(clientId, clientSecret, Region.Europe, Locale.en_GB);
         }
@@ -51,16 +56,58 @@ namespace LadsOnTour.Services
         {
             {0,"Guild Master"},
             {1,"Officer"},
-            {2,"Raider"},
-            {3,"Trial"},
-            {4,"Veteran"},
-            {5,"Social"},
-            {6,"N/A" },
-            {7,"N/A" },
-            {8,"N/A" },
-            {9,"N/A" },
-            {10,"N/A" },
+            {2,"Human Resources"},
+            {3,"Raider"},
+            {4,"Raider Alt"},
+            {5,"Trial"},
+            {6,"Veteran" },
+            {7,"Social" },
+            {8,"Social" },
+            {9,"Social" },
+            {10,"Social" },
         };
+
+        private readonly Dictionary<string, string> classArmorTypes = new Dictionary<string, string>()
+        {
+            {"Warrior","Plate" },
+            {"Paladin","Plate" },
+            {"Hunter","Mail" },
+            {"Rogue","Leather" },
+            {"Priest","Cloth" },
+            {"Shaman","Mail" },
+            {"Mage","Cloth" },
+            {"Warlock","Cloth" },
+            {"Monk","Leather" },
+            {"Druid","Leather" },
+            {"Death Knight","Plate" },
+            {"Demon Hunter","Leather" },
+        };
+
+        public async Task AddRaidItemsToDb(List<int> items)
+        {
+            foreach (var item in items)
+            {
+                if (!context.NathariaItems.Any(i => i.Id == item))
+                {
+                    var fullItem = await GetItem(item);
+
+                    if (fullItem != null)
+                        await context.NathariaItems.AddAsync(fullItem.ToWowItem());
+                }
+            }
+            await context.SaveChangesAsync();
+        }
+
+        public List<WoWItem> GetRaidItems(string className)
+        {
+            if (classArmorTypes.ContainsKey(className))
+            {
+                var armorType = classArmorTypes[className];
+                var items = context.NathariaItems.Where(i => (i.ItemSubClass == "Miscellaneous" || i.ItemSubClass == armorType || i.InventoryType=="Back" || i.InventoryType== "Non-equippable")).ToList();
+                return items;
+            }
+            return null;
+        }
 
         /// <summary>
         /// Gets API access token for general BattleNet API use.
@@ -188,6 +235,12 @@ namespace LadsOnTour.Services
             }
         }
 
+        private async Task<Item> GetItem(int itemId)
+        {
+            var item = await warcraftClient.GetItemAsync(itemId, nameSpaceStatic);
+            return item.Value;
+        }
+
         /// <summary>
         /// Updates equipment for a set character
         /// </summary>
@@ -244,6 +297,10 @@ namespace LadsOnTour.Services
                                     context.Add(wowCharacter);
                                     context.SaveChanges();
                                 }
+                                else
+                                {
+                                    wowCharacter.name = character.Name;
+                                }
                                 await UpdateCharacter(wowCharacter);
                             }
                             catch (Exception e)
@@ -260,7 +317,7 @@ namespace LadsOnTour.Services
         }
 
         /// <summary>
-        /// Return all characters in the databse related to a user.
+        /// Return all characters in the database related to a user.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -296,6 +353,10 @@ namespace LadsOnTour.Services
             //exit task if we couldn't pull guild info
             if (!guildMembers.Success) return Task.CompletedTask;
 
+            if (all)
+                Console.WriteLine($"{characters.Count} Characters to Update");
+
+            int position = 1;
             foreach (var character in characters)
             {
                 try
@@ -311,6 +372,12 @@ namespace LadsOnTour.Services
                         dbCharacter.rank = 10;
                     }
                     dbCharacter.rank_name = rank[dbCharacter.rank];
+
+                    if (all)
+                    {
+                        Console.WriteLine($"${position}/{characters.Count}");
+                        position++;
+                    }
                 }
                 catch (Exception e)
                 {

@@ -1,4 +1,5 @@
-﻿using LadsOnTour.Models.Database;
+﻿using ArgentPonyWarcraftClient;
+using LadsOnTour.Models.Database;
 using Microsoft.EntityFrameworkCore;
 
 namespace LadsOnTour.Models
@@ -8,6 +9,7 @@ namespace LadsOnTour.Models
         public DbSet<User> users { get; set; }
         public DbSet<WoWCharacter> wow_characters { get; set; }
         public DbSet<Absence> Absences { get; set; }
+        public DbSet<WoWItem> NathariaItems { get; set; }
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {

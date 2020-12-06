@@ -1,4 +1,6 @@
-﻿using LadsOnTour.Models;
+﻿using ArgentPonyWarcraftClient;
+using LadsOnTour.Models;
+using LadsOnTour.Models.Database;
 using LadsOnTour.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -33,6 +35,10 @@ namespace LadsOnTour.Controllers
         [HttpGet("Roster")]
         public List<RosterDto> GetRoster()
             => userService.GetRoster();
+
+        [HttpGet("raidItems")]
+        public List<WoWItem> GetRaidItems([FromQuery] string className)
+            => armory.GetRaidItems(className);
 
         /// <summary>
         /// Returns the Warcraft logs api key
