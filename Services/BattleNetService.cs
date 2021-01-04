@@ -103,7 +103,7 @@ namespace LadsOnTour.Services
             if (classArmorTypes.ContainsKey(className))
             {
                 var armorType = classArmorTypes[className];
-                var items = context.NathariaItems.Where(i => (i.ItemSubClass == "Miscellaneous" || i.ItemSubClass == armorType || i.InventoryType=="Back" || i.InventoryType== "Non-equippable")).ToList();
+                var items = context.NathariaItems.Where(i => (i.ItemSubClass == "Miscellaneous" || i.ItemSubClass == armorType || i.InventoryType == "Back" || i.InventoryType == "Non-equippable")).ToList();
                 return items;
             }
             return null;

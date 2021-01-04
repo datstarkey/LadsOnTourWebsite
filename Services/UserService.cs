@@ -51,7 +51,7 @@ namespace LadsOnTour.Services
 
         public User FindOrAddUser(string id)
         {
-            User local = context.users.Include(u => u.BisList).First(u => u.DiscordID == id);
+            User local = context.users.Include(u => u.BisList).FirstOrDefault(u => u.DiscordID == id);
             if (local == null)
             {
                 local = new User
@@ -59,7 +59,6 @@ namespace LadsOnTour.Services
                     DiscordID = id
                 };
                 context.Add(local);
-                local = context.users.Include(u => u.BisList).First(u => u.DiscordID == id);
             }
             return local;
         }
