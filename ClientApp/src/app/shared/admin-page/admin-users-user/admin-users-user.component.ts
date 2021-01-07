@@ -42,6 +42,17 @@ export class AdminUsersUserComponent implements OnInit {
     );
   }
 
+  toggle(checked: boolean) {
+    if (checked) {
+      this.userService.updateCharacter(this.selectedCharacter, true, false);
+      this.userService.updateUserCharacter(
+        this.user.discordID,
+        this.selectedCharacter,
+        true
+      );
+    }
+  }
+
   ngOnInit() {
     this.subscription.add(
       this.userService

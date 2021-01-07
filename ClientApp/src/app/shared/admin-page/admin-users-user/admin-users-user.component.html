@@ -36,7 +36,7 @@
   <nb-checkbox
     *ngIf="selectedCharacter"
     status="success"
-    (checkedChange)="updateCharacter()"
+    (checkedChange)="toggle($event)"
     [(ngModel)]="isMain"
   ></nb-checkbox>
 </td>
