@@ -128,8 +128,10 @@ export class RosterComponent implements OnInit {
       if (user.role == "Healer") {
         if (user.class != "TBC") {
           let slot = this.healerClasses.find((u) => u.name == user.class);
-          slot.value++;
-          slot.extra.people.push(this.getName(user));
+          if (slot) {
+            slot.value++;
+            slot.extra.people.push(this.getName(user));
+          }
         }
         this.totalHealers++;
         user.roleColor = "#00D68F";
@@ -138,8 +140,10 @@ export class RosterComponent implements OnInit {
       if (user.role == "Melee") {
         if (user.class != "TBC") {
           let slot = this.meleeClasses.find((u) => u.name == user.class);
-          slot.value++;
-          slot.extra.people.push(this.getName(user));
+          if (slot) {
+            slot.value++;
+            slot.extra.people.push(this.getName(user));
+          }
         }
         this.totalMelee++;
         user.roleColor = "#FF3D71";
@@ -147,9 +151,12 @@ export class RosterComponent implements OnInit {
 
       if (user.role == "Ranged") {
         if (user.class != "TBC") {
+          console.log(user.class);
           let slot = this.rangedClasses.find((u) => u.name == user.class);
-          slot.value++;
-          slot.extra.people.push(this.getName(user));
+          if (slot) {
+            slot.value++;
+            slot.extra.people.push(this.getName(user));
+          }
         }
         this.totalRanged++;
         user.roleColor = "#f59898";
@@ -158,8 +165,10 @@ export class RosterComponent implements OnInit {
       if (user.role == "Tank") {
         if (user.class != "TBC") {
           let slot = this.tankClasses.find((u) => u.name == user.class);
-          slot.value++;
-          slot.extra.people.push(this.getName(user));
+          if (slot) {
+            slot.value++;
+            slot.extra.people.push(this.getName(user));
+          }
         }
         this.totalTanks++;
         user.roleColor = "#0095FF";

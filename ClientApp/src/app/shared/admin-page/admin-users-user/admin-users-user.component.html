@@ -13,6 +13,11 @@
   </nb-select>
 </td>
 <td>
+  <div *ngIf="selectedCharacter">
+    {{ selectedCharacter._class }}
+  </div>
+</td>
+<td>
   <nb-select
     *ngIf="selectedCharacter"
     fullWidth
