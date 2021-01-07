@@ -111,6 +111,25 @@ namespace LadsOnTour.Controllers
             return BadRequest("Error, cant find character or character does not belong to you, please refresh characters");
         }
 
+        [Authorize(Roles = "Admin")]
+        [HttpPost("{discordId}/updateCharacter")]
+        public async Task<IActionResult> UpdateCharacterById([FromBody] WoWCharacter character, [FromRoute] string discordId, [FromQuery(Name = "main")] bool isMain)
+        {
+            if (character.character_id <= 0)
+                return BadRequest("No Character Id given");
+
+            if (armory.ValidCharacter(character, discordId))
+            {
+                await armory.UpdateCharacter(character);
+                if (isMain)
+                    userService.SetMain(discordId, character);
+
+                return Ok("Update Successful");
+            }
+
+            return BadRequest("Error, cant find character or character does not belong to you, please refresh characters");
+        }
+
         /// <summary>
         /// Returns a list of all the current users characters from supplied JWT.
         /// </summary>
@@ -118,6 +137,11 @@ namespace LadsOnTour.Controllers
         [HttpGet("characters")]
         public List<WoWCharacter> GetCharacters()
             => armory.GetCharacters(User.FindFirst("name").Value);
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("{discordId}/characters")]
+        public List<WoWCharacter> GetCharactersById([FromRoute] string discordId)
+            => armory.GetCharacters(discordId);
 
         /// <summary>
         /// Links all characters from the BattleNet API.

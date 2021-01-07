@@ -68,6 +68,11 @@ export class DashboardNavComponent implements OnInit {
     icon: "calendar-outline",
   };
   logsNav: navItem = { title: "logs", url: "logs", icon: "activity-outline" };
+  adminNav: navItem = {
+    title: "Admin",
+    url: "admin",
+    icon: "activity-outline",
+  };
 
   pages: navItem[] = [
     this.userNav,
@@ -119,7 +124,6 @@ export class DashboardNavComponent implements OnInit {
         if (this.raider) {
           this.pages = [
             this.userNav,
-            //    this.raidNav,
             this.bisListNav,
             this.downloadsNav,
             this.applicationsNav,
@@ -129,6 +133,17 @@ export class DashboardNavComponent implements OnInit {
             this.calendarNav,
           ];
         }
+
+        //Add Admin page if needed
+        this.subscriptions.add(
+          this.loginService.admin.subscribe((value) => {
+            if (value == true) {
+              if (!this.pages.includes(this.adminNav)) {
+                this.pages.push(this.adminNav);
+              }
+            }
+          })
+        );
       })
     );
 

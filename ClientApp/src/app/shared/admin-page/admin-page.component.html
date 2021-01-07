@@ -1,0 +1,25 @@
+<nb-card>
+  <nb-card-header>
+    <h4>Users</h4>
+  </nb-card-header>
+  <nb-card-body>
+    <table
+      *ngIf="users && users.length > 0"
+      class="display-table addon-table"
+      style="width: 100%"
+    >
+      <thead>
+        <tr>
+          <th>Discord</th>
+          <th>Name</th>
+          <th>Characters</th>
+          <th>Role</th>
+          <th>Main</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users" app-admin-users-user [user]="user"></tr>
+      </tbody>
+    </table>
+  </nb-card-body>
+</nb-card>

@@ -79,7 +79,6 @@ export class UserService {
 
   updateCharacter(character: ICharacter, isMain: boolean, showToast = true) {
     this.setCharacterData(character, isMain).subscribe((response) => {
-      console.log(response);
       if (response.indexOf("Successful") > -1) {
         if (showToast) {
           this.showToast(
@@ -96,6 +95,30 @@ export class UserService {
         this.badToast();
       }
     });
+  }
+
+  updateUserCharacter(
+    discordId: string,
+    character: ICharacter,
+    isMain: boolean,
+    showToast = true
+  ) {
+    this.setCharacterData(character, isMain, discordId).subscribe(
+      (response) => {
+        if (response.indexOf("Successful") > -1) {
+          if (showToast) {
+            this.showToast(
+              "Updated",
+              "Profile was updated correctly",
+              "success",
+              "bottom-right"
+            );
+          }
+        } else {
+          this.badToast();
+        }
+      }
+    );
   }
 
   submitData(user: IUser, type) {
@@ -141,7 +164,6 @@ export class UserService {
       }
     });
   }
-
 
   getCharacters() {
     const headers = this.headers;
@@ -191,15 +213,25 @@ export class UserService {
       );
   }
 
-  getRaidItems(className:string) {
+  getRaidItems(className: string) {
     const headers = this.headers;
-        return this.http.get<WoWItem[]>(`${this.baseUrl}/raidItems?className=${className}`, { headers });
+    return this.http.get<WoWItem[]>(
+      `${this.baseUrl}/raidItems?className=${className}`,
+      { headers }
+    );
   }
-
 
   getWarcraftLogsApiKey(): Observable<any> {
     const headers = this.headers;
     return this.http.get<any>(`${this.baseUrl}/warcraftlogs`, { headers });
+  }
+
+  getCharacterByUser(discordId: string): Observable<ICharacter[]> {
+    const headers = this.headers;
+    return this.http.get<ICharacter[]>(
+      `${this.baseUrl}/${discordId}/characters`,
+      { headers }
+    );
   }
 
   getRosterMains(): Observable<ICharacter[]> {
@@ -211,6 +243,11 @@ export class UserService {
     return this.http.get<IRosterUser[]>(`${this.baseUrl}/roster`);
   }
 
+  getAllUsers(): Observable<IUser[]> {
+    const headers = this.headers;
+    return this.http.get<IUser[]>(`${this.baseUrl}/GetAllUsers`, { headers });
+  }
+
   setUserData(user: IUser): Observable<string> {
     const headers = this.headers;
     return this.http.post(this.baseUrl, user, {
@@ -219,16 +256,20 @@ export class UserService {
     });
   }
 
-  setCharacterData(character: ICharacter, isMain: Boolean): Observable<string> {
+  setCharacterData(
+    character: ICharacter,
+    isMain: Boolean,
+    discordId = null
+  ): Observable<string> {
     const headers = this.headers;
-    return this.http.post(
-      `${this.baseUrl}/character?main=${isMain}`,
-      character,
-      {
-        headers,
-        responseType: "text",
-      }
-    );
+    const url =
+      discordId == null
+        ? `${this.baseUrl}/character?main=${isMain}`
+        : `${this.baseUrl}/${discordId}/updateCharacter?main=${isMain}`;
+    return this.http.post(url, character, {
+      headers,
+      responseType: "text",
+    });
   }
 
   clearMain(): Observable<string> {

@@ -1,4 +1,5 @@
-import { BisListComponent } from './shared/bis-list/bis-list.component';
+import { AdminPageComponent } from "./shared/admin-page/admin-page.component";
+import { BisListComponent } from "./shared/bis-list/bis-list.component";
 import { RaidTimesComponent } from "./shared/raid-times/raid-times.component";
 import { LogsComponent } from "./shared/logs/logs.component";
 import { CalendarComponent } from "./shared/calendar/calendar.component";
@@ -42,6 +43,7 @@ const routes: Routes = [
       { path: "logs", component: LogsComponent },
       { path: "raid", component: RaidTimesComponent },
       { path: "bis-list", component: BisListComponent },
+      { path: "admin", component: AdminPageComponent },
       {
         path: "roster",
         loadChildren: "./shared/roster/roster.module#RosterModule",
