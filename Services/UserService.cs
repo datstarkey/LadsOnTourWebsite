@@ -106,10 +106,23 @@ namespace LadsOnTour.Services
             var local = FindOrAddUser(user.DiscordID);
             local.AppStatus = user.AppStatus;
 
-            if (local.AppStatus == "Accepted")
-                await ladBot.AcceptUser(user);
-            else if (local.AppStatus == "Declined")
-                await ladBot.DeclineUser(user);
+            switch (local.AppStatus)
+            {
+                case "Accepted":
+                    await ladBot.AcceptUser(user);
+                    break;
+
+                case "Sent":
+                    await ladBot.NewApplication(user);
+                    break;
+
+                case "Declined":
+                    await ladBot.DeclineUser(user);
+                    break;
+
+                default:
+                    break;
+            }
 
             context.SaveChanges();
         }

@@ -16,12 +16,20 @@ namespace LadsOnTour.Services
             var client = new RestClient($"{url}acceptApplication");
             var request = new RestRequest(Method.POST);
             request.AddJsonBody(user);
-           var response =  await client.ExecuteAsync(request);
+            var response = await client.ExecuteAsync(request);
         }
 
         public async Task DeclineUser(User user)
         {
             var client = new RestClient($"{url}declineApplication");
+            var request = new RestRequest(Method.POST);
+            request.AddJsonBody(user);
+            await client.ExecuteAsync(request);
+        }
+
+        public async Task NewApplication(User user)
+        {
+            var client = new RestClient($"{url}newApplication");
             var request = new RestRequest(Method.POST);
             request.AddJsonBody(user);
             await client.ExecuteAsync(request);
