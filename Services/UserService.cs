@@ -72,7 +72,7 @@ namespace LadsOnTour.Services
             return wowCharacters;
         }
 
-        public Task UpdateUser(User user)
+        public async Task UpdateUser(User user)
         {
             string[] propList = new string[] { "Nickname", "BisList", "Class", "Role", "About", "Experience", "AppLogs", "Armory", "BattleNet", "Days" };
             var local = FindOrAddUser(user.DiscordID);
@@ -83,10 +83,14 @@ namespace LadsOnTour.Services
             Utils.CopyProperties(local, user, propList);
 
             if (user.AppStatus == "Sent" || user.AppStatus == "Not Sent")
+            {
                 local.AppStatus = user.AppStatus;
 
-            context.SaveChanges();
-            return Task.CompletedTask;
+                if (user.AppStatus == "Sent")
+                    await ladBot.NewApplication(local);
+            }
+
+            await context.SaveChangesAsync();
         }
 
         public Task AdminUpdateUser(User user)
@@ -110,10 +114,6 @@ namespace LadsOnTour.Services
             {
                 case "Accepted":
                     await ladBot.AcceptUser(user);
-                    break;
-
-                case "Sent":
-                    await ladBot.NewApplication(user);
                     break;
 
                 case "Declined":
