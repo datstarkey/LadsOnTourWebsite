@@ -47,7 +47,13 @@ namespace LadsOnTour.Services
 
         public List<RosterDto> GetRoster() => mapper.Map<List<RosterDto>>(context.users.Where(u => u.InDiscord == "Yes" && u.RankNumber <= 5).ToList());
 
-        public List<ApplicationDto> GetApplications() => mapper.Map<List<ApplicationDto>>(context.users.ToList());
+        public List<ApplicationDto> GetApplications() {
+
+            var list = context.users.ToList();
+            var models = mapper.Map<List<ApplicationDto>>(list);
+
+            return models;
+        }
 
         public User FindOrAddUser(string id)
         {
@@ -109,6 +115,7 @@ namespace LadsOnTour.Services
         {
             var local = FindOrAddUser(user.DiscordID);
             local.AppStatus = user.AppStatus;
+            local.AppLogs = user.AppLogs;
 
             switch (local.AppStatus)
             {

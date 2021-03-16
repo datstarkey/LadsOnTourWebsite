@@ -25,6 +25,7 @@ export class ApplicationsComponent implements OnInit {
 
   selectApp(app: IApplication) {
     this.app = app;
+    console.log(app);
     this.app.appStatus == "Sent"
       ? (this.isAppCurrent = true)
       : (this.isAppCurrent = false);
